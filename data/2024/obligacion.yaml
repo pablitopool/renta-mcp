@@ -1,0 +1,28 @@
+# Umbrales de obligación de declarar IRPF (art. 96 LIRPF) — ejercicio 2024.
+# Fuente: Ley 35/2006 art. 96, modificado periódicamente por leyes de presupuestos.
+
+año: 2024
+fuente_legal: "Art. 96 Ley 35/2006 LIRPF"
+
+rendimientos_trabajo:
+  umbral_un_pagador: 22000
+  umbral_varios_pagadores_principal: 15876
+  # Si la suma de rentas del 2º pagador y sucesivos no supera 1.500€,
+  # se aplica el umbral de un solo pagador (22.000€).
+  umbral_segundo_pagador_sin_efecto: 1500
+
+rendimientos_capital_y_ganancias_con_retencion:
+  umbral_total: 1600
+
+rentas_inmobiliarias_y_similares:
+  umbral_total: 1000
+
+actividades_economicas_y_otras:
+  # Cualquier importe de actividades económicas obliga a declarar.
+  siempre_obliga_declarar: true
+
+nota: >
+  Se está obligado a presentar declaración cuando se supere cualquiera de los
+  umbrales anteriores, o cuando se soliciten devoluciones, deducciones por
+  inversión en vivienda habitual (régimen transitorio) o deducción por
+  maternidad. Ver manual práctico AEAT para casos particulares.

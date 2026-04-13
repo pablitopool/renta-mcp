@@ -1,0 +1,81 @@
+# Subset de casillas más frecuentes del Modelo 100 — ejercicio 2024.
+# Este es un subset curado manualmente (~50 casillas). La generación completa
+# del listado se hará a partir del XSD oficial mediante
+# scripts/parsear_xsd_modelo_100.py (pendiente de extraer el ZIP enlazado desde
+# la página de diseños de registro del Modelo 100).
+
+año: 2024
+fuente: "Manual de ayuda a la presentación Modelo 100 (AEAT) + Orden HAC/277/2026"
+revisado_en: "2026-04-13"
+
+casillas:
+  # Identificación
+  - { numero: "0001", seccion: identificacion, nombre: "NIF del declarante" }
+  - { numero: "0002", seccion: identificacion, nombre: "Apellidos y nombre" }
+  - { numero: "0011", seccion: identificacion, nombre: "Clave tipo de tributación" }
+  - { numero: "0060", seccion: identificacion, nombre: "Clave territorio fiscal" }
+
+  # Rendimientos del trabajo (Apartado A)
+  - { numero: "0003", seccion: rendimientos_trabajo, nombre: "Retribuciones dinerarias" }
+  - { numero: "0008", seccion: rendimientos_trabajo, nombre: "Retribuciones en especie" }
+  - { numero: "0010", seccion: rendimientos_trabajo, nombre: "Rendimiento íntegro del trabajo" }
+  - { numero: "0019", seccion: rendimientos_trabajo, nombre: "Cotizaciones Seguridad Social y MUFACE" }
+  - { numero: "0020", seccion: rendimientos_trabajo, nombre: "Otros gastos deducibles" }
+  - { numero: "0025", seccion: rendimientos_trabajo, nombre: "Rendimiento neto del trabajo" }
+
+  # Rendimientos del capital inmobiliario (Apartado B)
+  - { numero: "0075", seccion: capital_inmobiliario, nombre: "Rendimiento íntegro capital inmobiliario" }
+  - { numero: "0085", seccion: capital_inmobiliario, nombre: "Gastos deducibles capital inmobiliario" }
+  - { numero: "0105", seccion: capital_inmobiliario, nombre: "Rendimiento neto capital inmobiliario" }
+
+  # Imputación de rentas inmobiliarias (Apartado C)
+  - { numero: "0064", seccion: rentas_imputadas, nombre: "Imputación rentas inmobiliarias (art. 85)" }
+
+  # Rendimientos del capital mobiliario (Apartado D)
+  - { numero: "0027", seccion: capital_mobiliario, nombre: "Intereses cuentas y depósitos" }
+  - { numero: "0029", seccion: capital_mobiliario, nombre: "Dividendos y participaciones en beneficios" }
+  - { numero: "0033", seccion: capital_mobiliario, nombre: "Rendimiento neto capital mobiliario" }
+
+  # Actividades económicas (Apartado E)
+  - { numero: "0165", seccion: actividades_economicas, nombre: "Ingresos explotación (estimación directa)" }
+  - { numero: "0182", seccion: actividades_economicas, nombre: "Rendimiento neto actividad económica" }
+  - { numero: "0224", seccion: actividades_economicas, nombre: "Módulos: rendimiento neto previo" }
+
+  # Ganancias y pérdidas patrimoniales (Apartado F)
+  - { numero: "0310", seccion: ganancias_perdidas, nombre: "Ganancias/pérdidas elementos no patrimoniales" }
+  - { numero: "0363", seccion: ganancias_perdidas, nombre: "Ganancias/pérdidas patrimoniales del ahorro" }
+
+  # Reducciones (Apartado G)
+  - { numero: "0430", seccion: reducciones, nombre: "Tributación conjunta" }
+  - { numero: "0465", seccion: reducciones, nombre: "Aportaciones a planes de pensiones" }
+
+  # Mínimo personal y familiar (Apartado H)
+  - { numero: "0511", seccion: minimos, nombre: "Mínimo del contribuyente" }
+  - { numero: "0513", seccion: minimos, nombre: "Mínimo por descendientes" }
+  - { numero: "0515", seccion: minimos, nombre: "Mínimo por ascendientes" }
+  - { numero: "0517", seccion: minimos, nombre: "Mínimo por discapacidad" }
+  - { numero: "0520", seccion: minimos, nombre: "Mínimo personal y familiar total" }
+
+  # Cuota (Apartado I)
+  - { numero: "0545", seccion: cuota, nombre: "Cuota íntegra estatal" }
+  - { numero: "0546", seccion: cuota, nombre: "Cuota íntegra autonómica" }
+  - { numero: "0569", seccion: cuota, nombre: "Cuota líquida estatal" }
+  - { numero: "0570", seccion: cuota, nombre: "Cuota líquida autonómica" }
+
+  # Deducciones estatales
+  - { numero: "0547", seccion: deducciones_estatales, nombre: "Deducción por inversión en vivienda habitual (régimen transitorio)" }
+  - { numero: "0550", seccion: deducciones_estatales, nombre: "Deducción por donativos (art. 68.3 LIRPF)" }
+  - { numero: "0553", seccion: deducciones_estatales, nombre: "Deducción por familia numerosa o personas con discapacidad a cargo" }
+  - { numero: "0555", seccion: deducciones_estatales, nombre: "Deducción por maternidad" }
+
+  # Retenciones y pagos a cuenta (Apartado J)
+  - { numero: "0595", seccion: retenciones, nombre: "Retenciones sobre rendimientos del trabajo" }
+  - { numero: "0596", seccion: retenciones, nombre: "Retenciones sobre rendimientos capital mobiliario" }
+  - { numero: "0599", seccion: retenciones, nombre: "Pagos fraccionados" }
+
+  # Resultado
+  - { numero: "0610", seccion: resultado, nombre: "Cuota resultante de la autoliquidación" }
+  - { numero: "0625", seccion: resultado, nombre: "Resultado de la declaración" }
+
+  # Deducción autonómica (columna)
+  - { numero: "0564", seccion: deducciones_autonomicas, nombre: "Deducciones autonómicas" }

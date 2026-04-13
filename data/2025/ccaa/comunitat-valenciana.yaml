@@ -1,0 +1,22 @@
+territorio:
+  slug: comunitat-valenciana
+  nombre: Comunitat Valenciana
+  regimen: comun
+año: 2025
+fuente_boe: "Ley 13/1997 (texto refundido) y modif. anuales Generalitat Valenciana"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12450,   tipo: 0.09 }
+  - { desde: 12450,  hasta: 17000,   tipo: 0.12 }
+  - { desde: 17000,  hasta: 30000,   tipo: 0.15 }
+  - { desde: 30000,  hasta: 50000,   tipo: 0.175 }
+  - { desde: 50000,  hasta: 65000,   tipo: 0.205 }
+  - { desde: 65000,  hasta: 80000,   tipo: 0.235 }
+  - { desde: 80000,  hasta: 120000,  tipo: 0.255 }
+  - { desde: 120000, hasta: 140000,  tipo: 0.275 }
+  - { desde: 140000, hasta: 175000,  tipo: 0.285 }
+  - { desde: 175000, hasta: null,    tipo: 0.295 }
+
+minimos: {}
+deducciones: []

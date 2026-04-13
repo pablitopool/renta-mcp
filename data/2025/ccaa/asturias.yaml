@@ -1,0 +1,20 @@
+territorio:
+  slug: asturias
+  nombre: Principado de Asturias
+  regimen: comun
+año: 2025
+fuente_boe: "TODO: verificar Ley Presupuestos Asturias 2025"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12450,   tipo: 0.10 }
+  - { desde: 12450,  hasta: 17707,   tipo: 0.12 }
+  - { desde: 17707,  hasta: 33007,   tipo: 0.14 }
+  - { desde: 33007,  hasta: 53407,   tipo: 0.185 }
+  - { desde: 53407,  hasta: 70000,   tipo: 0.215 }
+  - { desde: 70000,  hasta: 90000,   tipo: 0.225 }
+  - { desde: 90000,  hasta: 175000,  tipo: 0.25 }
+  - { desde: 175000, hasta: null,    tipo: 0.255 }
+
+minimos: {}
+deducciones: []

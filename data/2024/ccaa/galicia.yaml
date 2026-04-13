@@ -1,0 +1,17 @@
+territorio:
+  slug: galicia
+  nombre: Galicia
+  regimen: comun
+año: 2024
+fuente_boe: "TODO: verificar Ley Presupuestos Galicia 2024"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12985.37, tipo: 0.09 }
+  - { desde: 12985.37, hasta: 21068.04, tipo: 0.1165 }
+  - { desde: 21068.04, hasta: 35200,  tipo: 0.149 }
+  - { desde: 35200,  hasta: 60000,   tipo: 0.184 }
+  - { desde: 60000,  hasta: null,    tipo: 0.225 }
+
+minimos: {}
+deducciones: []

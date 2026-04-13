@@ -1,0 +1,14 @@
+# Plazos oficiales de la Campaña Renta 2024 (declaración ejercicio 2024,
+# presentación abril-junio 2026). Fuente: Orden HAC/242/2025.
+# Las fechas exactas se fijan cada campaña; revisar el BOE correspondiente.
+
+año: 2024
+campaña:
+  borrador_datos_fiscales_disponibles: "2025-03-12"
+  inicio_presentacion_internet: "2025-04-02"
+  inicio_cita_previa_telefonica: "2025-05-06"
+  inicio_cita_previa_presencial: "2025-06-03"
+  domiciliacion_bancaria_hasta: "2025-06-25"
+  fin_plazo_general: "2025-06-30"
+nota: "Fechas aproximadas referenciales. Confirmar en sede.agenciatributaria.gob.es."
+fuente_boe: "BOE-A-2025-5049"

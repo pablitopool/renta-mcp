@@ -1,0 +1,17 @@
+territorio:
+  slug: castilla-leon
+  nombre: Castilla y León
+  regimen: comun
+año: 2025
+fuente_boe: "TODO: verificar Ley Presupuestos Castilla y León 2025"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12450,   tipo: 0.09 }
+  - { desde: 12450,  hasta: 20200,   tipo: 0.12 }
+  - { desde: 20200,  hasta: 35200,   tipo: 0.14 }
+  - { desde: 35200,  hasta: 53407,   tipo: 0.185 }
+  - { desde: 53407,  hasta: null,    tipo: 0.215 }
+
+minimos: {}
+deducciones: []

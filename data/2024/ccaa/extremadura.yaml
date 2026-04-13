@@ -1,0 +1,21 @@
+territorio:
+  slug: extremadura
+  nombre: Extremadura
+  regimen: comun
+año: 2024
+fuente_boe: "TODO: verificar Ley Presupuestos Extremadura 2024"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12450,   tipo: 0.08 }
+  - { desde: 12450,  hasta: 20200,   tipo: 0.10 }
+  - { desde: 20200,  hasta: 24200,   tipo: 0.16 }
+  - { desde: 24200,  hasta: 35200,   tipo: 0.175 }
+  - { desde: 35200,  hasta: 60000,   tipo: 0.21 }
+  - { desde: 60000,  hasta: 80200,   tipo: 0.236 }
+  - { desde: 80200,  hasta: 99200,   tipo: 0.24 }
+  - { desde: 99200,  hasta: 120200,  tipo: 0.245 }
+  - { desde: 120200, hasta: null,    tipo: 0.25 }
+
+minimos: {}
+deducciones: []

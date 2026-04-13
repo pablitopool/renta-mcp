@@ -1,0 +1,21 @@
+territorio:
+  slug: illes-balears
+  nombre: Illes Balears
+  regimen: comun
+año: 2024
+fuente_boe: "TODO: verificar Ley Presupuestos Illes Balears 2024"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 10000,   tipo: 0.09 }
+  - { desde: 10000,  hasta: 18000,   tipo: 0.1175 }
+  - { desde: 18000,  hasta: 30000,   tipo: 0.1475 }
+  - { desde: 30000,  hasta: 48000,   tipo: 0.175 }
+  - { desde: 48000,  hasta: 70000,   tipo: 0.19 }
+  - { desde: 70000,  hasta: 90000,   tipo: 0.2175 }
+  - { desde: 90000,  hasta: 120000,  tipo: 0.2275 }
+  - { desde: 120000, hasta: 175000,  tipo: 0.2375 }
+  - { desde: 175000, hasta: null,    tipo: 0.2475 }
+
+minimos: {}
+deducciones: []

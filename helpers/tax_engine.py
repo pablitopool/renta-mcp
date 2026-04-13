@@ -323,7 +323,7 @@ def calcular_irpf(
             base_liquidable_general, escala_territorio
         ) - aplicar_escala(min(base_liquidable_general, minimo), escala_territorio)
         escala_ahorro_foral = Escala.desde_lista(
-            datos_territorio.get("escala_ahorro", datos_estatal["escala_ahorro"])
+            datos_territorio.get("escala_ahorro") or datos_estatal["escala_ahorro"]
         )
         cuota_foral_ba = aplicar_escala(base_liquidable_ahorro, escala_ahorro_foral)
         cuota_integra_estatal = Decimal(0)

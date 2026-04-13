@@ -1,0 +1,32 @@
+territorio:
+  slug: navarra
+  nombre: Comunidad Foral de Navarra
+  regimen: foral
+año: 2024
+fuente_boe: "DF Legislativo 4/2008 IRPF Navarra (texto refundido) — BON"
+revisado_en: "2026-04-13"
+nota: |
+  Régimen foral navarro. Escala ÚNICA, no se suma a la estatal.
+  Valores aproximados v0.1; verificar en BON con el texto refundido.
+
+escala_autonomica:
+  - { desde: 0,      hasta: 4080,    tipo: 0.13 }
+  - { desde: 4080,   hasta: 9225,    tipo: 0.22 }
+  - { desde: 9225,   hasta: 21600,   tipo: 0.25 }
+  - { desde: 21600,  hasta: 36300,   tipo: 0.28 }
+  - { desde: 36300,  hasta: 52400,   tipo: 0.365 }
+  - { desde: 52400,  hasta: 66000,   tipo: 0.40 }
+  - { desde: 66000,  hasta: 88000,   tipo: 0.42 }
+  - { desde: 88000,  hasta: 125000,  tipo: 0.44 }
+  - { desde: 125000, hasta: 175000,  tipo: 0.47 }
+  - { desde: 175000, hasta: 300000,  tipo: 0.49 }
+  - { desde: 300000, hasta: null,    tipo: 0.52 }
+
+minimos:
+  personal: 5550
+  por_descendiente: [2400, 2700, 4000, 4500]
+  hijo_menor_3: 2800
+  por_ascendiente: 1150
+  discapacidad_33_65: 3000
+
+deducciones: []

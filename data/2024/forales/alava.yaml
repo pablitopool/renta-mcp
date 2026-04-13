@@ -1,0 +1,30 @@
+territorio:
+  slug: alava
+  nombre: Álava
+  regimen: foral
+año: 2024
+fuente_boe: "Norma Foral IRPF Álava (Diputación Foral) — BOTHA"
+revisado_en: "2026-04-13"
+nota: |
+  Régimen foral: la escala es ÚNICA, no se suma a ninguna escala estatal.
+  Los mínimos personales y familiares también difieren del régimen común.
+  Valores aproximados v0.1; verificar en BOTHA con la Norma Foral vigente.
+
+escala_autonomica:
+  - { desde: 0,      hasta: 16030,   tipo: 0.23 }
+  - { desde: 16030,  hasta: 32060,   tipo: 0.28 }
+  - { desde: 32060,  hasta: 48090,   tipo: 0.35 }
+  - { desde: 48090,  hasta: 64120,   tipo: 0.40 }
+  - { desde: 64120,  hasta: 96180,   tipo: 0.45 }
+  - { desde: 96180,  hasta: 128240,  tipo: 0.46 }
+  - { desde: 128240, hasta: 176330,  tipo: 0.47 }
+  - { desde: 176330, hasta: null,    tipo: 0.49 }
+
+minimos:
+  personal: 5550
+  por_descendiente: [2400, 2700, 4000, 4500]
+  hijo_menor_3: 2800
+  por_ascendiente: 1150
+  discapacidad_33_65: 3000
+
+deducciones: []

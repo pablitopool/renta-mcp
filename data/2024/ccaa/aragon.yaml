@@ -1,0 +1,21 @@
+territorio:
+  slug: aragon
+  nombre: Aragón
+  regimen: comun
+año: 2024
+fuente_boe: "TODO: verificar Ley Presupuestos Aragón 2024"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12450,   tipo: 0.095 }
+  - { desde: 12450,  hasta: 20200,   tipo: 0.12 }
+  - { desde: 20200,  hasta: 34000,   tipo: 0.15 }
+  - { desde: 34000,  hasta: 50000,   tipo: 0.185 }
+  - { desde: 50000,  hasta: 60000,   tipo: 0.205 }
+  - { desde: 60000,  hasta: 80000,   tipo: 0.22 }
+  - { desde: 80000,  hasta: 90000,   tipo: 0.225 }
+  - { desde: 90000,  hasta: 130000,  tipo: 0.235 }
+  - { desde: 130000, hasta: null,    tipo: 0.25 }
+
+minimos: {}
+deducciones: []

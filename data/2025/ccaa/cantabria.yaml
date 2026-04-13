@@ -1,0 +1,18 @@
+territorio:
+  slug: cantabria
+  nombre: Cantabria
+  regimen: comun
+año: 2025
+fuente_boe: "TODO: verificar Ley Presupuestos Cantabria 2025"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 13000,   tipo: 0.085 }
+  - { desde: 13000,  hasta: 21000,   tipo: 0.11 }
+  - { desde: 21000,  hasta: 35200,   tipo: 0.145 }
+  - { desde: 35200,  hasta: 60000,   tipo: 0.18 }
+  - { desde: 60000,  hasta: 90000,   tipo: 0.225 }
+  - { desde: 90000,  hasta: null,    tipo: 0.245 }
+
+minimos: {}
+deducciones: []

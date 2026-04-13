@@ -1,0 +1,17 @@
+territorio:
+  slug: castilla-la-mancha
+  nombre: Castilla-La Mancha
+  regimen: comun
+año: 2025
+fuente_boe: "TODO: verificar Ley Presupuestos Castilla-La Mancha 2025"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12450,   tipo: 0.095 }
+  - { desde: 12450,  hasta: 20200,   tipo: 0.12 }
+  - { desde: 20200,  hasta: 35200,   tipo: 0.15 }
+  - { desde: 35200,  hasta: 60000,   tipo: 0.185 }
+  - { desde: 60000,  hasta: null,    tipo: 0.225 }
+
+minimos: {}
+deducciones: []

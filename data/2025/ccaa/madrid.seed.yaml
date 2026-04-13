@@ -1,0 +1,104 @@
+_generado_por: scripts/parsear_deducciones_aeat.py
+_nota: SEED automático. Este archivo lista los TÍTULOS de las deducciones autonómicas
+  extraídos del índice HTML de la AEAT. Los importes, porcentajes y requisitos concretos
+  deben completarse manualmente consultando el Manual Práctico Parte 2 del ejercicio
+  correspondiente. Para activar, renombra a {slug}.yaml (reemplaza el existente sólo
+  si confirmas).
+deducciones:
+- id: madrid-por-nacimiento-o-adopcion-de-hijos
+  categoria: familia
+  titulo: Por nacimiento o adopción de hijos
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-adopcion-internacional-de-ninos
+  categoria: familia
+  titulo: Por adopción internacional de niños
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-acogimiento-familiar-de-menores
+  categoria: familia
+  titulo: Por acogimiento familiar de menores
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-acogimiento-no-remunerado-de-mayores-de-65-anos-y-o-personas-con-discapacida
+  categoria: familia
+  titulo: Por acogimiento no remunerado de mayores de 65 años y/o personas con discapacidad
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-cuidado-de-hijos-menores-de-3-anos-mayores-dependientes-y-personas-con-disca
+  categoria: familia
+  titulo: Por cuidado de hijos menores de 3 años, mayores dependientes y personas
+    con discapacidad
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-para-familias-con-dos-o-mas-descendientes-e-ingresos-reducidos
+  categoria: familia
+  titulo: Para familias con dos o más descendientes e ingresos reducidos
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-cuidado-de-ascendientes
+  categoria: familia
+  titulo: Por cuidado de ascendientes
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-obtencion-condicion-de-familia-numerosa
+  categoria: familia
+  titulo: Por obtención condición de familia numerosa
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-arrendamiento-de-vivienda-habitual
+  categoria: vivienda
+  titulo: Por arrendamiento de vivienda habitual
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-el-pago-intereses-de-prestamos-para-la-adquisicion-de-vivienda-por-jovenes-m
+  categoria: vivienda
+  titulo: Por el pago intereses de préstamos para la adquisición de vivienda por jóvenes
+    menores de 30 años
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-adquisicion-de-vivienda-habitual-por-nacimiento-o-adopcion-de-hijos
+  categoria: vivienda
+  titulo: Por adquisición de vivienda habitual por nacimiento o adopción de hijos
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-el-incremento-de-los-costes-de-financiacion-ajena-para-la-inversion-en-vivie
+  categoria: vivienda
+  titulo: Por el incremento de los costes de financiación ajena para la inversión
+    en vivienda habitual derivada del alza de los tipos de interés
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-adquisicion-de-vivienda-habitual-en-municipios-en-riesgo-de-despoblacion
+  categoria: vivienda
+  titulo: Por adquisición de vivienda habitual en municipios en riesgo de despoblación
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-cambio-de-residencia-a-un-municipio-en-riesgo-de-despoblacion
+  categoria: vivienda
+  titulo: Por cambio de residencia a un municipio en riesgo de despoblación
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-donativos-a-fundaciones-y-clubes-deportivos
+  categoria: donativos
+  titulo: Por donativos a fundaciones y clubes deportivos
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-gastos-educativos
+  categoria: otros
+  titulo: Por gastos educativos
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-inversion-en-adquisicion-de-acciones-o-participaciones-de-entidades-nuevas-o
+  categoria: otros
+  titulo: Por inversión en adquisición de acciones o participaciones de entidades
+    nuevas o de reciente creación
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-para-el-fomento-del-autoempleo-de-jovenes
+  categoria: otros
+  titulo: Para el fomento del autoempleo de jóvenes
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-inversiones-realizadas-en-entidades-cotizadas-en-el-mercado-alternativo-burs
+  categoria: otros
+  titulo: Por inversiones realizadas en entidades cotizadas en el mercado alternativo
+    bursátil
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-gastos-derivados-del-arrendamiento-de-vivienda
+  categoria: otros
+  titulo: Por gastos derivados del arrendamiento de vivienda
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-el-pago-de-intereses-de-prestamos-a-estudios-de-grado-master-y-doctorado
+  categoria: otros
+  titulo: Por el pago de intereses de préstamos a estudios de Grado, Máster y Doctorado
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-el-arrendamiento-de-viviendas-vacias
+  categoria: otros
+  titulo: Por el arrendamiento de viviendas vacías
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'
+- id: madrid-por-inversion-de-nuevos-contribuyentes-procedentes-del-extranjero
+  categoria: otros
+  titulo: Por inversión de nuevos contribuyentes procedentes del extranjero
+  TODO: 'completar: porcentaje/importe/requisitos desde manual Parte 2'

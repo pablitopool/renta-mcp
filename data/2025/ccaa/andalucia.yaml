@@ -1,0 +1,17 @@
+territorio:
+  slug: andalucia
+  nombre: Andalucía
+  regimen: comun
+año: 2025
+fuente_boe: "DL 1/2018 ITP Andalucía y modif. anuales (rebaja de tipos)"
+revisado_en: "2026-04-13"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 13000,   tipo: 0.095 }
+  - { desde: 13000,  hasta: 21000,   tipo: 0.12 }
+  - { desde: 21000,  hasta: 35200,   tipo: 0.15 }
+  - { desde: 35200,  hasta: 60000,   tipo: 0.185 }
+  - { desde: 60000,  hasta: null,    tipo: 0.225 }
+
+minimos: {}
+deducciones: []
