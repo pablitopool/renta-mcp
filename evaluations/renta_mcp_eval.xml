@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Evaluaciones para renta-mcp v0.1. Formato según el skill mcp-builder de
+  Claude Code (references/evaluation.md). Cada qa_pair es una pregunta
+  realista, independiente, verificable, estable, que requiere 1-3 llamadas
+  a tools del servidor.
+
+  Modo de ejecución: el agente LLM cliente tiene acceso al servidor MCP
+  renta-mcp y debe responder usando sus tools. La respuesta del LLM se
+  compara por string contains con <answer>.
+
+  Valores verificados el 2026-04-13.
+-->
+<evaluation>
+
+  <qa_pair>
+    <question>Usando renta-mcp, dime el tipo marginal máximo que paga un contribuyente en la Comunidad de Madrid para el ejercicio 2025, sumando el tramo estatal más el autonómico. Responde SÓLO con el porcentaje, ej. "44,50 %".</question>
+    <answer>45</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Con renta-mcp, ¿está obligado a declarar IRPF en el ejercicio 2025 alguien que sólo ha tenido 18.000 € brutos de rendimientos del trabajo con un único pagador? Responde con "Sí" o "No" y el motivo.</question>
+    <answer>No</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Consulta en renta-mcp la fecha en la que termina el plazo general de presentación de la declaración de la Renta ejercicio 2025. Devuelve la fecha en formato YYYY-MM-DD.</question>
+    <answer>2026-06-30</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Usa renta-mcp para averiguar el número de casilla del Modelo 100 correspondiente a "Rendimiento neto del trabajo". Devuelve el número de 4 dígitos.</question>
+    <answer>0025</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Pregunta a renta-mcp por las deducciones autonómicas de la Comunidad de Madrid ejercicio 2025 en la categoría "vivienda". ¿Qué porcentaje se aplica a la deducción por arrendamiento de vivienda habitual para menores de 35 años?</question>
+    <answer>30</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Calcula con renta-mcp la retención IRPF estimada anual para un soltero de 40 años, residente en Comunitat Valenciana, con un salario bruto anual de 35.000 €, sin hijos, ejercicio 2025. ¿El tipo de retención efectivo está entre el 15 % y el 22 %?</question>
+    <answer>Sí</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Consulta en renta-mcp el número de tramos de la escala autonómica de Cataluña para el IRPF 2025. Devuelve sólo el número.</question>
+    <answer>9</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>¿Una madre residente en Madrid con un hijo de 1 año que no presenta declaración porque su renta es baja, puede obtener alguna devolución de IRPF? Consulta renta-mcp y responde con "Sí" + el importe anual máximo por hijo.</question>
+    <answer>1200</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Para el ejercicio 2025, un residente en Bizkaia: ¿tributa por la escala estatal+autonómica o por escala foral única? Consulta renta-mcp y explica brevemente.</question>
+    <answer>foral</answer>
+  </qa_pair>
+
+  <qa_pair>
+    <question>Busca en renta-mcp una deducción autonómica en cualquier CCAA relacionada con "gastos de guardería". Nombra al menos una CCAA que la ofrezca.</question>
+    <answer>Murcia</answer>
+  </qa_pair>
+
+</evaluation>
