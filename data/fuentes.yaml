@@ -1,0 +1,79 @@
+# Catálogo canónico de fuentes oficiales AEAT/BOE para renta-mcp.
+# Consumido por scripts/descargar_datos_aeat.py.
+# Actualizar cada ejercicio al publicarse la nueva Orden HAC.
+
+version: 1
+
+ejercicios:
+  "2025":
+    manual_parte_1:
+      url: https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/ManualRenta2025Parte1_es_es.pdf
+      destino: 2025/manual_parte_1.pdf
+      mime: application/pdf
+    manual_parte_2:
+      url: https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025-Deducciones-autonomicas/ManualRenta2025Parte2_es_es.pdf
+      destino: 2025/manual_parte_2.pdf
+      mime: application/pdf
+    disenos_registro_modelo_100:
+      url: https://sede.agenciatributaria.gob.es/Sede/ayuda/disenos-registro/modelos-100-199.html
+      destino: 2025/disenos_registro_index.html
+      mime: text/html
+      nota: "Página índice; el script extrae el ZIP con el XSD Modelo 100 vigente."
+    orden_hac:
+      url: https://www.boe.es/boe/dias/2026/04/08/pdfs/BOE-A-2026-7041.pdf
+      destino: 2025/orden_hac_277_2026.pdf
+      mime: application/pdf
+    cuadro_retenciones:
+      url: https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/Cuadro_tipos_retenciones_IRPF2025.pdf
+      destino: 2025/cuadro_retenciones.pdf
+      mime: application/pdf
+    deducciones_autonomicas:
+      tipo: multiple
+      base_url: https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025-deducciones-autonomicas/guia-deducciones-autonomicas/
+      destino_pattern: 2025/deducciones/{slug}.html
+      mime: text/html
+      territorios:
+        andalucia: andalucia.html
+        aragon: aragon.html
+        asturias: principado-asturias.html
+        illes-balears: illes-balears.html
+        canarias: canarias.html
+        cantabria: cantabria.html
+        castilla-la-mancha: castilla-mancha.html
+        castilla-leon: castilla-leon.html
+        cataluna: cataluna.html
+        extremadura: extremadura.html
+        galicia: galicia.html
+        madrid: comunidad-madrid.html
+        murcia: region-murcia.html
+        rioja: rioja.html
+        comunitat-valenciana: comunitat-valenciana.html
+
+  "2024":
+    manual_parte_1:
+      url: https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2024/ManualRenta2024Tomo1_es_es.pdf
+      destino: 2024/manual_parte_1.pdf
+      mime: application/pdf
+    manual_parte_2:
+      url: https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2024-Deducciones-autonomicas/ManualRenta2024Tomo2_es_es.pdf
+      destino: 2024/manual_parte_2.pdf
+      mime: application/pdf
+    orden_hac:
+      url: https://www.boe.es/boe/dias/2025/03/24/pdfs/BOE-A-2025-5049.pdf
+      destino: 2024/orden_hac_242_2025.pdf
+      mime: application/pdf
+
+normativa:
+  ley_irpf:
+    url: https://www.boe.es/buscar/pdf/2006/BOE-A-2006-20764-consolidado.pdf
+    destino: normativa/ley_35_2006_irpf.pdf
+    mime: application/pdf
+    nota: "Texto consolidado vigente — actualizar periódicamente."
+  reglamento_irpf:
+    url: https://www.boe.es/buscar/pdf/2007/BOE-A-2007-6820-consolidado.pdf
+    destino: normativa/rd_439_2007_reglamento.pdf
+    mime: application/pdf
+  ley_general_tributaria:
+    url: https://www.boe.es/buscar/pdf/2003/BOE-A-2003-23186-consolidado.pdf
+    destino: normativa/ley_58_2003_lgt.pdf
+    mime: application/pdf

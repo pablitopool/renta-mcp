@@ -1,0 +1,65 @@
+[project]
+name = "renta-mcp"
+version = "0.1.0"
+description = "Servidor MCP no oficial para el IRPF español (Modelo 100 AEAT)"
+authors = [{ name = "Pablo Miguel Gallardo" }]
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp>=1.25.0,<2",
+    "pydantic>=2.11.0",
+    "pydantic-settings>=2.10.1",
+    "pyyaml>=6.0.2",
+    "sentry-sdk>=2.26.1",
+    "uvicorn>=0.34.0",
+    "rapidfuzz>=3.9.0",
+    "pypdf>=5.0.0",
+    "lxml>=5.3.0",
+    "beautifulsoup4>=4.12.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["main"]
+
+[tool.setuptools.packages.find]
+include = ["helpers", "tools", "resources", "scripts"]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+    "pytest-httpx>=0.35.0",
+    "ruff>=0.11.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+    "pytest-httpx>=0.35.0",
+    "ruff>=0.11.5",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "reference: tests that compare output against external calculators (AEAT Renta Web Open, etc.)",
+]
+addopts = "-m 'not reference'"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+extend-select = ["I"]

@@ -1,0 +1,65 @@
+# Datos estatales del IRPF ejercicio 2025.
+# Fuentes: Ley 35/2006 (art. 63 ss.), RD 439/2007, Orden HAC/277/2026.
+# Importes en euros. Los valores aquí reflejan la normativa vigente publicada
+# en el BOE para el ejercicio indicado — revisar anualmente.
+
+año: 2025
+fuente_boe: "BOE-A-2026-7041"
+revisado_en: "2026-04-13"
+
+# Escala general estatal (art. 63.1 LIRPF). Representa la PARTE ESTATAL
+# (50% del tipo total de referencia). El complemento es la escala autonómica.
+escala_general:
+  - { desde: 0,      hasta: 12450,   tipo: 0.095 }
+  - { desde: 12450,  hasta: 20200,   tipo: 0.12 }
+  - { desde: 20200,  hasta: 35200,   tipo: 0.15 }
+  - { desde: 35200,  hasta: 60000,   tipo: 0.185 }
+  - { desde: 60000,  hasta: 300000,  tipo: 0.225 }
+  - { desde: 300000, hasta: null,    tipo: 0.245 }
+
+# Escala de la base del ahorro (art. 66 LIRPF). Única nacional (no hay
+# competencia autonómica en base del ahorro; se divide 50/50 a efectos de
+# liquidación estatal/autonómica).
+escala_ahorro:
+  - { desde: 0,      hasta: 6000,    tipo: 0.095 }
+  - { desde: 6000,   hasta: 50000,   tipo: 0.105 }
+  - { desde: 50000,  hasta: 200000,  tipo: 0.115 }
+  - { desde: 200000, hasta: 300000,  tipo: 0.135 }
+  - { desde: 300000, hasta: null,    tipo: 0.14 }
+
+# La AEAT aplica la misma escala para el tramo autonómico del ahorro.
+escala_ahorro_autonomica:
+  - { desde: 0,      hasta: 6000,    tipo: 0.095 }
+  - { desde: 6000,   hasta: 50000,   tipo: 0.105 }
+  - { desde: 50000,  hasta: 200000,  tipo: 0.115 }
+  - { desde: 200000, hasta: 300000,  tipo: 0.135 }
+  - { desde: 300000, hasta: null,    tipo: 0.14 }
+
+# Reducción por rendimientos del trabajo (art. 20 LIRPF).
+# Cifras BOE-A-2024-26172 (Ley Presupuestos 2024 + actualizaciones).
+# Importes del ejercicio 2024 mantenidos para 2025 pendiente confirmación.
+reduccion_rendimientos_trabajo:
+  umbral_maximo_base: 14852
+  umbral_maximo: 17673.52
+  importe_maximo: 7302
+  pendiente: 1.75
+
+# Reducciones por tributación conjunta (art. 84 LIRPF).
+reduccion_conjunta_biparental: 3400
+reduccion_conjunta_monoparental: 2150
+
+# Tope aportación a planes de pensiones con reducción (art. 52 LIRPF).
+planes_pensiones_tope: 1500
+
+# Mínimo personal y familiar estatal (arts. 56-61 LIRPF).
+minimos:
+  personal: 5550
+  edad_mayor_65: 1150
+  edad_mayor_75: 1400
+  # Por descendiente: 1º, 2º, 3º, 4º y siguientes.
+  por_descendiente: [2400, 2700, 4000, 4500]
+  hijo_menor_3: 2800
+  por_ascendiente: 1150
+  ascendiente_mayor_75: 1400
+  discapacidad_33_65: 3000
+  discapacidad_65_mas: 9000
