@@ -127,3 +127,15 @@ async def test_calcular_irpf_auto_muestra_deducciones_vivienda_madrid():
     assert "mad-intereses-prestamo-vivienda-joven" in salida
     assert "mad-gastos-arrendamiento-viviendas" in salida
     assert "mad-arrendamiento-viviendas-vacias" in salida
+
+
+@pytest.mark.asyncio
+async def test_calcular_irpf_resta_pagos_fraccionados_en_cuota_diferencial():
+    salida = await calcular_irpf_impl(
+        año=2025,
+        territorio="madrid",
+        rendimiento_neto_trabajo=30000.0,
+        retenciones_practicadas=1000.0,
+        pagos_fraccionados=500.0,
+    )
+    assert "Pagos fraccionados" in salida

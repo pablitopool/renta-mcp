@@ -52,6 +52,12 @@ def test_listar_territorios_2025_incluye_madrid():
     assert "madrid" in territorios
 
 
+def test_listar_territorios_2025_incluye_ceuta_y_melilla():
+    territorios = listar_territorios(2025)
+    assert "ceuta" in territorios
+    assert "melilla" in territorios
+
+
 def test_listar_territorios_2025_excluye_seeds():
     territorios = listar_territorios(2025)
     assert "madrid.seed" not in territorios

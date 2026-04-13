@@ -24,6 +24,13 @@ def test_calcular_irpf_expone_todos_los_hechos_del_motor():
         assert publico in firma, f"Falta exponer `{field.name}` como `{publico}`"
 
 
+def test_readme_documenta_nuevas_tools_gaps_funcionales():
+    assert "calcular_rendimiento_actividad" in README
+    assert "preparar_payload_irpf" in README
+    assert "calcular_ganancia_cripto_fifo" in README
+    assert "validar_municipio_despoblacion" in README
+
+
 def test_calcular_retencion_nomina_expone_ascendientes():
     firma = signature(calcular_retencion_nomina_impl)
     assert "ascendientes_edades" in firma.parameters

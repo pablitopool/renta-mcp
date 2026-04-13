@@ -159,6 +159,21 @@ def test_calcular_irpf_sin_ingresos(datos_estatal_2025, datos_madrid_2025):
     assert resultado.cuota_liquida == Decimal(0)
 
 
+def test_calcular_irpf_aplica_pagos_fraccionados_en_cuota_diferencial(
+    datos_estatal_2025, datos_madrid_2025
+):
+    entrada = InputIRPF(
+        año=2025,
+        territorio="madrid",
+        rendimiento_neto_trabajo=Decimal(30000),
+        retenciones_practicadas=Decimal(1000),
+        pagos_fraccionados=Decimal(500),
+    )
+    resultado = calcular_irpf(entrada, datos_estatal_2025, datos_madrid_2025)
+    assert resultado.pagos_fraccionados == Decimal(500)
+    assert resultado.cuota_diferencial < resultado.cuota_liquida
+
+
 def test_calcular_irpf_base_ahorro_pura(datos_estatal_2025, datos_madrid_2025):
     entrada = InputIRPF(
         año=2025,

@@ -7,6 +7,21 @@ fuente_boe: "Norma Foral IRPF Bizkaia (Diputación Foral) — BOB"
 revisado_en: "2026-04-13"
 nota: |
   Régimen foral. Valores aproximados v0.1; verificar en BOB.
+  Cobertura ampliada a 24 deducciones de campaña 2025 según portal oficial
+  y guías de la DFB. Las reglas de cálculo siguen un modelado homogéneo del
+  motor (porcentaje/base/límite/importe fijo) y no sustituyen la validación
+  jurídica individual.
+
+fuentes_adicionales:
+  - "https://www.bizkaia.eus/es/renta-bizkaia/deducciones"
+  - "https://www.bizkaia.eus/ogasuna/guregida/fitxabisorea.asp?Idioma=ca&Tem_Codigo=7884&dpto_biz=5&IdPublicoMostrar=1674"
+  - "https://www.bizkaia.eus/ogasuna/guregida/fitxabisorea.asp?Idioma=ca&Tem_Codigo=7884&dpto_biz=5&IdPublicoMostrar=897&IdPublicoMostrarAnterior=1674"
+  - "https://www.bizkaia.eus/ogasuna/guregida/fitxabisorea.asp?Idioma=ca&Tem_Codigo=7884&dpto_biz=5&IdPublicoMostrar=1802&IdPublicoMostrarAnterior=1674"
+
+limites_modelado:
+  - "No se modelan de forma completa las incompatibilidades entre deducciones con la misma base."
+  - "No se modela el traslado de deducciones a ejercicios futuros ni el abono por insuficiencia de cuota."
+  - "Los colectivos protegidos de vivienda no siempre son distinguibles con los inputs actuales."
 
 escala_autonomica:
   - { desde: 0,      hasta: 16030,   tipo: 0.23 }
@@ -28,19 +43,168 @@ minimos:
 deducciones:
   - id: biz-alquiler-vivienda-jovenes
     categoria: vivienda
-    titulo: "Por alquiler vivienda habitual jóvenes <30"
-    porcentaje: 0.30
-    limite: 2400
-    requisitos: { edad_maxima: 30 }
-    articulo: "NF 13/2013 IRPF Bizkaia"
+    titulo: "Alquiler de vivienda habitual"
+    porcentaje: 0.20
+    limite: 1600
+    porcentaje_familia_numerosa: 0.35
+    limite_familia_numerosa: 2800
+    articulo: "NF 13/2013 IRPF Bizkaia (deduccion vivienda habitual)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01027"
   - id: biz-inversion-vivienda-habitual
     categoria: vivienda
-    titulo: "Por inversión en vivienda habitual"
+    titulo: "Compra de vivienda habitual"
     porcentaje: 0.18
-    base_maxima: 9240
-    articulo: "NF 13/2013 IRPF Bizkaia"
+    base_maxima: 8500
+    limite: 1530
+    porcentaje_familia_numerosa: 0.23
+    limite_familia_numerosa: 1955
+    articulo: "NF 13/2013 IRPF Bizkaia (deduccion inversion vivienda)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01508"
+  - id: biz-cuenta-vivienda
+    categoria: vivienda
+    titulo: "Cuenta vivienda (ahorro para inversion en vivienda habitual)"
+    porcentaje: 0.18
+    base_maxima: 8500
+    limite: 1530
+    articulo: "NF 13/2013 IRPF Bizkaia (cuenta vivienda)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01353"
+  - id: biz-rehabilitacion-protegida-arrendamiento
+    categoria: vivienda
+    titulo: "Rehabilitacion protegida de vivienda habitual o arrendada"
+    porcentaje: 0.18
+    limite: 3000
+    articulo: "NF 13/2013 IRPF Bizkaia (rehabilitacion protegida)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01024"
+  - id: biz-eficiencia-energetica-vivienda
+    categoria: vivienda
+    titulo: "Obras de eficiencia energetica e integracion de energias renovables"
+    porcentaje: 0.15
+    base_maxima: 20000
+    articulo: "NF 13/2013 IRPF Bizkaia (eficiencia energetica)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01889"
+
+  - id: biz-descendientes
+    categoria: familia
+    titulo: "Por descendientes"
+    importes_por_orden: [668, 827, 1393, 2151]
+    por_unidad: hijo
+    articulo: "NF 13/2013 IRPF Bizkaia (deducciones familiares por descendientes)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01038"
+  - id: biz-cuidado-menores-y-dependientes
+    categoria: familia
+    titulo: "Cuidado de menores y dependientes por contratacion de empleados del hogar"
+    importe_fijo: 250
+    articulo: "NF 13/2013 IRPF Bizkaia (conciliacion y cuidados)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01884"
+  - id: biz-manutencion-hijos
+    categoria: familia
+    titulo: "Manutencion de hijos e hijas por decision judicial"
+    porcentaje: 0.15
+    articulo: "NF 13/2013 IRPF Bizkaia (anualidades por alimentos)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01046"
+  - id: biz-ascendientes
+    categoria: familia
+    titulo: "Por ascendientes"
+    importe_fijo: 328
+    por_unidad: ascendiente
+    articulo: "NF 13/2013 IRPF Bizkaia (deducciones por ascendientes)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01047"
+  - id: biz-edad-mayores-65
+    categoria: familia
+    titulo: "Por edad (mayores de 65 anos)"
+    importe_fijo: 385
+    articulo: "NF 13/2013 IRPF Bizkaia (deduccion por edad)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/faq/?Code=FAQ-00000526"
+  - id: biz-reincorporacion-laboral-mujeres
+    categoria: familia
+    titulo: "Reincorporacion laboral de mujeres tras cuidado de menores"
+    importe_fijo: 1500
+    articulo: "NF 13/2013 IRPF Bizkaia (deduccion por reincorporacion laboral)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01880"
+  - id: biz-pausa-laboral-hombres
+    categoria: familia
+    titulo: "Pausa laboral de hombres para cuidado de menores"
+    importe_fijo: 200
+    articulo: "NF 13/2013 IRPF Bizkaia (deduccion por cuidado en hombres)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01880"
+  - id: biz-viudedad
+    categoria: familia
+    titulo: "Por viudedad"
+    importe_fijo: 200
+    articulo: "NF 13/2013 IRPF Bizkaia (deduccion por viudedad)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/faq/?Code=FAQ-00003042"
+  - id: biz-discapacidad
+    categoria: familia
+    titulo: "Por discapacidad"
+    importe_fijo: 888
+    requisitos:
+      grado_minimo: 33
+    articulo: "NF 13/2013 IRPF Bizkaia (deduccion por discapacidad)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01510"
+  - id: biz-patrimonio-protegido-discapacidad
+    categoria: familia
+    titulo: "Aportaciones al patrimonio protegido de persona con discapacidad"
+    porcentaje: 0.30
+    limite: 3000
+    articulo: "NF 13/2013 IRPF Bizkaia (patrimonio protegido discapacidad)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01049"
+
+  - id: biz-sector-primario-transporte
+    categoria: tejido-productivo
+    titulo: "Forfait para actividades del sector primario y transporte"
+    porcentaje: 0.70
+    articulo: "NF 13/2013 IRPF Bizkaia (incentivos sector primario y transporte)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/faq/?Code=FAQ-00003313"
+  - id: biz-regimen-artistas
+    categoria: tejido-productivo
+    titulo: "Regimen especial para artistas y creadores"
+    porcentaje: 0.40
+    articulo: "NF 13/2013 IRPF Bizkaia (regimen de artistas)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/faq/?Code=FAQ-00003315"
+
+  - id: biz-vehiculos-ecologicos
+    categoria: transicion-verde
+    titulo: "Adquisicion de vehiculos respetuosos con el medio ambiente"
+    porcentaje: 0.05
+    articulo: "NF 13/2013 IRPF Bizkaia (movilidad sostenible)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01888"
+  - id: biz-puntos-recarga
+    categoria: transicion-verde
+    titulo: "Instalacion de puntos de recarga para vehiculos electricos"
+    porcentaje: 0.15
+    articulo: "NF 13/2013 IRPF Bizkaia (puntos de recarga)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01888"
+
+  - id: biz-epsv-preferentes
+    categoria: prevision-social
+    titulo: "Aportaciones a EPSV preferentes"
+    porcentaje: 0.10
+    articulo: "NF 13/2013 IRPF Bizkaia (deducciones por EPSV preferentes)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01901"
+  - id: biz-prevision-social-autonomos
+    categoria: prevision-social
+    titulo: "Aportaciones de personas trabajadoras autonomas a sistemas de prevision"
+    porcentaje: 0.10
+    base_maxima: 4000
+    articulo: "NF 13/2013 IRPF Bizkaia (prevision social autonomos)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/faq/?Code=FAQ-00002699"
+
   - id: biz-donativos
     categoria: donativos
-    titulo: "Por donativos a entidades de interés social"
+    titulo: "Actividades de mecenazgo"
     porcentaje: 0.30
-    articulo: "NF 13/2013 IRPF Bizkaia"
+    articulo: "NF 13/2013 IRPF Bizkaia (mecenazgo y donativos)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01029"
+  - id: biz-cuotas-sindicales
+    categoria: otras
+    titulo: "Cuotas sindicales"
+    porcentaje: 0.20
+    articulo: "NF 13/2013 IRPF Bizkaia (cuotas sindicales)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01019"
+  - id: biz-participacion-plantilla
+    categoria: otras
+    titulo: "Participacion de personas en plantilla"
+    porcentaje: 0.10
+    limite: 1200
+    articulo: "NF 13/2013 IRPF Bizkaia (participacion de personas en plantilla)"
+    fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01384"

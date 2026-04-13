@@ -205,9 +205,7 @@ def test_deduccion_autonomica_cv_alquiler_aplica_limite(datos_cv_2025):
         territorio="comunitat-valenciana",
         hijos=[Hijo(edad=4)],
         deducciones_autonomicas_reclamadas=["cv-alquiler-vivienda-habitual"],
-        bases_deducciones_autonomicas={
-            "cv-alquiler-vivienda-habitual": Decimal(5000)
-        },
+        bases_deducciones_autonomicas={"cv-alquiler-vivienda-habitual": Decimal(5000)},
     )
     total, detalle = aplicar_deducciones_autonomicas(
         Decimal(4000), Decimal(25000), Decimal(0), entrada, datos_cv_2025
@@ -276,7 +274,10 @@ def test_calculo_irpf_auto_aplica_guarderia_cv(datos_estatal_2025, datos_cv_2025
     )
     resultado = calcular_irpf(entrada, datos_estatal_2025, datos_cv_2025)
     assert resultado.deducciones_autonomicas_total == Decimal(270)
-    assert any("cv-gastos-guarderia" in p.detalle for p in resultado.deducciones_autonomicas_detalle)
+    assert any(
+        "cv-gastos-guarderia" in p.detalle
+        for p in resultado.deducciones_autonomicas_detalle
+    )
 
 
 def test_calculo_irpf_auto_aplica_madrid_gastos_educacion(
@@ -293,7 +294,10 @@ def test_calculo_irpf_auto_aplica_madrid_gastos_educacion(
     )
     resultado = calcular_irpf(entrada, datos_estatal_2025, datos_madrid_2025)
     assert resultado.deducciones_autonomicas_total == Decimal(220)
-    assert any("mad-gastos-educacion" in p.detalle for p in resultado.deducciones_autonomicas_detalle)
+    assert any(
+        "mad-gastos-educacion" in p.detalle
+        for p in resultado.deducciones_autonomicas_detalle
+    )
 
 
 def test_calculo_irpf_auto_aplica_familia_numerosa_madrid(
@@ -307,7 +311,10 @@ def test_calculo_irpf_auto_aplica_familia_numerosa_madrid(
     )
     resultado = calcular_irpf(entrada, datos_estatal_2025, datos_madrid_2025)
     assert resultado.deducciones_autonomicas_total > 0
-    assert any("mad-familia-numerosa" in p.detalle for p in resultado.deducciones_autonomicas_detalle)
+    assert any(
+        "mad-familia-numerosa" in p.detalle
+        for p in resultado.deducciones_autonomicas_detalle
+    )
 
 
 def test_calculo_irpf_auto_aplica_cuidado_ascendientes_madrid(
@@ -501,7 +508,9 @@ def test_calculo_irpf_valida_importes_negativos(datos_estatal_2025, datos_cv_202
         calcular_irpf(entrada, datos_estatal_2025, datos_cv_2025)
 
 
-def test_calculo_irpf_valida_acogimientos_negativos(datos_estatal_2025, datos_madrid_2025):
+def test_calculo_irpf_valida_acogimientos_negativos(
+    datos_estatal_2025, datos_madrid_2025
+):
     entrada = InputIRPF(
         año=2025,
         territorio="madrid",

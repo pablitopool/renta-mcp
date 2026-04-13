@@ -23,6 +23,8 @@ CCAA_COMUN = {
     "madrid",
     "murcia",
     "rioja",
+    "ceuta",
+    "melilla",
 }
 FORALES = {"alava", "bizkaia", "gipuzkoa", "navarra"}
 

@@ -79,8 +79,10 @@ class TerritorioSchema(BaseModel):
 
 
 def _es_yaml_publico_territorial(path: Path) -> bool:
-    return path.is_file() and path.suffix == ".yaml" and not path.name.endswith(
-        ".seed.yaml"
+    return (
+        path.is_file()
+        and path.suffix == ".yaml"
+        and not path.name.endswith(".seed.yaml")
     )
 
 
@@ -135,7 +137,9 @@ def listar_territorios(año: int) -> list[str]:
         if carpeta.exists():
             territorios.extend(
                 sorted(
-                    p.stem for p in carpeta.glob("*.yaml") if _es_yaml_publico_territorial(p)
+                    p.stem
+                    for p in carpeta.glob("*.yaml")
+                    if _es_yaml_publico_territorial(p)
                 )
             )
     return territorios

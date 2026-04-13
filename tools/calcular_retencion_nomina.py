@@ -60,10 +60,7 @@ async def calcular_retencion_nomina_impl(
         raise EntradaInvalida("meses_pago debe ser 12 o 14")
     if otros_gastos_deducibles < 0:
         raise EntradaInvalida("otros_gastos_deducibles no puede ser negativo")
-    if (
-        cotizaciones_seguridad_social is not None
-        and cotizaciones_seguridad_social < 0
-    ):
+    if cotizaciones_seguridad_social is not None and cotizaciones_seguridad_social < 0:
         raise EntradaInvalida("cotizaciones_seguridad_social no puede ser negativo")
 
     bruto = Decimal(str(salario_bruto_anual))

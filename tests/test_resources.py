@@ -43,3 +43,15 @@ async def test_resource_tramos_ahorro(mcp_con_resources):
     assert contenido
     payload = json.loads(contenido[0].content)
     assert "escala_ahorro" in payload
+
+
+@pytest.mark.asyncio
+async def test_resource_municipios_despoblacion_madrid(mcp_con_resources):
+    contenido_iter = await mcp_con_resources.read_resource(
+        "irpf://municipios-despoblacion/2025/madrid"
+    )
+    contenido = list(contenido_iter)
+    assert contenido
+    payload = json.loads(contenido[0].content)
+    assert payload["territorio"] == "madrid"
+    assert "municipios" in payload

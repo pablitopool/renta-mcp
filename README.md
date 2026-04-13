@@ -18,7 +18,7 @@ En lugar de navegar manualmente por el [Manual Práctico de Renta de la AEAT](ht
 
 ## 🌐 Conecta tu chatbot al servidor MCP
 
-Usa el endpoint alojado `https://renta-mcp.pmgallardodev.com/mcp` para conectar clientes MCP al despliegue público.
+Usa el endpoint alojado `https://renta-mcp.vercel.app/mcp` para conectar clientes MCP al despliegue público.
 
 La configuración del servidor MCP depende del cliente. Usa el formato adecuado para tu cliente:
 
@@ -38,7 +38,7 @@ La configuración del servidor MCP depende del cliente. Usa el formato adecuado 
   "mcpServers": {
     "renta-mcp": {
       "type": "streamable",
-      "url": "https://renta-mcp.pmgallardodev.com/mcp"
+      "url": "https://renta-mcp.vercel.app/mcp"
     }
   }
 }
@@ -53,14 +53,14 @@ Para más detalles, consulta la [documentación MCP de AnythingLLM](https://docs
 1. **Abre Ajustes**: Entra en ChatGPT desde el navegador, ve a `Settings` y luego a `Apps and connectors`.
 2. **Activa el modo desarrollador**: Abre `Advanced settings` y habilita **Developer mode**.
 3. **Añade el conector**: Vuelve a `Settings` > `Connectors` > `Browse connectors` y haz clic en **Add a new connector**.
-4. **Configura el conector**: Indica la URL `https://renta-mcp.pmgallardodev.com/mcp` y guarda para activar las herramientas.
+4. **Configura el conector**: Indica la URL `https://renta-mcp.vercel.app/mcp` y guarda para activar las herramientas.
 
 ### Claude Code
 
 Usa el comando `claude mcp` para añadir el servidor MCP:
 
 ```shell
-claude mcp add --transport http renta-mcp https://renta-mcp.pmgallardodev.com/mcp
+claude mcp add --transport http renta-mcp https://renta-mcp.vercel.app/mcp
 ```
 
 ### Claude Desktop
@@ -74,7 +74,7 @@ Añade lo siguiente a tu archivo de configuración de Claude Desktop (normalment
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://renta-mcp.pmgallardodev.com/mcp"
+        "https://renta-mcp.vercel.app/mcp"
       ]
     }
   }
@@ -91,7 +91,7 @@ Añade lo siguiente a tu archivo de configuración de Claude Desktop (normalment
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://renta-mcp.pmgallardodev.com/mcp"
+        "https://renta-mcp.vercel.app/mcp"
       ]
     }
   }
@@ -110,7 +110,7 @@ Cursor soporta servidores MCP desde su configuración. Para configurar el servid
 {
   "mcpServers": {
     "renta-mcp": {
-      "url": "https://renta-mcp.pmgallardodev.com/mcp",
+      "url": "https://renta-mcp.vercel.app/mcp",
       "transport": "http"
     }
   }
@@ -125,7 +125,7 @@ Añade lo siguiente a `~/.gemini/settings.json` (Linux: `~/.gemini/settings.json
 {
   "mcpServers": {
     "renta-mcp": {
-      "httpUrl": "https://renta-mcp.pmgallardodev.com/mcp"
+      "httpUrl": "https://renta-mcp.vercel.app/mcp"
     }
   }
 }
@@ -135,7 +135,7 @@ Añade lo siguiente a `~/.gemini/settings.json` (Linux: `~/.gemini/settings.json
 
 1. **Abre Ajustes:** En la interfaz de chat, haz clic en el icono `+`, selecciona `MCP Servers` y luego `Manage MCP Servers`.
 2. **Añade el servidor:** Haz clic en `+ Add Server` en la ventana de gestión.
-3. **Configúralo:** Introduce un **Server Name** (por ejemplo, "Renta IRPF") y define `https://renta-mcp.pmgallardodev.com/mcp` como **Server URL**. Haz clic en `Add Server` para guardarlo.
+3. **Configúralo:** Introduce un **Server Name** (por ejemplo, "Renta IRPF") y define `https://renta-mcp.vercel.app/mcp` como **Server URL**. Haz clic en `Add Server` para guardarlo.
 4. **Verifica la conexión:** Pulsa `Health Check` en la tarjeta del servidor y confirma que aparece como **Connected**. Asegúrate de que el interruptor esté activado para usar las herramientas en el chat.
 
 ### IBM Bob
@@ -154,7 +154,7 @@ Ambos archivos usan JSON con un objeto `mcpServers` que contiene las configuraci
 {
   "mcpServers": {
     "renta-mcp": {
-      "url": "https://renta-mcp.pmgallardodev.com/mcp",
+      "url": "https://renta-mcp.vercel.app/mcp",
       "type": "streamable-http"
     }
   }
@@ -169,7 +169,7 @@ Añade lo siguiente a `~/.kiro/settings/mcp.json` (Linux: `~/.kiro/settings/mcp.
 {
   "mcpServers": {
     "renta-mcp": {
-      "url": "https://renta-mcp.pmgallardodev.com/mcp"
+      "url": "https://renta-mcp.vercel.app/mcp"
     }
   }
 }
@@ -183,7 +183,7 @@ Añade lo siguiente a tu archivo de configuración MCP de Kiro (`.kiro/settings/
 {
   "mcpServers": {
     "renta-mcp": {
-      "url": "https://renta-mcp.pmgallardodev.com/mcp"
+      "url": "https://renta-mcp.vercel.app/mcp"
     }
   }
 }
@@ -194,7 +194,7 @@ Añade lo siguiente a tu archivo de configuración MCP de Kiro (`.kiro/settings/
 *Disponible en todos los planes, incluido el gratuito.*
 
 1. **Ve a Connectors**: Abre Mistral en el navegador y entra en `Intelligence` > `Connectors`.
-2. **Añade un conector personalizado**: Haz clic en `Add connector` > `Custom MCP Connector`, asígnale un nombre (por ejemplo `RentaIRPF`) y define la URL del servidor como `https://renta-mcp.pmgallardodev.com/mcp`.
+2. **Añade un conector personalizado**: Haz clic en `Add connector` > `Custom MCP Connector`, asígnale un nombre (por ejemplo `RentaIRPF`) y define la URL del servidor como `https://renta-mcp.vercel.app/mcp`.
 3. **Sin autenticación**: Deja la autenticación desactivada.
 4. **Crear**: Haz clic en **Create**.
 
@@ -206,7 +206,7 @@ Edita la configuración de Vibe (por defecto: Linux: `~/.vibe/config.toml`, MacO
 [[mcp_servers]]
 name = "renta-mcp"
 transport = "streamable-http"
-url = "https://renta-mcp.pmgallardodev.com/mcp"
+url = "https://renta-mcp.vercel.app/mcp"
 ```
 
 Consulta todas las opciones de MCP para Vibe en la documentación oficial: [MCP server configuration](https://github.com/mistralai/mistral-vibe?tab=readme-ov-file#mcp-server-configuration).
@@ -221,7 +221,7 @@ Añade esto a `opencode.json` (por ejemplo `~/.config/opencode/opencode.json` o 
   "mcp": {
     "renta-mcp": {
       "type": "remote",
-      "url": "https://renta-mcp.pmgallardodev.com/mcp",
+      "url": "https://renta-mcp.vercel.app/mcp",
       "enabled": true
     }
   }
@@ -236,7 +236,7 @@ Añade lo siguiente a tu archivo `mcp.json` de VS Code (Linux: `~/.config/Code/U
 {
   "servers": {
     "renta-mcp": {
-      "url": "https://renta-mcp.pmgallardodev.com/mcp",
+      "url": "https://renta-mcp.vercel.app/mcp",
       "type": "http"
     }
   }
@@ -255,7 +255,7 @@ Añade lo siguiente a `~/.codeium/windsurf/mcp_config.json` (Linux: `~/.codeium/
       "args": [
         "-y",
         "mcp-remote",
-        "https://renta-mcp.pmgallardodev.com/mcp"
+        "https://renta-mcp.vercel.app/mcp"
       ]
     }
   }
@@ -263,7 +263,7 @@ Añade lo siguiente a `~/.codeium/windsurf/mcp_config.json` (Linux: `~/.codeium/
 ```
 
 **Notas:**
-- Endpoint público actual: `https://renta-mcp.pmgallardodev.com/mcp`.
+- Endpoint público actual: `https://renta-mcp.vercel.app/mcp`.
 - Si ejecutas el servidor tú mismo, también puedes usar el endpoint local mostrado en [Ejecución local](#️-ejecución-local).
 - Este servidor MCP expone sólo herramientas de cálculo local y consulta de datos fiscales curados, así que no hace falta API key ni credenciales de la AEAT.
 
@@ -377,6 +377,36 @@ El servidor MCP ofrece herramientas para calcular el IRPF, consultar normativa a
 
   Nota: para la mayoría de deducciones autonómicas ya no hace falta pasar IDs manualmente si proporcionas los hechos fiscales básicos (alquiler, vivienda en municipios en riesgo de despoblación, intereses hipotecarios de jóvenes, incremento de costes financieros, donativos autonómicos, cotizaciones de empleados de hogar, gastos de arrendador, gastos educativos, nacimientos, adopciones y acogimientos, etc.). Los IDs siguen disponibles para casos avanzados o flujos guiados.
 
+  Además, acepta `pagos_fraccionados` (por ejemplo, modelos 130/131) para ajustar la cuota diferencial de forma más realista en perfiles de actividad económica.
+
+- **`calcular_rendimiento_actividad`** - Estima rendimiento neto para autónomos (MVP) en estimación directa simplificada/normal o módulos simplificados, e informa importes listos para reutilizar en `calcular_irpf` (`rendimiento_neto_actividades` y `pagos_fraccionados`).
+
+  Parámetros: `regimen` (obligatorio), `ingresos_integros` (obligatorio), `gastos_deducibles` (opcional), `amortizaciones` (opcional), `provisiones_y_gastos_justificados` (opcional), `porcentaje_provisiones_eds` (opcional), `limite_provisiones_eds` (opcional), `pagos_fraccionados_modelo_130_131` (opcional)
+
+- **`preparar_payload_irpf`** - Normaliza datos fiscales básicos y genera un payload estructurado para `calcular_irpf` (modo preparación/híbrido).
+
+  Parámetros: `año` (obligatorio), `territorio` (obligatorio), rendimientos por bloque (opcionales), `retenciones_practicadas` (opcional), `pagos_fraccionados` (opcional), `situacion_familiar` (opcional), `edad_contribuyente` (opcional), `hijos_edades` (opcional), `ascendientes_edades` (opcional)
+
+- **`calcular_ganancia_cripto_fifo`** - Calcula ganancias/pérdidas de cripto con criterio FIFO (MVP) y devuelve importe neto trasladable a `ganancias_patrimoniales_ahorro`.
+
+  Parámetros: `compras` (obligatorio, formato `cantidad@precio_unitario`), `ventas` (obligatorio, formato `cantidad@precio_unitario`), `comisiones_totales` (opcional)
+
+- **`validar_municipio_despoblacion`** - Verifica si un municipio figura en el catálogo orientativo de despoblación para una CCAA y muestra deducciones relacionadas.
+
+  Parámetros: `año` (obligatorio), `ccaa` (obligatorio), `municipio` (obligatorio)
+
+- **`evaluar_regimen_impatriados`** - Evaluación orientativa de elegibilidad al régimen de impatriados (art. 93 LIRPF).
+
+  Parámetros: `anos_desde_desplazamiento` (obligatorio), `residencia_fiscal_5_anos_previos_en_espana` (obligatorio), `existe_relacion_laboral_o_nombramiento` (obligatorio), `trabaja_principalmente_en_espana` (obligatorio)
+
+- **`evaluar_exencion_art_7p`** - Estimación orientativa de la posible exención por trabajos en el extranjero (art. 7.p LIRPF).
+
+  Parámetros: `rendimiento_trabajo_anual` (obligatorio), `dias_trabajados_extranjero` (obligatorio), `total_dias_anuales` (opcional)
+
+- **`evaluar_exit_tax`** - Diagnóstico orientativo de umbrales básicos de exit tax.
+
+  Parámetros: `valor_mercado_participaciones` (obligatorio), `porcentaje_participacion` (obligatorio), `anos_residencia_fiscal_espana_ultimos_15` (obligatorio)
+
 - **`calcular_retencion_nomina`** - Estimación procedimental de la retención IRPF en nómina a partir del salario bruto anual, cotizaciones del trabajador, gastos deducibles del trabajo, mínimo personal y familiar relevante y cuota anual estimada.
 
   Parámetros: `año` (obligatorio), `territorio` (obligatorio), `salario_bruto_anual` (obligatorio), `situacion_familiar` (opcional), `hijos_edades` (opcional), `ascendientes_edades` (opcional), `edad_contribuyente` (opcional), `discapacidad_contribuyente` (opcional), `meses_pago` (opcional, 12 o 14 — por defecto 14), `cotizaciones_seguridad_social` (opcional, override explícito; si no se informa se estiman y la hipótesis queda reflejada en la salida), `otros_gastos_deducibles` (opcional, adicionales al mínimo general de 2.000 €)
@@ -404,6 +434,14 @@ El servidor MCP ofrece herramientas para calcular el IRPF, consultar normativa a
 - **`buscar_deduccion`** - Búsqueda fuzzy (rapidfuzz) en el catálogo de deducciones autonómicas — en una CCAA concreta o en todas. Devuelve también el `id` de cada deducción para poder aplicarla después en `calcular_irpf`.
 
   Parámetros: `query` (obligatorio), `año` (obligatorio), `ccaa` (opcional), `limite` (opcional, por defecto 10)
+
+### Cobertura Bizkaia 2025
+
+- El dataset foral de Bizkaia para 2025 incluye **24 deducciones catalogadas** (vivienda, familia/conciliación, tejido productivo, transición verde, previsión social y otras).
+- Cada deducción incorpora trazabilidad mínima (`articulo`, `fuente_boe`, `revisado_en`) y, además, referencia web específica (`fuente_web`) en `data/2025/forales/bizkaia.yaml`.
+- Las reglas se modelan con patrones homogéneos del motor (`porcentaje`, `base_maxima`, `limite`, `importe_fijo`, `por_unidad`, `requisitos`) para permitir cálculo automático y mantener consistencia entre territorios.
+- Límites actuales del modelado (informativos): incompatibilidades complejas entre deducciones, arrastres plurianuales y abonos por insuficiencia de cuota/no obligación de declarar no se liquidan de forma integral en esta versión.
+- Fuentes de referencia usadas para contraste funcional: landing de deducciones y árbol Gure Gida IRPF (`IdPublicoMostrar=1674`) y sus apartados de vivienda y otras deducciones.
 
 ### Modelo 100 (casillas)
 
@@ -437,12 +475,14 @@ El servidor expone también **Resources MCP** con URI canónicos para los datos 
 - `irpf://casillas/{año}` — casillas del Modelo 100.
 - `irpf://plazos/{año}` — fechas de la campaña Renta.
 - `irpf://obligacion-declarar/{año}` — umbrales del art. 96 LIRPF.
+- `irpf://municipios-despoblacion/{año}/{territorio}` — catálogo orientativo de municipios en riesgo de despoblación por territorio.
 
 ## 💬 Prompts disponibles
 
 Flujos conversacionales predefinidos que el cliente puede invocar como slash-commands:
 
 - **`/revisar-borrador`** — guía paso a paso para revisar un borrador del IRPF: pregunta datos personales, ingresos, deducciones aplicables y calcula la cuota.
+- **`/preparar_declaracion`** — flujo para normalizar datos y preparar un payload limpio antes del cálculo final.
 - **`/optimizar-deducciones`** — dado un perfil de contribuyente, sugiere qué deducciones autonómicas y estatales podrían aplicarse y estima el ahorro máximo.
 - **`/simular-declaracion`** — simulación completa con escenarios (individual vs conjunta; con/sin aportación a planes de pensiones) y recomendación final.
 
@@ -504,10 +544,10 @@ Se aceptan contribuciones. Para mantener el proyecto estable y facilitar las rev
 
 Seguimos un proceso estándar de revisión y despliegue:
 
-1. **Envía una PR:** Propón tus cambios mediante una Pull Request contra la rama `main`.
+1. **Envía una PR:** Propón tus cambios mediante una Pull Request contra la rama `master`.
 2. **Integración continua:** La CI se ejecuta automáticamente sobre la pull request. **Todos los checks requeridos deben pasar** antes de hacer merge. Ejecuta los mismos checks en local para evitar sorpresas en CI.
 3. **Revisión:** Todas las PR deben revisarse y aprobarse antes del merge.
-4. **Despliegue:** Una vez integrado en `main`, despliega los cambios en el entorno que corresponda y verifica `/health`, el handshake MCP y una llamada real a `calcular_irpf` con un caso conocido.
+4. **Despliegue:** Una vez integrado en `master`, despliega los cambios en el entorno que corresponda y verifica `/health`, el handshake MCP y una llamada real a `calcular_irpf` con un caso conocido.
 
 ### 🧹 Linting y formateo
 
