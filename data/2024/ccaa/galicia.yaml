@@ -14,4 +14,44 @@ escala_autonomica:
   - { desde: 60000,  hasta: null,    tipo: 0.225 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: gal-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción de hijos"
+    importe_fijo: 360
+    articulo: "DL 1/2011 Galicia"
+
+  - id: gal-familia-numerosa
+    categoria: familia
+    titulo: "Por familia numerosa"
+    importe_fijo: 250
+    articulo: "DL 1/2011 Galicia"
+
+  - id: gal-cuidado-hijos-menores
+    categoria: familia
+    titulo: "Por cuidado de hijos menores"
+    porcentaje: 0.30
+    limite: 400
+    articulo: "DL 1/2011 Galicia"
+
+  - id: gal-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por arrendamiento vivienda habitual jóvenes"
+    porcentaje: 0.10
+    limite: 300
+    articulo: "DL 1/2011 Galicia"
+
+  - id: gal-inversion-acciones-MAB
+    categoria: inversion
+    titulo: "Por inversión en acciones de entidades en el MAB"
+    porcentaje: 0.20
+    limite: 4000
+    articulo: "DL 1/2011 Galicia"
+
+  - id: gal-adquisicion-vivienda-rural
+    categoria: vivienda
+    titulo: "Por adquisición de vivienda en medio rural"
+    porcentaje: 0.05
+    base_maxima: 9040
+    articulo: "DL 1/2011 Galicia"

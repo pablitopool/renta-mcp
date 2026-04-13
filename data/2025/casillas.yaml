@@ -1,81 +1,452 @@
-# Subset de casillas más frecuentes del Modelo 100 — ejercicio 2025.
-# Este es un subset curado manualmente (~50 casillas). La generación completa
-# del listado se hará a partir del XSD oficial mediante
-# scripts/parsear_xsd_modelo_100.py (pendiente de extraer el ZIP enlazado desde
-# la página de diseños de registro del Modelo 100).
-
 año: 2025
-fuente: "Manual de ayuda a la presentación Modelo 100 (AEAT) + Orden HAC/277/2026"
-revisado_en: "2026-04-13"
-
+fuente: Manual Práctico Renta AEAT Parte 1 (parseo automático)
+revisado_en: '2026-04-13'
+generado_por: scripts/extraer_casillas_manual.py
 casillas:
-  # Identificación
-  - { numero: "0001", seccion: identificacion, nombre: "NIF del declarante" }
-  - { numero: "0002", seccion: identificacion, nombre: "Apellidos y nombre" }
-  - { numero: "0011", seccion: identificacion, nombre: "Clave tipo de tributación" }
-  - { numero: "0060", seccion: identificacion, nombre: "Clave territorio fiscal" }
-
-  # Rendimientos del trabajo (Apartado A)
-  - { numero: "0003", seccion: rendimientos_trabajo, nombre: "Retribuciones dinerarias" }
-  - { numero: "0008", seccion: rendimientos_trabajo, nombre: "Retribuciones en especie" }
-  - { numero: "0010", seccion: rendimientos_trabajo, nombre: "Rendimiento íntegro del trabajo" }
-  - { numero: "0019", seccion: rendimientos_trabajo, nombre: "Cotizaciones Seguridad Social y MUFACE" }
-  - { numero: "0020", seccion: rendimientos_trabajo, nombre: "Otros gastos deducibles" }
-  - { numero: "0025", seccion: rendimientos_trabajo, nombre: "Rendimiento neto del trabajo" }
-
-  # Rendimientos del capital inmobiliario (Apartado B)
-  - { numero: "0075", seccion: capital_inmobiliario, nombre: "Rendimiento íntegro capital inmobiliario" }
-  - { numero: "0085", seccion: capital_inmobiliario, nombre: "Gastos deducibles capital inmobiliario" }
-  - { numero: "0105", seccion: capital_inmobiliario, nombre: "Rendimiento neto capital inmobiliario" }
-
-  # Imputación de rentas inmobiliarias (Apartado C)
-  - { numero: "0064", seccion: rentas_imputadas, nombre: "Imputación rentas inmobiliarias (art. 85)" }
-
-  # Rendimientos del capital mobiliario (Apartado D)
-  - { numero: "0027", seccion: capital_mobiliario, nombre: "Intereses cuentas y depósitos" }
-  - { numero: "0029", seccion: capital_mobiliario, nombre: "Dividendos y participaciones en beneficios" }
-  - { numero: "0033", seccion: capital_mobiliario, nombre: "Rendimiento neto capital mobiliario" }
-
-  # Actividades económicas (Apartado E)
-  - { numero: "0165", seccion: actividades_economicas, nombre: "Ingresos explotación (estimación directa)" }
-  - { numero: "0182", seccion: actividades_economicas, nombre: "Rendimiento neto actividad económica" }
-  - { numero: "0224", seccion: actividades_economicas, nombre: "Módulos: rendimiento neto previo" }
-
-  # Ganancias y pérdidas patrimoniales (Apartado F)
-  - { numero: "0310", seccion: ganancias_perdidas, nombre: "Ganancias/pérdidas elementos no patrimoniales" }
-  - { numero: "0363", seccion: ganancias_perdidas, nombre: "Ganancias/pérdidas patrimoniales del ahorro" }
-
-  # Reducciones (Apartado G)
-  - { numero: "0430", seccion: reducciones, nombre: "Tributación conjunta" }
-  - { numero: "0465", seccion: reducciones, nombre: "Aportaciones a planes de pensiones" }
-
-  # Mínimo personal y familiar (Apartado H)
-  - { numero: "0511", seccion: minimos, nombre: "Mínimo del contribuyente" }
-  - { numero: "0513", seccion: minimos, nombre: "Mínimo por descendientes" }
-  - { numero: "0515", seccion: minimos, nombre: "Mínimo por ascendientes" }
-  - { numero: "0517", seccion: minimos, nombre: "Mínimo por discapacidad" }
-  - { numero: "0520", seccion: minimos, nombre: "Mínimo personal y familiar total" }
-
-  # Cuota (Apartado I)
-  - { numero: "0545", seccion: cuota, nombre: "Cuota íntegra estatal" }
-  - { numero: "0546", seccion: cuota, nombre: "Cuota íntegra autonómica" }
-  - { numero: "0569", seccion: cuota, nombre: "Cuota líquida estatal" }
-  - { numero: "0570", seccion: cuota, nombre: "Cuota líquida autonómica" }
-
-  # Deducciones estatales
-  - { numero: "0547", seccion: deducciones_estatales, nombre: "Deducción por inversión en vivienda habitual (régimen transitorio)" }
-  - { numero: "0550", seccion: deducciones_estatales, nombre: "Deducción por donativos (art. 68.3 LIRPF)" }
-  - { numero: "0553", seccion: deducciones_estatales, nombre: "Deducción por familia numerosa o personas con discapacidad a cargo" }
-  - { numero: "0555", seccion: deducciones_estatales, nombre: "Deducción por maternidad" }
-
-  # Retenciones y pagos a cuenta (Apartado J)
-  - { numero: "0595", seccion: retenciones, nombre: "Retenciones sobre rendimientos del trabajo" }
-  - { numero: "0596", seccion: retenciones, nombre: "Retenciones sobre rendimientos capital mobiliario" }
-  - { numero: "0599", seccion: retenciones, nombre: "Pagos fraccionados" }
-
-  # Resultado
-  - { numero: "0610", seccion: resultado, nombre: "Cuota resultante de la autoliquidación" }
-  - { numero: "0625", seccion: resultado, nombre: "Resultado de la declaración" }
-
-  # Deducción autonómica (columna)
-  - { numero: "0564", seccion: deducciones_autonomicas, nombre: "Deducciones autonómicas" }
+- numero: '0001'
+  seccion: identificacion
+  nombre: NIF del declarante
+- numero: '0002'
+  seccion: identificacion
+  nombre: Apellidos y nombre
+- numero: '0003'
+  seccion: rendimientos_trabajo
+  nombre: Retribuciones dinerarias
+- numero: 0008
+  seccion: rendimientos_trabajo
+  nombre: Retribuciones en especie
+- numero: '0010'
+  seccion: rendimientos_trabajo
+  nombre: Rendimiento íntegro del trabajo
+- numero: '0011'
+  seccion: identificacion
+  nombre: Clave tipo de tributación
+- numero: 0019
+  seccion: rendimientos_trabajo
+  nombre: Cotizaciones Seguridad Social y MUFACE
+- numero: '0020'
+  seccion: rendimientos_trabajo
+  nombre: Otros gastos deducibles
+- numero: '0025'
+  seccion: rendimientos_trabajo
+  nombre: Rendimiento neto del trabajo
+- numero: '0027'
+  seccion: capital_mobiliario
+  nombre: Intereses cuentas y depósitos
+- numero: 0029
+  seccion: capital_mobiliario
+  nombre: Dividendos y participaciones en beneficios
+- numero: '0033'
+  seccion: capital_mobiliario
+  nombre: Rendimiento neto capital mobiliario
+- numero: 0049
+  seccion: capital_mobiliario
+  nombre: de la
+- numero: '0060'
+  seccion: identificacion
+  nombre: Clave territorio fiscal
+- numero: '0062'
+  seccion: capital_inmobiliario
+  nombre: ' En declaraciones'
+- numero: '0063'
+  seccion: capital_inmobiliario
+  nombre: ' Los porcentajes de propiedad que proceda'
+- numero: '0064'
+  seccion: rentas_imputadas
+  nombre: Imputación rentas inmobiliarias (art. 85)
+- numero: '0065'
+  seccion: capital_inmobiliario
+  nombre: ' Se hará constar la clave indicativa que en cada caso'
+- numero: '0066'
+  seccion: capital_inmobiliario
+  nombre: ' De haberse consignado en la casilla'
+- numero: '0067'
+  seccion: capital_inmobiliario
+  nombre: Inmueble urbano
+- numero: 0068
+  seccion: capital_inmobiliario
+  nombre: Inmueble rústico
+- numero: 0069
+  seccion: capital_inmobiliario
+  nombre: ' Se consignará en esta casilla la dirección del inmueble'
+- numero: '0070'
+  seccion: capital_inmobiliario
+  nombre: ' En este caso deberá'
+- numero: '0071'
+  seccion: capital_inmobiliario
+  nombre: ' Inmueble del que el contribuyente es total o'
+- numero: '0072'
+  seccion: capital_inmobiliario
+  nombre: ' Inmueble que haya'
+- numero: '0073'
+  seccion: capital_mobiliario
+  nombre: ' Inmueble que ha permanecido a'
+- numero: '0074'
+  seccion: capital_mobiliario
+  nombre: ' Inmueble arrendado,'
+- numero: '0075'
+  seccion: capital_inmobiliario
+  nombre: Rendimiento íntegro capital inmobiliario
+- numero: '0076'
+  seccion: capital_inmobiliario
+  nombre: el número de días en que la vivienda ha tenido esta
+- numero: '0077'
+  seccion: capital_inmobiliario
+  nombre: el NIF o el NIE del anterior
+- numero: 0078
+  seccion: capital_inmobiliario
+  nombre: con una X esta circunstancia
+- numero: 0079
+  seccion: capital_inmobiliario
+  nombre: el número de días en que la vivienda
+- numero: 0080
+  seccion: capital_mobiliario
+  nombre: Casilla 0080
+- numero: 0081
+  seccion: capital_mobiliario
+  nombre: el contribuyente que realiza la actividad
+- numero: 0082
+  seccion: capital_mobiliario
+  nombre: Casilla 0082
+- numero: 0085
+  seccion: capital_inmobiliario
+  nombre: Gastos deducibles capital inmobiliario
+- numero: 0086
+  seccion: capital_mobiliario
+  nombre: ','
+- numero: 0087
+  seccion: capital_mobiliario
+  nombre: ' si la totalidad del inmueble ha'
+- numero: 0089
+  seccion: capital_mobiliario
+  nombre: c
+- numero: '0104'
+  seccion: capital_inmobiliario
+  nombre: de la declaración
+- numero: '0105'
+  seccion: capital_inmobiliario
+  nombre: Rendimiento neto capital inmobiliario
+- numero: '0107'
+  seccion: capital_inmobiliario
+  nombre: y el importe que, por aplicación del límite máximo de deducción,
+- numero: 0108
+  seccion: capital_inmobiliario
+  nombre: a efectos de su deducción en
+- numero: '0152'
+  seccion: capital_inmobiliario
+  nombre: de la
+- numero: '0165'
+  seccion: actividades_economicas
+  nombre: Ingresos explotación (estimación directa)
+- numero: 0169
+  seccion: capital_mobiliario
+  nombre: (en el caso de actividades
+- numero: 0178
+  seccion: actividades_economicas
+  nombre: ', relativa a “Otros ingresos”'
+- numero: 0182
+  seccion: actividades_economicas
+  nombre: Rendimiento neto actividad económica
+- numero: 0196
+  seccion: actividades_economicas
+  nombre: Casilla 0196
+- numero: 0197
+  seccion: actividades_economicas
+  nombre: ', y si el importe supera el de las cuotas'
+- numero: '0224'
+  seccion: actividades_economicas
+  nombre: 'Módulos: rendimiento neto previo'
+- numero: 0238
+  seccion: actividades_economicas
+  nombre: ', relativa a "Reintegro de subvenciones"'
+- numero: 0239
+  seccion: actividades_economicas
+  nombre: ', relativa a "Reintegro de subvenciones (se incluirá el importe de la'
+- numero: '0266'
+  seccion: ganancias_perdidas
+  nombre: )
+- numero: '0274'
+  seccion: otros
+  nombre: del
+- numero: 0279
+  seccion: ganancias_perdidas
+  nombre: )
+- numero: '0300'
+  seccion: ganancias_perdidas
+  nombre: )•
+- numero: '0301'
+  seccion: ganancias_perdidas
+  nombre: Casilla 0301
+- numero: '0303'
+  seccion: ganancias_perdidas
+  nombre: Casilla 0303
+- numero: '0304'
+  seccion: ganancias_perdidas
+  nombre: Casilla 0304
+- numero: '0310'
+  seccion: ganancias_perdidas
+  nombre: Ganancias/pérdidas elementos no patrimoniales
+- numero: '0323'
+  seccion: ganancias_perdidas
+  nombre: denominada "Bono Cultural Joven"
+- numero: '0356'
+  seccion: ganancias_perdidas
+  nombre: Casilla 0356
+- numero: '0362'
+  seccion: ganancias_perdidas
+  nombre: Casilla 0362
+- numero: '0363'
+  seccion: ganancias_perdidas
+  nombre: Ganancias/pérdidas patrimoniales del ahorro
+- numero: '0426'
+  seccion: reducciones
+  nombre: Casilla 0426
+- numero: '0427'
+  seccion: reducciones
+  nombre: Casilla 0427
+- numero: '0430'
+  seccion: reducciones
+  nombre: Tributación conjunta
+- numero: 0438
+  seccion: reducciones
+  nombre: Casilla 0438
+- numero: '0465'
+  seccion: reducciones
+  nombre: Aportaciones a planes de pensiones
+- numero: '0466'
+  seccion: reducciones
+  nombre: •
+- numero: '0471'
+  seccion: deducciones_estatales
+  nombre: ', de la declaración del citado'
+- numero: 0493
+  seccion: deducciones_estatales
+  nombre: ', de la declaración del citado'
+- numero: 0499
+  seccion: reducciones
+  nombre: Casilla 0499
+- numero: '0505'
+  seccion: resultado
+  nombre: de la declaración del IRPF correspondiente al ejercicio 2024,
+- numero: '0511'
+  seccion: minimos
+  nombre: Mínimo del contribuyente
+- numero: '0513'
+  seccion: minimos
+  nombre: Mínimo por descendientes
+- numero: '0515'
+  seccion: minimos
+  nombre: Mínimo por ascendientes
+- numero: '0517'
+  seccion: minimos
+  nombre: Mínimo por discapacidad
+- numero: '0520'
+  seccion: minimos
+  nombre: Mínimo personal y familiar total
+- numero: '0545'
+  seccion: cuota
+  nombre: Cuota íntegra estatal
+- numero: '0546'
+  seccion: cuota
+  nombre: Cuota íntegra autonómica
+- numero: '0547'
+  seccion: deducciones_estatales
+  nombre: Deducción por inversión en vivienda habitual (régimen transitorio)
+- numero: 0548
+  seccion: deducciones_estatales
+  nombre: ', de la declaración del citado'
+- numero: '0550'
+  seccion: deducciones_estatales
+  nombre: Deducción por donativos (art. 68.3 LIRPF)
+- numero: '0553'
+  seccion: deducciones_estatales
+  nombre: Deducción por familia numerosa o personas con discapacidad a cargo
+- numero: '0555'
+  seccion: deducciones_estatales
+  nombre: Deducción por maternidad
+- numero: '0564'
+  seccion: deducciones_autonomicas
+  nombre: Deducciones autonómicas
+- numero: 0569
+  seccion: cuota
+  nombre: Cuota líquida estatal
+- numero: '0570'
+  seccion: cuota
+  nombre: Cuota líquida autonómica
+- numero: '0576'
+  seccion: cuota
+  nombre: Casilla 0576
+- numero: 0586
+  seccion: resultado
+  nombre: Casilla 0586
+- numero: 0588
+  seccion: resultado
+  nombre: Casilla 0588
+- numero: 0589
+  seccion: otros
+  nombre: de la declaración
+- numero: 0590
+  seccion: otros
+  nombre: del apartado "M" de la declaración
+- numero: 0591
+  seccion: rendimientos_trabajo
+  nombre: de declaración, se hará constar el importe de las
+- numero: 0595
+  seccion: retenciones
+  nombre: Retenciones sobre rendimientos del trabajo
+- numero: 0596
+  seccion: retenciones
+  nombre: Retenciones sobre rendimientos capital mobiliario
+- numero: 0597
+  seccion: capital_mobiliario
+  nombre: de la página 21 de la declaración. (Volver)
+- numero: 0599
+  seccion: retenciones
+  nombre: Pagos fraccionados
+- numero: 0609
+  seccion: resultado
+  nombre: en
+- numero: '0610'
+  seccion: resultado
+  nombre: Cuota resultante de la autoliquidación
+- numero: '0611'
+  seccion: resultado
+  nombre: de la declaración
+- numero: '0612'
+  seccion: resultado
+  nombre: de la declaración la suma de dichas
+- numero: '0613'
+  seccion: resultado
+  nombre: en la deducción por maternidad, de la diferencia de las
+- numero: '0625'
+  seccion: resultado
+  nombre: Resultado de la declaración
+- numero: 0669
+  seccion: resultado
+  nombre: tendrá carácter excepcional
+- numero: '0670'
+  seccion: resultado
+  nombre: )
+- numero: '0700'
+  seccion: deducciones_estatales
+  nombre: y el del tramo autonómico en la casilla [0701], de
+- numero: '0701'
+  seccion: deducciones_estatales
+  nombre: ', de'
+- numero: '0722'
+  seccion: cuota
+  nombre: del anexo A.1
+- numero: '0723'
+  seccion: cuota
+  nombre: del anexo
+- numero: '0724'
+  seccion: cuota
+  nombre: del anexo A.1
+- numero: '0725'
+  seccion: cuota
+  nombre: del anexo A.1
+- numero: '0727'
+  seccion: actividades_economicas
+  nombre: del anexo A.2 de la declaración
+- numero: '0750'
+  seccion: cuota
+  nombre: Casilla 0750
+- numero: '0751'
+  seccion: cuota
+  nombre: Casilla 0751
+- numero: '0772'
+  seccion: deducciones_estatales
+  nombre: de la declaración. Es decir ([0700] + [0701] − [0772])
+- numero: 0830
+  seccion: actividades_economicas
+  nombre: el
+- numero: 0833
+  seccion: actividades_economicas
+  nombre: del anexo A.5 de la declaración. (Volver)
+- numero: 0834
+  seccion: actividades_economicas
+  nombre: del anexo A.5 de la declaración. (Volver)
+- numero: 0835
+  seccion: actividades_economicas
+  nombre: del anexo A.5 de la declaración. (Volver)
+- numero: '1184'
+  seccion: cuota
+  nombre: ', las que se apliquen en el ejercicio en la casilla'
+- numero: '1443'
+  seccion: capital_mobiliario
+  nombre: (si se trata de actividades
+- numero: '1478'
+  seccion: actividades_economicas
+  nombre: ', "Otras'
+- numero: '1487'
+  seccion: capital_mobiliario
+  nombre: (en actividades agrícolas, ganaderas y forestales en estimación objetiva)
+- numero: '1563'
+  seccion: otros
+  nombre: para indicar esta circunstancia
+- numero: '1615'
+  seccion: capital_mobiliario
+  nombre: ), naturaleza urbana o rústica (casillas
+- numero: '1619'
+  seccion: capital_mobiliario
+  nombre: ), referencia catastral (casilla [1620]) y NIF de
+- numero: '1620'
+  seccion: capital_mobiliario
+  nombre: ) y NIF de
+- numero: '1621'
+  seccion: capital_mobiliario
+  nombre: )
+- numero: '1660'
+  seccion: cuota
+  nombre: Casilla 1660
+- numero: '1668'
+  seccion: cuota
+  nombre: Casilla 1668
+- numero: '1677'
+  seccion: cuota
+  nombre: de la declaración, mediante tarjeta de crédito o débito,
+- numero: '1681'
+  seccion: otros
+  nombre: ', [1780] y [1937]'
+- numero: '1682'
+  seccion: otros
+  nombre: ', [1781] y [1938]'
+- numero: '1684'
+  seccion: otros
+  nombre: ', [1782] y [1939]'
+- numero: '1685'
+  seccion: otros
+  nombre: ', [1783] y [1940] •'
+- numero: '1689'
+  seccion: otros
+  nombre: ', [1784] y [1940]'
+- numero: '1692'
+  seccion: cuota
+  nombre: ', las que se apliquen en el ejercicio en la casilla'
+- numero: '1695'
+  seccion: cuota
+  nombre: ', las que se apliquen en el ejercicio en la casilla'
+- numero: '1697'
+  seccion: cuota
+  nombre: ', en el Anexo'
+- numero: '1847'
+  seccion: cuota
+  nombre: del Anexo A.6 de la declaración
+- numero: '1856'
+  seccion: cuota
+  nombre: ', en el Anexo'
+- numero: '1857'
+  seccion: cuota
+  nombre: del Anexo C.5 de la declaración
+- numero: '2024'
+  seccion: cuota
+  nombre: y las que se apliquen en el ejercicio en
+- numero: '2025'
+  seccion: cuota
+  nombre: en el Anexo C.5 de la declaración
+- numero: '2048'
+  seccion: cuota
+  nombre: ', en el Anexo'
+- numero: '5002'
+  seccion: deducciones_estatales
+  nombre: ', de la declaración del citado'

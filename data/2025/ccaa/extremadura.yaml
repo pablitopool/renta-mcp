@@ -18,4 +18,36 @@ escala_autonomica:
   - { desde: 120200, hasta: null,    tipo: 0.25 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: ext-parto-multiple
+    categoria: familia
+    titulo: "Por parto múltiple"
+    importe_fijo: 300
+    articulo: "DL 1/2018 Extremadura"
+
+  - id: ext-acogimiento-menores
+    categoria: familia
+    titulo: "Por acogimiento familiar de menores"
+    importe_fijo: 250
+    articulo: "DL 1/2018 Extremadura"
+
+  - id: ext-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por arrendamiento vivienda habitual jóvenes"
+    porcentaje: 0.10
+    limite: 300
+    articulo: "DL 1/2018 Extremadura"
+
+  - id: ext-gastos-guarderia
+    categoria: educacion
+    titulo: "Por gastos de guardería"
+    porcentaje: 0.10
+    limite_por_hijo: 220
+    articulo: "DL 1/2018 Extremadura"
+
+  - id: ext-donativos-fines-culturales
+    categoria: donativos
+    titulo: "Por donativos a fundaciones culturales extremeñas"
+    porcentaje: 0.10
+    articulo: "DL 1/2018 Extremadura"

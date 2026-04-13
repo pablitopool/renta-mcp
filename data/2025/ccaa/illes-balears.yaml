@@ -18,4 +18,36 @@ escala_autonomica:
   - { desde: 175000, hasta: null,    tipo: 0.2475 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: ib-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción de hijos"
+    importe_fijo: 800
+    articulo: "DL 1/2014 Illes Balears"
+
+  - id: ib-adopcion-internacional
+    categoria: familia
+    titulo: "Por adopción internacional"
+    importe_fijo: 600
+    articulo: "DL 1/2014 Illes Balears"
+
+  - id: ib-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por alquiler vivienda habitual jóvenes"
+    porcentaje: 0.15
+    limite: 530
+    requisitos: { edad_maxima: 30 }
+    articulo: "DL 1/2014 Illes Balears"
+
+  - id: ib-gastos-estudios
+    categoria: educacion
+    titulo: "Por gastos de estudios de descendientes fuera de la isla de residencia"
+    importe_fijo: 1500
+    articulo: "DL 1/2014 Illes Balears"
+
+  - id: ib-cuota-sindical
+    categoria: otros
+    titulo: "Por cuotas satisfechas a sindicatos"
+    porcentaje: 0.15
+    articulo: "DL 1/2014 Illes Balears"

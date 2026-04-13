@@ -19,4 +19,49 @@ escala_autonomica:
   - { desde: 175000, hasta: null,    tipo: 0.295 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: cv-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento, adopción o acogimiento familiar de hijos"
+    importe_fijo: 300
+    articulo: "Ley 13/1997 Comunitat Valenciana"
+
+  - id: cv-familia-numerosa
+    categoria: familia
+    titulo: "Por familia numerosa o monoparental"
+    importe_fijo: 300
+    articulo: "Ley 13/1997 Comunitat Valenciana"
+
+  - id: cv-alquiler-vivienda-habitual
+    categoria: vivienda
+    titulo: "Por arrendamiento vivienda habitual"
+    porcentaje: 0.15
+    limite: 550
+    articulo: "Ley 13/1997 Comunitat Valenciana"
+
+  - id: cv-gastos-guarderia
+    categoria: educacion
+    titulo: "Por gastos de guardería hijos menores de 3 años"
+    porcentaje: 0.15
+    limite_por_hijo: 270
+    articulo: "Ley 13/1997 Comunitat Valenciana"
+
+  - id: cv-material-escolar
+    categoria: educacion
+    titulo: "Por adquisición material escolar"
+    importe_fijo: 110
+    articulo: "Ley 13/1997 Comunitat Valenciana"
+
+  - id: cv-obras-eficiencia-energetica
+    categoria: vivienda
+    titulo: "Por obras de conservación o mejora de vivienda habitual"
+    porcentaje: 0.20
+    base_maxima: 5000
+    articulo: "Ley 13/1997 Comunitat Valenciana"
+
+  - id: cv-donativos-fines-culturales
+    categoria: donativos
+    titulo: "Por donaciones a fines culturales, científicos y deportivos"
+    porcentaje: 0.25
+    articulo: "Ley 13/1997 Comunitat Valenciana"

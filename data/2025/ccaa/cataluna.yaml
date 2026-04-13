@@ -19,4 +19,44 @@ escala_autonomica:
   - { desde: 175000, hasta: null,    tipo: 0.255 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: cat-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción de hijos"
+    importe_fijo: 150
+    articulo: "Ley 15/2007 Cataluña"
+
+  - id: cat-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por arrendamiento vivienda habitual jóvenes"
+    porcentaje: 0.10
+    limite: 300
+    requisitos: { edad_maxima: 32 }
+    articulo: "Ley 15/2007 Cataluña"
+
+  - id: cat-viudedad
+    categoria: familia
+    titulo: "Por viudedad"
+    importe_fijo: 150
+    articulo: "Ley 15/2007 Cataluña"
+
+  - id: cat-donativos-entidades-fomento-catalan
+    categoria: donativos
+    titulo: "Por donativos a entidades de fomento del catalán"
+    porcentaje: 0.15
+    articulo: "Ley 15/2007 Cataluña"
+
+  - id: cat-inversion-angel-inversor
+    categoria: inversion
+    titulo: "Por inversión de un Business Angel en acciones de empresas nuevas"
+    porcentaje: 0.30
+    limite: 6000
+    articulo: "Ley 15/2007 Cataluña"
+
+  - id: cat-rehabilitacion-vivienda-habitual
+    categoria: vivienda
+    titulo: "Por rehabilitación vivienda habitual"
+    porcentaje: 0.015
+    base_maxima: 9040
+    articulo: "Ley 15/2007 Cataluña"

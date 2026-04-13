@@ -14,4 +14,38 @@ escala_autonomica:
   - { desde: 60000,  hasta: null,    tipo: 0.2245 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: mur-gastos-guarderia
+    categoria: educacion
+    titulo: "Por gastos de guardería de hijos menores de 3 años"
+    porcentaje: 0.15
+    limite_por_hijo: 330
+    articulo: "DL 1/2010 Murcia"
+
+  - id: mur-adquisicion-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por adquisición vivienda habitual jóvenes"
+    porcentaje: 0.05
+    base_maxima: 9040
+    requisitos: { edad_maxima: 35 }
+    articulo: "DL 1/2010 Murcia"
+
+  - id: mur-donativos-investigacion
+    categoria: donativos
+    titulo: "Por donativos para la investigación biosanitaria"
+    porcentaje: 0.30
+    articulo: "DL 1/2010 Murcia"
+
+  - id: mur-inversion-ahorro
+    categoria: inversion
+    titulo: "Por inversión en empresas de nueva o reciente creación"
+    porcentaje: 0.20
+    limite: 4000
+    articulo: "DL 1/2010 Murcia"
+
+  - id: mur-conciliacion
+    categoria: familia
+    titulo: "Por conciliación de vida personal y familiar"
+    importe_fijo: 200
+    articulo: "DL 1/2010 Murcia"

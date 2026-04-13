@@ -24,9 +24,37 @@ escala_autonomica:
 
 minimos:
   personal: 5550
-  por_descendiente: [2400, 2700, 4000, 4500]
-  hijo_menor_3: 2800
-  por_ascendiente: 1150
-  discapacidad_33_65: 3000
+  por_descendiente: [1760, 1870, 2650, 2990]
+  hijo_menor_3: 2200
+  por_ascendiente: 1020
+  discapacidad_33_65: 2860
 
-deducciones: []
+deducciones:
+  - id: nav-cuidado-descendientes
+    categoria: familia
+    titulo: "Por cuidado de descendientes menores de 3 años"
+    porcentaje: 0.25
+    limite_por_hijo: 1200
+    articulo: "DFL 4/2008 IRPF Navarra"
+  - id: nav-familia-numerosa
+    categoria: familia
+    titulo: "Por familia numerosa"
+    importe_fijo: 260
+    articulo: "DFL 4/2008 IRPF Navarra"
+  - id: nav-inversion-vivienda-habitual
+    categoria: vivienda
+    titulo: "Por inversión en vivienda habitual"
+    porcentaje: 0.15
+    base_maxima: 7000
+    articulo: "DFL 4/2008 IRPF Navarra"
+  - id: nav-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por alquiler vivienda habitual jóvenes"
+    porcentaje: 0.15
+    limite: 1200
+    articulo: "DFL 4/2008 IRPF Navarra"
+  - id: nav-donativos
+    categoria: donativos
+    titulo: "Por donativos a entidades no lucrativas"
+    porcentaje: 0.25
+    articulo: "DFL 4/2008 IRPF Navarra"

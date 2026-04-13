@@ -17,4 +17,38 @@ escala_autonomica:
   - { desde: 175000, hasta: null,    tipo: 0.255 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: ast-acogimiento-menores
+    categoria: familia
+    titulo: "Por acogimiento no remunerado de mayores de 65 años"
+    importe_fijo: 341
+    articulo: "DL 2/2014 Asturias"
+
+  - id: ast-adquisicion-vivienda-protegida
+    categoria: vivienda
+    titulo: "Por adquisición o adecuación de vivienda habitual para discapacitados"
+    porcentaje: 0.03
+    base_maxima: 13664
+    articulo: "DL 2/2014 Asturias"
+
+  - id: ast-alquiler-vivienda-habitual
+    categoria: vivienda
+    titulo: "Por alquiler de vivienda habitual"
+    porcentaje: 0.10
+    limite: 455
+    articulo: "DL 2/2014 Asturias"
+
+  - id: ast-gastos-descendientes-educacion
+    categoria: educacion
+    titulo: "Por gastos educativos de descendientes"
+    porcentaje: 0.15
+    limite_por_hijo: 1500
+    articulo: "DL 2/2014 Asturias"
+
+  - id: ast-donativos-fines-ecologicos
+    categoria: donativos
+    titulo: "Por donaciones a entidades con fines ecológicos"
+    porcentaje: 0.10
+    limite: 150
+    articulo: "DL 2/2014 Asturias"

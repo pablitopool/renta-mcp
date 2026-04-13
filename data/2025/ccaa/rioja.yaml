@@ -16,4 +16,39 @@ escala_autonomica:
   - { desde: 120000, hasta: null,    tipo: 0.27 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: rio-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción segundo hijo o sucesivos"
+    importe_fijo: 600
+    articulo: "Ley 10/2017 La Rioja"
+
+  - id: rio-adquisicion-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por adquisición o rehabilitación de vivienda habitual por jóvenes"
+    porcentaje: 0.05
+    base_maxima: 9040
+    requisitos: { edad_maxima: 36 }
+    articulo: "Ley 10/2017 La Rioja"
+
+  - id: rio-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por alquiler vivienda habitual jóvenes"
+    porcentaje: 0.10
+    limite: 300
+    articulo: "Ley 10/2017 La Rioja"
+
+  - id: rio-gastos-escolares
+    categoria: educacion
+    titulo: "Por gastos de escolarización de descendientes"
+    porcentaje: 0.15
+    limite_por_hijo: 200
+    articulo: "Ley 10/2017 La Rioja"
+
+  - id: rio-obras-rehabilitacion
+    categoria: vivienda
+    titulo: "Por obras de rehabilitación de vivienda habitual"
+    porcentaje: 0.15
+    base_maxima: 9040
+    articulo: "Ley 10/2017 La Rioja"

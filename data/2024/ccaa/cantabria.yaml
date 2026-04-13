@@ -15,4 +15,36 @@ escala_autonomica:
   - { desde: 90000,  hasta: null,    tipo: 0.245 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: cnt-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por arrendamiento vivienda habitual para jóvenes, mayores o discapacitados"
+    porcentaje: 0.10
+    limite: 300
+    articulo: "DL 62/2008 Cantabria"
+
+  - id: cnt-obras-rehabilitacion-vivienda
+    categoria: vivienda
+    titulo: "Por obras de mejora en viviendas"
+    porcentaje: 0.15
+    base_maxima: 5000
+    articulo: "DL 62/2008 Cantabria"
+
+  - id: cnt-cuidado-familiares
+    categoria: familia
+    titulo: "Por cuidado de familiares"
+    importe_fijo: 100
+    articulo: "DL 62/2008 Cantabria"
+
+  - id: cnt-acogimiento-familiar
+    categoria: familia
+    titulo: "Por acogimiento familiar de menores"
+    importe_fijo: 240
+    articulo: "DL 62/2008 Cantabria"
+
+  - id: cnt-donativos-fines-ecologicos
+    categoria: donativos
+    titulo: "Por donativos con fines ecológicos"
+    porcentaje: 0.15
+    articulo: "DL 62/2008 Cantabria"

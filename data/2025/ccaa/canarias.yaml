@@ -16,4 +16,43 @@ escala_autonomica:
   - { desde: 120000, hasta: null,    tipo: 0.26 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: can-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción de hijos"
+    importe_fijo: 200
+    articulo: "DL 1/2009 Canarias"
+
+  - id: can-familia-numerosa
+    categoria: familia
+    titulo: "Por familia numerosa"
+    importe_fijo: 450
+    articulo: "DL 1/2009 Canarias"
+
+  - id: can-alquiler-vivienda-habitual
+    categoria: vivienda
+    titulo: "Por alquiler de vivienda habitual"
+    porcentaje: 0.20
+    limite: 600
+    articulo: "DL 1/2009 Canarias"
+
+  - id: can-gastos-guarderia
+    categoria: educacion
+    titulo: "Por gastos de guardería"
+    porcentaje: 0.15
+    limite_por_hijo: 400
+    articulo: "DL 1/2009 Canarias"
+
+  - id: can-gastos-estudios
+    categoria: educacion
+    titulo: "Por gastos de estudios en otra isla o territorio"
+    importe_fijo: 1500
+    articulo: "DL 1/2009 Canarias"
+
+  - id: can-obras-mejora-vivienda
+    categoria: vivienda
+    titulo: "Por obras de rehabilitación energética de vivienda"
+    porcentaje: 0.10
+    base_maxima: 7000
+    articulo: "DL 1/2009 Canarias"

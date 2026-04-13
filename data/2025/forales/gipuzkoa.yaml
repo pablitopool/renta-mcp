@@ -9,20 +9,37 @@ nota: |
   Régimen foral. Valores aproximados v0.1; verificar en BOG.
 
 escala_autonomica:
-  - { desde: 0,      hasta: 16030,   tipo: 0.23 }
-  - { desde: 16030,  hasta: 32060,   tipo: 0.28 }
-  - { desde: 32060,  hasta: 48090,   tipo: 0.35 }
-  - { desde: 48090,  hasta: 64120,   tipo: 0.40 }
-  - { desde: 64120,  hasta: 96180,   tipo: 0.45 }
-  - { desde: 96180,  hasta: 128240,  tipo: 0.46 }
-  - { desde: 128240, hasta: 176330,  tipo: 0.47 }
-  - { desde: 176330, hasta: null,    tipo: 0.49 }
+  - { desde: 0,      hasta: 16700,   tipo: 0.23 }
+  - { desde: 16700,  hasta: 33400,   tipo: 0.28 }
+  - { desde: 33400,  hasta: 50100,   tipo: 0.35 }
+  - { desde: 50100,  hasta: 66800,   tipo: 0.40 }
+  - { desde: 66800,  hasta: 100200,  tipo: 0.45 }
+  - { desde: 100200, hasta: 133600,  tipo: 0.46 }
+  - { desde: 133600, hasta: 184400,  tipo: 0.47 }
+  - { desde: 184400, hasta: null,    tipo: 0.49 }
 
 minimos:
-  personal: 5550
-  por_descendiente: [2400, 2700, 4000, 4500]
-  hijo_menor_3: 2800
-  por_ascendiente: 1150
-  discapacidad_33_65: 3000
+  personal: 5910
+  por_descendiente: [2620, 3250, 4550, 5300]
+  hijo_menor_3: 3200
+  por_ascendiente: 1320
+  discapacidad_33_65: 3420
 
-deducciones: []
+deducciones:
+  - id: gip-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por alquiler vivienda habitual"
+    porcentaje: 0.20
+    limite: 1600
+    articulo: "NF 3/2014 IRPF Gipuzkoa"
+  - id: gip-inversion-vivienda-habitual
+    categoria: vivienda
+    titulo: "Por adquisición vivienda habitual"
+    porcentaje: 0.18
+    base_maxima: 9040
+    articulo: "NF 3/2014 IRPF Gipuzkoa"
+  - id: gip-donativos-euskera
+    categoria: donativos
+    titulo: "Por donaciones para el fomento del euskera"
+    porcentaje: 0.25
+    articulo: "NF 3/2014 IRPF Gipuzkoa"

@@ -18,4 +18,43 @@ escala_autonomica:
   - { desde: 130000, hasta: null,    tipo: 0.25 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: ara-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción del tercer hijo o sucesivos"
+    importe_fijo: 500
+    articulo: "DL 1/2005 Aragón"
+
+  - id: ara-adopcion-internacional
+    categoria: familia
+    titulo: "Por adopción internacional de niños"
+    importe_fijo: 600
+    articulo: "DL 1/2005 Aragón"
+
+  - id: ara-cuidado-personas-dependientes
+    categoria: familia
+    titulo: "Por cuidado de personas dependientes"
+    importe_fijo: 150
+    articulo: "DL 1/2005 Aragón"
+
+  - id: ara-alquiler-vivienda-joven
+    categoria: vivienda
+    titulo: "Por arrendamiento vivienda habitual vinculada a determinadas operaciones"
+    porcentaje: 0.10
+    base_maxima: 4800
+    articulo: "DL 1/2005 Aragón"
+
+  - id: ara-adquisicion-vivienda-rural
+    categoria: vivienda
+    titulo: "Por adquisición de vivienda habitual en núcleos rurales"
+    porcentaje: 0.05
+    base_maxima: 9040
+    articulo: "DL 1/2005 Aragón"
+
+  - id: ara-gastos-guarderia
+    categoria: educacion
+    titulo: "Por gastos de guardería de hijos menores de 3 años"
+    porcentaje: 0.15
+    limite: 250
+    articulo: "DL 1/2005 Aragón"

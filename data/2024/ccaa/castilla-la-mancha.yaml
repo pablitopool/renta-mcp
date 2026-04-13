@@ -14,4 +14,37 @@ escala_autonomica:
   - { desde: 60000,  hasta: null,    tipo: 0.225 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: clm-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción de hijos"
+    importe_fijo: 100
+    articulo: "DL 1/2022 Castilla-La Mancha"
+
+  - id: clm-familia-numerosa
+    categoria: familia
+    titulo: "Por familia numerosa"
+    importe_fijo: 200
+    articulo: "DL 1/2022 Castilla-La Mancha"
+
+  - id: clm-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por arrendamiento vivienda habitual jóvenes"
+    porcentaje: 0.15
+    limite: 450
+    requisitos: { edad_maxima: 36 }
+    articulo: "DL 1/2022 Castilla-La Mancha"
+
+  - id: clm-gastos-libros-texto
+    categoria: educacion
+    titulo: "Por gastos en libros de texto e idiomas"
+    importe_fijo: 100
+    articulo: "DL 1/2022 Castilla-La Mancha"
+
+  - id: clm-discapacidad
+    categoria: discapacidad
+    titulo: "Por contribuyentes con discapacidad"
+    importe_fijo: 300
+    requisitos: { grado_minimo: 65 }
+    articulo: "DL 1/2022 Castilla-La Mancha"

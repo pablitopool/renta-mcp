@@ -14,4 +14,47 @@ escala_autonomica:
   - { desde: 60000,  hasta: null,    tipo: 0.225 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: and-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción de hijos"
+    importe_fijo: 200
+    por_unidad: hijo
+    articulo: "DL 1/2018 Andalucía"
+
+  - id: and-familia-numerosa
+    categoria: familia
+    titulo: "Para familias numerosas de categoría general"
+    importe_fijo: 200
+    articulo: "DL 1/2018 Andalucía"
+
+  - id: and-discapacidad
+    categoria: discapacidad
+    titulo: "Para contribuyentes con discapacidad"
+    importe_fijo: 100
+    requisitos: { grado_minimo: 33 }
+    articulo: "DL 1/2018 Andalucía"
+
+  - id: and-adquisicion-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por adquisición o rehabilitación de vivienda habitual por jóvenes"
+    porcentaje: 0.05
+    base_maxima: 9040
+    requisitos: { edad_maxima: 35 }
+    articulo: "DL 1/2018 Andalucía"
+
+  - id: and-alquiler-jovenes
+    categoria: vivienda
+    titulo: "Por alquiler de vivienda habitual de jóvenes"
+    porcentaje: 0.15
+    limite: 600
+    requisitos: { edad_maxima: 35 }
+    articulo: "DL 1/2018 Andalucía"
+
+  - id: and-donativos-investigacion
+    categoria: donativos
+    titulo: "Por donativos con finalidad ecológica"
+    porcentaje: 0.10
+    limite: 150
+    articulo: "DL 1/2018 Andalucía"

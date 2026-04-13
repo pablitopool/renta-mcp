@@ -14,4 +14,43 @@ escala_autonomica:
   - { desde: 53407,  hasta: null,    tipo: 0.215 }
 
 minimos: {}
-deducciones: []
+
+deducciones:
+  - id: cyl-nacimiento-adopcion
+    categoria: familia
+    titulo: "Por nacimiento o adopción de hijos"
+    importe_fijo: 1010
+    articulo: "DL 1/2013 Castilla y León"
+
+  - id: cyl-familia-numerosa
+    categoria: familia
+    titulo: "Por familia numerosa"
+    importe_fijo: 506
+    articulo: "DL 1/2013 Castilla y León"
+
+  - id: cyl-cuidado-hijos-menores
+    categoria: familia
+    titulo: "Por cuidado de hijos menores"
+    porcentaje: 0.30
+    limite_por_hijo: 322
+    articulo: "DL 1/2013 Castilla y León"
+
+  - id: cyl-alquiler-vivienda-jovenes
+    categoria: vivienda
+    titulo: "Por alquiler de vivienda habitual para jóvenes"
+    porcentaje: 0.20
+    limite: 459
+    articulo: "DL 1/2013 Castilla y León"
+
+  - id: cyl-adquisicion-vivienda-rural
+    categoria: vivienda
+    titulo: "Por adquisición de vivienda habitual en núcleos rurales"
+    porcentaje: 0.05
+    base_maxima: 9040
+    articulo: "DL 1/2013 Castilla y León"
+
+  - id: cyl-gastos-adopcion-internacional
+    categoria: familia
+    titulo: "Por gastos adopción internacional"
+    importe_fijo: 784
+    articulo: "DL 1/2013 Castilla y León"
