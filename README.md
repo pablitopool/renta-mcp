@@ -554,7 +554,7 @@ Los documentos descargados se guardan en `data/raw/` (gitignored) con checksums 
 
 ### 🏷️ Releases y versionado
 
-El proceso de release usa el script [`tag_version.sh`](tag_version.sh) (heredado del repo hermano `madrid-opendata-mcp`) para actualizar `pyproject.toml`, crear una etiqueta git y añadir una entrada en [CHANGELOG.md](CHANGELOG.md).
+El proceso de release usa el script [`tag_version.sh`](tag_version.sh) para actualizar `pyproject.toml`, crear una etiqueta git y añadir una entrada en [CHANGELOG.md](CHANGELOG.md).
 
 **Requisitos previos**: [GitHub CLI](https://cli.github.com/) es opcional, pero `git` debe estar instalado y debes estar en la rama principal con el directorio de trabajo limpio antes de etiquetar una release.
 
