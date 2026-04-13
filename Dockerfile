@@ -7,6 +7,8 @@ COPY pyproject.toml README.md ./
 COPY helpers ./helpers
 COPY tools ./tools
 COPY resources ./resources
+COPY prompts ./prompts
+COPY scripts ./scripts
 COPY data ./data
 COPY main.py ./
 
