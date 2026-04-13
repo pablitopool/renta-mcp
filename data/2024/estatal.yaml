@@ -37,7 +37,6 @@ escala_ahorro_autonomica:
 
 # Reducción por rendimientos del trabajo (art. 20 LIRPF).
 # Cifras BOE-A-2024-26172 (Ley Presupuestos 2024 + actualizaciones).
-# Importes del ejercicio 2024 mantenidos para 2024 pendiente confirmación.
 reduccion_rendimientos_trabajo:
   umbral_maximo_base: 14852
   umbral_maximo: 17673.52

@@ -70,11 +70,18 @@ class TerritorioSchema(BaseModel):
     territorio: TerritorioMetaSchema
     año: int
     fuente_boe: str | None = None
+    revisado_en: str | None = None
     escala_autonomica: list[TramoSchema] | None = None
     escala_general: list[TramoSchema] | None = None
     escala_ahorro: list[TramoSchema] | None = None
     minimos: dict[str, Any] | None = None
     deducciones: list[dict[str, Any]] = Field(default_factory=list)
+
+
+def _es_yaml_publico_territorial(path: Path) -> bool:
+    return path.is_file() and path.suffix == ".yaml" and not path.name.endswith(
+        ".seed.yaml"
+    )
 
 
 def _resolver_archivo(año: int, slug: str) -> Path:
@@ -109,7 +116,15 @@ def load_territorio(año: int, slug: str) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as fh:
         raw = yaml.safe_load(fh)
     validado = TerritorioSchema.model_validate(raw)
-    return validado.model_dump(mode="python")
+    datos = validado.model_dump(mode="python")
+    fuente_boe = datos.get("fuente_boe")
+    revisado_en = datos.get("revisado_en")
+    for deduccion in datos.get("deducciones") or []:
+        if fuente_boe and not deduccion.get("fuente_boe"):
+            deduccion["fuente_boe"] = fuente_boe
+        if revisado_en and not deduccion.get("revisado_en"):
+            deduccion["revisado_en"] = revisado_en
+    return datos
 
 
 def listar_territorios(año: int) -> list[str]:
@@ -118,5 +133,9 @@ def listar_territorios(año: int) -> list[str]:
     for sub in ("ccaa", "forales"):
         carpeta = base / sub
         if carpeta.exists():
-            territorios.extend(sorted(p.stem for p in carpeta.glob("*.yaml")))
+            territorios.extend(
+                sorted(
+                    p.stem for p in carpeta.glob("*.yaml") if _es_yaml_publico_territorial(p)
+                )
+            )
     return territorios

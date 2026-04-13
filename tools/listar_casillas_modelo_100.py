@@ -45,7 +45,7 @@ async def listar_casillas_modelo_100_impl(
         for c in items:
             lineas.append(f"- **{c['numero']}** · {c['nombre']}")
         lineas.append("")
-    lineas.append(f"_Total: {len(filtradas)} casillas (subset curado v0.1)_")
+    lineas.append(f"_Total: {len(filtradas)} casillas_")
     return "\n".join(lineas)
 
 
@@ -58,7 +58,7 @@ def register_listar_casillas_modelo_100_tool(mcp: FastMCP) -> None:
     ) -> str:
         """Lista las casillas del Modelo 100 por sección.
 
-        Secciones disponibles (subset v0.1): ``identificacion``,
+        Secciones disponibles: ``identificacion``,
         ``rendimientos_trabajo``, ``capital_inmobiliario``, ``capital_mobiliario``,
         ``actividades_economicas``, ``rentas_imputadas``, ``ganancias_perdidas``,
         ``reducciones``, ``minimos``, ``cuota``, ``deducciones_estatales``,

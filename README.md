@@ -371,13 +371,15 @@ El servidor MCP ofrece herramientas para calcular el IRPF, consultar normativa a
 
 ### Cálculo fiscal
 
-- **`calcular_irpf`** - Liquidación completa del IRPF: aplica reducciones, mínimo personal/familiar, escalas estatal y autonómica (o foral única), deducciones estatales y maternidad reembolsable. Devuelve cuota íntegra, líquida, diferencial y desglose paso a paso.
+- **`calcular_irpf`** - Liquidación completa del IRPF: aplica reducciones, mínimo personal/familiar, escalas estatal y autonómica (o foral única), deducciones estatales, deducciones autonómicas/forales reclamadas y maternidad reembolsable. Devuelve cuota íntegra, líquida, diferencial y desglose paso a paso.
 
-  Parámetros: `año` (obligatorio), `territorio` (obligatorio), `rendimiento_neto_trabajo` (opcional, por defecto 0), `rendimiento_neto_capital_mobiliario` (opcional), `rendimiento_neto_capital_inmobiliario` (opcional), `rendimiento_neto_actividades` (opcional), `ganancias_patrimoniales_ahorro` (opcional), `situacion_familiar` (`individual` | `conjunta_biparental` | `conjunta_monoparental`), `edad_contribuyente` (opcional), `hijos_edades` (opcional, lista de edades), `discapacidad_contribuyente` (opcional), `aportaciones_planes_pensiones` (opcional), `retenciones_practicadas` (opcional)
+  Parámetros: `año` (obligatorio), `territorio` (obligatorio), `rendimiento_neto_trabajo` (opcional, por defecto 0), `rendimiento_neto_capital_mobiliario` (opcional), `rendimiento_neto_capital_inmobiliario` (opcional), `rendimiento_neto_actividades` (opcional), `ganancias_patrimoniales_ahorro` (opcional), `situacion_familiar` (`individual` | `conjunta_biparental` | `conjunta_monoparental`), `edad_contribuyente` (opcional), `hijos_edades` (opcional, lista de edades), `ascendientes_edades` (opcional), `discapacidad_contribuyente` (opcional), `aportaciones_planes_pensiones` (opcional), `retenciones_practicadas` (opcional), `donativos_ley_49_2002` (opcional), `donativos_otros` (opcional), `inversion_vivienda_transitoria` (opcional), `obras_eficiencia_energetica` (opcional), `obras_eficiencia_energetica_tipo` (opcional), `familia_numerosa_categoria` (opcional), `alquiler_vivienda_habitual` (opcional), `inversion_vivienda_habitual` (opcional), `inversion_vivienda_habitual_nacimiento_adopcion` (opcional), `inversion_vivienda_habitual_municipio_despoblacion` (opcional), `intereses_prestamo_adquisicion_vivienda_joven` (opcional), `exceso_intereses_financiacion_vivienda` (opcional), `donativos_autonomicos` (opcional), `cotizaciones_empleados_hogar` (opcional), `gastos_arrendamiento_viviendas` (opcional), `gastos_guarderia` (opcional), `gastos_educativos_descendientes` (opcional), `gastos_material_escolar` (opcional), `gastos_escolaridad` (opcional), `gastos_idiomas` (opcional), `gastos_uniformes` (opcional), `gastos_estudios_descendientes` (opcional), `cuotas_sindicales` (opcional), `nacimientos_adopciones_o_acogimientos` (opcional), `adopciones_internacionales` (opcional), `acogimientos_menores` (opcional), `acogimientos_mayores_o_discapacitados` (opcional), `cambios_residencia_municipio_despoblacion` (opcional), `viviendas_vacias_arrendadas` (opcional), `deducciones_autonomicas_reclamadas` (opcional, lista de IDs), `bases_deducciones_autonomicas` (opcional, mapa `id -> base`), `componentes_deducciones_autonomicas` (opcional, mapa `id -> {componente: base}`), `meses_maternidad_por_hijo_menor_3` (opcional)
 
-- **`calcular_retencion_nomina`** - Estima el tipo de retención IRPF y la retención mensual sobre una nómina, aplicando el cálculo del motor y dividiendo entre el número de pagas.
+  Nota: para la mayoría de deducciones autonómicas ya no hace falta pasar IDs manualmente si proporcionas los hechos fiscales básicos (alquiler, vivienda en municipios en riesgo de despoblación, intereses hipotecarios de jóvenes, incremento de costes financieros, donativos autonómicos, cotizaciones de empleados de hogar, gastos de arrendador, gastos educativos, nacimientos, adopciones y acogimientos, etc.). Los IDs siguen disponibles para casos avanzados o flujos guiados.
 
-  Parámetros: `año` (obligatorio), `territorio` (obligatorio), `salario_bruto_anual` (obligatorio), `situacion_familiar` (opcional), `hijos_edades` (opcional), `edad_contribuyente` (opcional), `discapacidad_contribuyente` (opcional), `meses_pago` (opcional, 12 o 14 — por defecto 14)
+- **`calcular_retencion_nomina`** - Estimación procedimental de la retención IRPF en nómina a partir del salario bruto anual, cotizaciones del trabajador, gastos deducibles del trabajo, mínimo personal y familiar relevante y cuota anual estimada.
+
+  Parámetros: `año` (obligatorio), `territorio` (obligatorio), `salario_bruto_anual` (obligatorio), `situacion_familiar` (opcional), `hijos_edades` (opcional), `ascendientes_edades` (opcional), `edad_contribuyente` (opcional), `discapacidad_contribuyente` (opcional), `meses_pago` (opcional, 12 o 14 — por defecto 14), `cotizaciones_seguridad_social` (opcional, override explícito; si no se informa se estiman y la hipótesis queda reflejada en la salida), `otros_gastos_deducibles` (opcional, adicionales al mínimo general de 2.000 €)
 
 - **`validar_minimo_declarante`** - Verifica que la reducción por rendimientos del trabajo (art. 20 LIRPF) no genere base liquidable negativa.
 
@@ -395,17 +397,17 @@ El servidor MCP ofrece herramientas para calcular el IRPF, consultar normativa a
 
 ### Deducciones autonómicas
 
-- **`listar_deducciones_autonomicas`** - Lista las deducciones autonómicas vigentes para una CCAA, opcionalmente filtradas por categoría (familia, vivienda, educación, donativos, inversión, discapacidad, cultura, otros).
+- **`listar_deducciones_autonomicas`** - Lista las deducciones autonómicas vigentes para una CCAA, opcionalmente filtradas por categoría (familia, vivienda, educación, donativos, inversión, discapacidad, cultura, otros). Cada línea incluye el `id` reclamable en `calcular_irpf`.
 
   Parámetros: `ccaa` (obligatorio), `año` (obligatorio), `categoria` (opcional)
 
-- **`buscar_deduccion`** - Búsqueda fuzzy (rapidfuzz) en el catálogo de deducciones autonómicas — en una CCAA concreta o en todas.
+- **`buscar_deduccion`** - Búsqueda fuzzy (rapidfuzz) en el catálogo de deducciones autonómicas — en una CCAA concreta o en todas. Devuelve también el `id` de cada deducción para poder aplicarla después en `calcular_irpf`.
 
   Parámetros: `query` (obligatorio), `año` (obligatorio), `ccaa` (opcional), `limite` (opcional, por defecto 10)
 
 ### Modelo 100 (casillas)
 
-- **`listar_casillas_modelo_100`** - Lista las casillas del Modelo 100 agrupadas por apartado (identificación, rendimientos trabajo, capital, actividades económicas, ganancias/pérdidas, reducciones, mínimos, cuota, deducciones, retenciones, resultado).
+- **`listar_casillas_modelo_100`** - Lista las casillas del Modelo 100 agrupadas por apartado operativo (identificación, rendimientos trabajo, capital, actividades económicas, ganancias/pérdidas, reducciones, mínimos, cuota, deducciones, retenciones, resultado).
 
   Parámetros: `año` (obligatorio), `seccion` (opcional)
 

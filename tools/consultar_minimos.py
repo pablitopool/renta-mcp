@@ -7,6 +7,7 @@ from mcp.server.fastmcp import FastMCP
 from helpers.data_loader import load_estatal, load_territorio
 from helpers.logging import log_tool
 from helpers.tax_engine import (
+    Ascendiente,
     DatosFiscalesNoDisponibles,
     Hijo,
     InputIRPF,
@@ -38,6 +39,7 @@ async def consultar_minimos_impl(
         territorio=territorio.lower(),
         edad_contribuyente=edad_contribuyente,
         hijos=[Hijo(edad=e) for e in (hijos_edades or [])],
+        ascendientes=[Ascendiente(edad=e) for e in (ascendientes_edades or [])],
         discapacidad_contribuyente=discapacidad_contribuyente,
     )
     total = calcular_minimo_personal_familiar(entrada, minimos)
@@ -46,6 +48,7 @@ async def consultar_minimos_impl(
         f"## Mínimo personal y familiar — {territorio} {año}\n\n"
         f"- Edad contribuyente: {edad_contribuyente}\n"
         f"- Hijos a cargo: {hijos_edades or '—'}\n"
+        f"- Ascendientes a cargo: {ascendientes_edades or '—'}\n"
         f"- Discapacidad contribuyente: {discapacidad_contribuyente}%\n\n"
         f"**Mínimo total aplicable**: {total} €\n\n"
         "_Se aplica como tipo 0 sobre la base liquidable (art. 56-61 LIRPF)._"

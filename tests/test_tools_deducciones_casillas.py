@@ -15,6 +15,7 @@ async def test_listar_casillas_completo():
     salida = await listar_casillas_modelo_100_impl(2025)
     assert "Casillas Modelo 100" in salida
     assert "0025" in salida or "**0025**" in salida  # rendimiento neto trabajo
+    assert "subset curado v0.1" not in salida
 
 
 @pytest.mark.asyncio
@@ -41,6 +42,7 @@ async def test_listar_deducciones_madrid():
     salida = await listar_deducciones_autonomicas_impl("madrid", 2025)
     assert "Comunidad de Madrid" in salida
     assert "nacimiento" in salida.lower()
+    assert "mad-nacimiento-adopcion" in salida
 
 
 @pytest.mark.asyncio
@@ -55,3 +57,10 @@ async def test_listar_deducciones_madrid_categoria_vivienda():
 async def test_buscar_deduccion_alquiler():
     salida = await buscar_deduccion_impl("alquiler vivienda", 2025, ccaa="madrid")
     assert "Arrendamiento" in salida or "alquiler" in salida.lower()
+    assert "mad-alquiler-jovenes" in salida
+
+
+@pytest.mark.asyncio
+async def test_buscar_deduccion_global_excluye_seed_y_no_rompe():
+    salida = await buscar_deduccion_impl("alquiler vivienda", 2025)
+    assert "Deducciones que coinciden" in salida

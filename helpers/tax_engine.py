@@ -151,6 +151,34 @@ class InputIRPF:
         "calefaccion_refrigeracion", "consumo_primaria", "rehabilitacion"
     ] = "calefaccion_refrigeracion"
     familia_numerosa_categoria: FamiliaNumerosaCategoria | None = None
+    alquiler_vivienda_habitual: Decimal = Decimal(0)
+    inversion_vivienda_habitual: Decimal = Decimal(0)
+    inversion_vivienda_habitual_nacimiento_adopcion: Decimal = Decimal(0)
+    inversion_vivienda_habitual_municipio_despoblacion: Decimal = Decimal(0)
+    intereses_prestamo_adquisicion_vivienda_joven: Decimal = Decimal(0)
+    exceso_intereses_financiacion_vivienda: Decimal = Decimal(0)
+    donativos_autonomicos: Decimal = Decimal(0)
+    cotizaciones_empleados_hogar: Decimal = Decimal(0)
+    gastos_arrendamiento_viviendas: Decimal = Decimal(0)
+    gastos_guarderia: Decimal = Decimal(0)
+    gastos_educativos_descendientes: Decimal = Decimal(0)
+    gastos_material_escolar: Decimal = Decimal(0)
+    gastos_escolaridad: Decimal = Decimal(0)
+    gastos_idiomas: Decimal = Decimal(0)
+    gastos_uniformes: Decimal = Decimal(0)
+    gastos_estudios_descendientes: Decimal = Decimal(0)
+    cuotas_sindicales: Decimal = Decimal(0)
+    nacimientos_adopciones_o_acogimientos: int = 0
+    adopciones_internacionales: int = 0
+    acogimientos_menores: int = 0
+    acogimientos_mayores_o_discapacitados: int = 0
+    cambios_residencia_municipio_despoblacion: int = 0
+    viviendas_vacias_arrendadas: int = 0
+    deducciones_autonomicas_reclamadas: list[str] = field(default_factory=list)
+    bases_deducciones_autonomicas: dict[str, Decimal] = field(default_factory=dict)
+    componentes_deducciones_autonomicas: dict[str, dict[str, Decimal]] = field(
+        default_factory=dict
+    )
     # Maternidad: hijos menores de 3 años a efectos del art. 81 LIRPF.
     meses_maternidad_por_hijo_menor_3: int = 12
 
@@ -183,8 +211,115 @@ class ResultadoIRPF:
     # Fase 7 — detalle deducciones + maternidad reembolsable
     deducciones_estatales_total: Decimal = Decimal(0)
     deducciones_estatales_detalle: list[PasoCalculo] = field(default_factory=list)
+    deducciones_autonomicas_total: Decimal = Decimal(0)
+    deducciones_autonomicas_detalle: list[PasoCalculo] = field(default_factory=list)
     maternidad_reembolsable: Decimal = Decimal(0)
     devolucion_maternidad: Decimal = Decimal(0)
+
+
+def _texto_deduccion(deduccion: dict) -> str:
+    return " ".join(
+        [
+            str(deduccion.get("id", "")),
+            str(deduccion.get("titulo", "")),
+            str(deduccion.get("categoria", "")),
+        ]
+    ).lower()
+
+
+def _validar_edad(etiqueta: str, edad: int) -> None:
+    if edad < 0 or edad > 120:
+        raise EntradaInvalida(f"{etiqueta} fuera de rango razonable: {edad}")
+
+
+def validar_entrada_irpf(entrada: InputIRPF) -> None:
+    if entrada.año <= 0:
+        raise EntradaInvalida(f"Año inválido: {entrada.año}")
+    if not entrada.territorio.strip():
+        raise EntradaInvalida("territorio no puede estar vacío")
+
+    _validar_edad("edad_contribuyente", entrada.edad_contribuyente)
+    for i, hijo in enumerate(entrada.hijos, start=1):
+        _validar_edad(f"edad hijo {i}", hijo.edad)
+    for i, asc in enumerate(entrada.ascendientes, start=1):
+        _validar_edad(f"edad ascendiente {i}", asc.edad)
+
+    if entrada.discapacidad_contribuyente < 0 or entrada.discapacidad_contribuyente > 100:
+        raise EntradaInvalida(
+            "discapacidad_contribuyente debe estar entre 0 y 100"
+        )
+    if entrada.meses_maternidad_por_hijo_menor_3 < 0:
+        raise EntradaInvalida("meses_maternidad_por_hijo_menor_3 no puede ser negativo")
+    if entrada.nacimientos_adopciones_o_acogimientos < 0:
+        raise EntradaInvalida("nacimientos_adopciones_o_acogimientos no puede ser negativo")
+    if entrada.adopciones_internacionales < 0:
+        raise EntradaInvalida("adopciones_internacionales no puede ser negativo")
+    if entrada.acogimientos_menores < 0:
+        raise EntradaInvalida("acogimientos_menores no puede ser negativo")
+    if entrada.acogimientos_mayores_o_discapacitados < 0:
+        raise EntradaInvalida(
+            "acogimientos_mayores_o_discapacitados no puede ser negativo"
+        )
+    if entrada.cambios_residencia_municipio_despoblacion < 0:
+        raise EntradaInvalida(
+            "cambios_residencia_municipio_despoblacion no puede ser negativo"
+        )
+    if entrada.viviendas_vacias_arrendadas < 0:
+        raise EntradaInvalida("viviendas_vacias_arrendadas no puede ser negativo")
+
+    importes = {
+        "rendimiento_neto_trabajo": entrada.rendimiento_neto_trabajo,
+        "rendimiento_neto_capital_mobiliario": entrada.rendimiento_neto_capital_mobiliario,
+        "rendimiento_neto_capital_inmobiliario": entrada.rendimiento_neto_capital_inmobiliario,
+        "rendimiento_neto_actividades": entrada.rendimiento_neto_actividades,
+        "ganancias_patrimoniales_ahorro": entrada.ganancias_patrimoniales_ahorro,
+        "aportaciones_planes_pensiones": entrada.aportaciones_planes_pensiones,
+        "retenciones_practicadas": entrada.retenciones_practicadas,
+        "donativos_ley_49_2002": entrada.donativos_ley_49_2002,
+        "donativos_otros": entrada.donativos_otros,
+        "inversion_vivienda_transitoria": entrada.inversion_vivienda_transitoria,
+        "obras_eficiencia_energetica": entrada.obras_eficiencia_energetica,
+        "alquiler_vivienda_habitual": entrada.alquiler_vivienda_habitual,
+        "inversion_vivienda_habitual": entrada.inversion_vivienda_habitual,
+        "inversion_vivienda_habitual_nacimiento_adopcion": (
+            entrada.inversion_vivienda_habitual_nacimiento_adopcion
+        ),
+        "inversion_vivienda_habitual_municipio_despoblacion": (
+            entrada.inversion_vivienda_habitual_municipio_despoblacion
+        ),
+        "intereses_prestamo_adquisicion_vivienda_joven": (
+            entrada.intereses_prestamo_adquisicion_vivienda_joven
+        ),
+        "exceso_intereses_financiacion_vivienda": (
+            entrada.exceso_intereses_financiacion_vivienda
+        ),
+        "donativos_autonomicos": entrada.donativos_autonomicos,
+        "cotizaciones_empleados_hogar": entrada.cotizaciones_empleados_hogar,
+        "gastos_arrendamiento_viviendas": entrada.gastos_arrendamiento_viviendas,
+        "gastos_guarderia": entrada.gastos_guarderia,
+        "gastos_educativos_descendientes": entrada.gastos_educativos_descendientes,
+        "gastos_material_escolar": entrada.gastos_material_escolar,
+        "gastos_escolaridad": entrada.gastos_escolaridad,
+        "gastos_idiomas": entrada.gastos_idiomas,
+        "gastos_uniformes": entrada.gastos_uniformes,
+        "gastos_estudios_descendientes": entrada.gastos_estudios_descendientes,
+        "cuotas_sindicales": entrada.cuotas_sindicales,
+    }
+    for etiqueta, valor in importes.items():
+        if valor < 0:
+            raise EntradaInvalida(f"{etiqueta} no puede ser negativo")
+
+    for ded_id, valor in entrada.bases_deducciones_autonomicas.items():
+        if valor < 0:
+            raise EntradaInvalida(
+                f"Base negativa para deducción autonómica {ded_id}: {valor}"
+            )
+    for ded_id, componentes in entrada.componentes_deducciones_autonomicas.items():
+        for componente, valor in componentes.items():
+            if valor < 0:
+                raise EntradaInvalida(
+                    f"Componente negativo para {ded_id}.{componente}: {valor}"
+                )
 
 
 def calcular_reduccion_trabajo(rendimiento_neto: Decimal, parametros: dict) -> Decimal:
@@ -367,6 +502,505 @@ def calcular_maternidad_reembolsable(
     return por_hijo * Decimal(hijos_menores_3)
 
 
+def _count_hijos_relevantes(deduccion: dict, entrada: InputIRPF) -> int:
+    if not entrada.hijos:
+        texto = _texto_deduccion(deduccion)
+        if (
+            "nacimiento" in texto
+            or "parto múltiple" in texto
+            or ("adop" in texto and "internacional" not in texto)
+        ):
+            return max(entrada.nacimientos_adopciones_o_acogimientos, 0)
+        return 0
+    texto = _texto_deduccion(deduccion)
+    if (
+        "nacimiento" in texto
+        or "parto múltiple" in texto
+        or ("adop" in texto and "internacional" not in texto)
+    ):
+        return (
+            entrada.nacimientos_adopciones_o_acogimientos
+            if entrada.nacimientos_adopciones_o_acogimientos > 0
+            else len(entrada.hijos)
+        )
+    if (
+        "menores de 3" in texto
+        or "menor de 3" in texto
+        or "guarder" in texto
+        or "cuidado-descendientes" in texto
+    ):
+        return sum(1 for h in entrada.hijos if h.edad < 3)
+    return len(entrada.hijos)
+
+
+def _count_unidades_deduccion(deduccion: dict, entrada: InputIRPF) -> int:
+    por_unidad = deduccion.get("por_unidad")
+    if por_unidad == "hijo":
+        return _count_hijos_relevantes(deduccion, entrada)
+    if por_unidad == "ascendiente":
+        return sum(
+            1
+            for asc in entrada.ascendientes
+            if asc.edad >= 65 or asc.discapacidad_porcentaje >= 33
+        )
+    if por_unidad == "acogimiento_menor":
+        return entrada.acogimientos_menores
+    if por_unidad == "acogimiento_mayor_discapacitado":
+        return entrada.acogimientos_mayores_o_discapacitados
+    if por_unidad == "adopcion_internacional":
+        return entrada.adopciones_internacionales
+    if por_unidad == "cambio_residencia_despoblacion":
+        return entrada.cambios_residencia_municipio_despoblacion
+    if por_unidad == "vivienda_vacia_arrendada":
+        return entrada.viviendas_vacias_arrendadas
+    return 1
+
+
+def derivar_deducciones_autonomicas(
+    entrada: InputIRPF,
+    catalogo: list[dict],
+) -> tuple[list[str], dict[str, Decimal], dict[str, dict[str, Decimal]]]:
+    ids = list(entrada.deducciones_autonomicas_reclamadas)
+    bases = dict(entrada.bases_deducciones_autonomicas)
+    componentes = {
+        ded_id: dict(values)
+        for ded_id, values in entrada.componentes_deducciones_autonomicas.items()
+    }
+
+    def ensure_id(ded_id: str) -> None:
+        if ded_id not in ids:
+            ids.append(ded_id)
+
+    for ded in catalogo:
+        ded_id = ded["id"]
+        texto = _texto_deduccion(ded)
+
+        if any(
+            token in texto for token in ("nacimiento", "parto múltiple")
+        ) or ("adop" in texto and "internacional" not in texto):
+            if entrada.nacimientos_adopciones_o_acogimientos > 0:
+                ensure_id(ded_id)
+            continue
+
+        if "adopción internacional" in texto or "adopcion internacional" in texto:
+            if entrada.adopciones_internacionales > 0:
+                ensure_id(ded_id)
+            continue
+
+        if "cuidado de ascendientes" in texto or "cuidado-ascendientes" in ded_id:
+            if any(
+                asc.edad >= 65 or asc.discapacidad_porcentaje >= 33
+                for asc in entrada.ascendientes
+            ):
+                ensure_id(ded_id)
+            continue
+
+        if "acogimiento familiar" in texto and "no remunerado" not in texto:
+            if entrada.acogimientos_menores > 0:
+                ensure_id(ded_id)
+            continue
+
+        if "acogimiento no remunerado" in texto:
+            if entrada.acogimientos_mayores_o_discapacitados > 0:
+                ensure_id(ded_id)
+            continue
+
+        if (
+            "cambio de residencia" in texto
+            and "riesgo de despoblación" in texto
+        ):
+            if entrada.cambios_residencia_municipio_despoblacion > 0:
+                ensure_id(ded_id)
+            continue
+
+        if "familia numerosa" in texto:
+            if entrada.familia_numerosa_categoria:
+                ensure_id(ded_id)
+            elif (
+                "monoparental" in texto
+                and entrada.situacion_familiar == "conjunta_monoparental"
+            ):
+                ensure_id(ded_id)
+            continue
+
+        if (
+            "contribuyentes con discapacidad" in texto
+            or ded.get("categoria") == "discapacidad"
+        ):
+            if entrada.discapacidad_contribuyente > 0:
+                ensure_id(ded_id)
+            continue
+
+        if "donativ" in texto or "donacion" in texto:
+            if entrada.donativos_autonomicos > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.donativos_autonomicos
+            continue
+
+        if (
+            "gastos derivados del arrendamiento de viviendas" in texto
+            or "gastos-derivados-arrendamiento" in ded_id
+        ):
+            if entrada.gastos_arrendamiento_viviendas > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.gastos_arrendamiento_viviendas
+            continue
+
+        if "arrendamiento de viviendas vacías" in texto or "arrendamiento-viviendas-vacias" in ded_id:
+            if entrada.viviendas_vacias_arrendadas > 0:
+                ensure_id(ded_id)
+            continue
+
+        if "alquiler" in texto or "arrendamiento" in texto:
+            if entrada.alquiler_vivienda_habitual > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.alquiler_vivienda_habitual
+            continue
+
+        if (
+            "pago intereses de préstamos" in texto
+            or "pago de intereses de préstamos" in texto
+            or "pago intereses de prestamos" in texto
+            or "pago de intereses de prestamos" in texto
+        ):
+            if entrada.intereses_prestamo_adquisicion_vivienda_joven > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.intereses_prestamo_adquisicion_vivienda_joven
+            continue
+
+        if "incremento de los costes de la financiación ajena" in texto or "incremento-costes-financiacion" in ded_id:
+            if entrada.exceso_intereses_financiacion_vivienda > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.exceso_intereses_financiacion_vivienda
+            continue
+
+        if (
+            "adquisición de vivienda habitual por nacimiento o adopción" in texto
+            or "adquisicion-vivienda-habitual-nacimiento" in ded_id
+        ):
+            if (
+                entrada.inversion_vivienda_habitual_nacimiento_adopcion > 0
+                and entrada.nacimientos_adopciones_o_acogimientos > 0
+            ):
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = (
+                        entrada.inversion_vivienda_habitual_nacimiento_adopcion
+                    )
+            continue
+
+        if (
+            "adquisición de vivienda habitual en municipios en riesgo de despoblación"
+            in texto
+            or "adquisicion-vivienda-habitual-municipios-riesgo-despoblacion" in ded_id
+        ):
+            if entrada.inversion_vivienda_habitual_municipio_despoblacion > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = (
+                        entrada.inversion_vivienda_habitual_municipio_despoblacion
+                    )
+            continue
+
+        if (
+            "guarder" in texto
+            or "cuidado-descendientes" in texto
+            or "cuidado de hijos menores" in texto
+            or "empleados de hogar" in texto
+        ):
+            base_cuidado = max(
+                entrada.gastos_guarderia,
+                entrada.cotizaciones_empleados_hogar,
+            )
+            if base_cuidado > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = base_cuidado
+            continue
+
+        if (
+            "adquisición" in texto
+            or "inversión en vivienda" in texto
+            or "rehabilitación" in texto
+            or "obras" in texto
+            or "adecuación de vivienda" in texto
+        ) and "vivienda" in texto and not any(
+            token in texto
+            for token in (
+                "nacimiento o adopción",
+                "riesgo de despoblación",
+                "incremento de los costes de la financiación ajena",
+                "pago intereses de préstamos",
+                "pago intereses de prestamos",
+            )
+        ):
+            if entrada.inversion_vivienda_habitual > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.inversion_vivienda_habitual
+            continue
+
+        if "cuota" in texto and "sindical" in texto:
+            if entrada.cuotas_sindicales > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.cuotas_sindicales
+            continue
+
+        if "gastos educativos" in texto and (
+            entrada.gastos_escolaridad > 0
+            or entrada.gastos_idiomas > 0
+            or entrada.gastos_uniformes > 0
+        ):
+            ensure_id(ded_id)
+            if ded_id not in componentes:
+                componentes[ded_id] = {
+                    "escolaridad": entrada.gastos_escolaridad,
+                    "idiomas": entrada.gastos_idiomas,
+                    "uniformes": entrada.gastos_uniformes,
+                }
+            continue
+
+        if (
+            "material escolar" in texto
+            or "libros de texto" in texto
+            or "gastos escolares" in texto
+            or "gastos educativos de descendientes" in texto
+        ):
+            base_educacion = max(
+                entrada.gastos_material_escolar,
+                entrada.gastos_educativos_descendientes,
+            )
+            if base_educacion > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = base_educacion
+            continue
+
+        if "gastos de estudios" in texto or "estudios de descendientes" in texto:
+            if entrada.gastos_estudios_descendientes > 0:
+                ensure_id(ded_id)
+                if "porcentaje" in ded and ded_id not in bases:
+                    bases[ded_id] = entrada.gastos_estudios_descendientes
+
+    return ids, bases, componentes
+
+
+def _cumple_requisitos_deduccion_autonomica(
+    deduccion: dict,
+    entrada: InputIRPF,
+    base_liquidable_general: Decimal,
+    base_liquidable_ahorro: Decimal,
+) -> bool:
+    requisitos = deduccion.get("requisitos") or {}
+    if not requisitos:
+        return True
+
+    edad_maxima = requisitos.get("edad_maxima")
+    if edad_maxima is not None and entrada.edad_contribuyente > int(edad_maxima):
+        return False
+    edad_maxima_exclusiva = requisitos.get("edad_maxima_exclusiva")
+    if (
+        edad_maxima_exclusiva is not None
+        and entrada.edad_contribuyente >= int(edad_maxima_exclusiva)
+    ):
+        return False
+
+    grado_minimo = requisitos.get("grado_minimo")
+    if grado_minimo is not None and entrada.discapacidad_contribuyente < int(
+        grado_minimo
+    ):
+        return False
+
+    renta_total = base_liquidable_general + base_liquidable_ahorro
+    renta_max_individual = requisitos.get("renta_maxima_individual")
+    if (
+        renta_max_individual is not None
+        and entrada.situacion_familiar == "individual"
+        and renta_total > Decimal(str(renta_max_individual))
+    ):
+        return False
+
+    renta_max_conjunta = requisitos.get("renta_maxima_conjunta")
+    if (
+        renta_max_conjunta is not None
+        and entrada.situacion_familiar != "individual"
+        and renta_total > Decimal(str(renta_max_conjunta))
+    ):
+        return False
+
+    renta_por_miembro = requisitos.get("renta_maxima_por_miembro_unidad_familiar")
+    if renta_por_miembro is not None:
+        miembros = Decimal(1 + len(entrada.hijos))
+        if entrada.situacion_familiar == "conjunta_biparental":
+            miembros += Decimal(1)
+        limite = Decimal(str(renta_por_miembro)) * miembros
+        if renta_total > limite:
+            return False
+
+    return True
+
+
+def aplicar_deducciones_autonomicas(
+    cuota_integra_autonomica: Decimal,
+    base_liquidable_general: Decimal,
+    base_liquidable_ahorro: Decimal,
+    entrada: InputIRPF,
+    datos_territorio: dict,
+) -> tuple[Decimal, list[PasoCalculo]]:
+    """Aplica deducciones autonómicas o forales declaradas en el YAML del territorio.
+
+    El cálculo se activa únicamente para los IDs reclamados por el llamante o
+    para aquellos con bases/componentes explícitamente informados.
+    """
+    catalogo = datos_territorio.get("deducciones") or []
+    if not catalogo:
+        return Decimal(0), []
+
+    (
+        ids_reclamados,
+        bases_deducciones,
+        componentes_deducciones,
+    ) = derivar_deducciones_autonomicas(entrada, catalogo)
+
+    if not ids_reclamados:
+        return Decimal(0), []
+
+    por_id = {d["id"]: d for d in catalogo}
+    detalle: list[PasoCalculo] = []
+    total = Decimal(0)
+
+    for ded_id in ids_reclamados:
+        ded = por_id.get(ded_id)
+        if ded is None:
+            raise EntradaInvalida(
+                f"Deducción autonómica desconocida para {entrada.territorio}: {ded_id}"
+            )
+        if not _cumple_requisitos_deduccion_autonomica(
+            ded, entrada, base_liquidable_general, base_liquidable_ahorro
+        ):
+            continue
+
+        importe = Decimal(0)
+        detalle_linea = ""
+        titulo = ded["titulo"]
+
+        if "porcentaje_cuota" in ded:
+            porcentaje = Decimal(str(ded["porcentaje_cuota"]))
+            importe = cuota_integra_autonomica * porcentaje
+            if entrada.familia_numerosa_categoria == "especial" and ded.get(
+                "limite_especial"
+            ) is not None:
+                importe = min(importe, Decimal(str(ded["limite_especial"])))
+            elif ded.get("limite_general") is not None:
+                importe = min(importe, Decimal(str(ded["limite_general"])))
+            detalle_linea = f"{porcentaje * 100:.2f}% sobre cuota autonómica"
+        elif any(
+            key in ded
+            for key in (
+                "porcentaje_escolaridad",
+                "porcentaje_idiomas",
+                "porcentaje_uniformes",
+            )
+        ):
+            componentes = componentes_deducciones.get(ded_id) or {}
+            subtotal = Decimal(0)
+            partes: list[str] = []
+            for componente in ("escolaridad", "idiomas", "uniformes"):
+                pct_key = f"porcentaje_{componente}"
+                if pct_key not in ded:
+                    continue
+                base = Decimal(str(componentes.get(componente, 0)))
+                porcentaje = Decimal(str(ded[pct_key]))
+                subtotal += base * porcentaje
+                if base > 0:
+                    partes.append(f"{componente} {base} € x {porcentaje * 100:.2f}%")
+            if ded.get("limite_por_hijo") is not None:
+                hijos_relevantes = _count_hijos_relevantes(ded, entrada)
+                limite = Decimal(str(ded["limite_por_hijo"])) * Decimal(
+                    hijos_relevantes
+                )
+                subtotal = min(subtotal, limite)
+            importe = subtotal
+            detalle_linea = " + ".join(partes)
+        elif "importe_fijo" in ded:
+            importe = Decimal(str(ded["importe_fijo"]))
+            unidades = _count_unidades_deduccion(ded, entrada)
+            if ded.get("por_unidad") is not None:
+                importe *= Decimal(unidades)
+                detalle_linea = f"{ded['importe_fijo']} € x {unidades}"
+        elif "importes_por_orden" in ded:
+            unidades = _count_unidades_deduccion(ded, entrada)
+            importes = [Decimal(str(valor)) for valor in ded["importes_por_orden"]]
+            subtotal = Decimal(0)
+            for idx in range(unidades):
+                subtotal += importes[min(idx, len(importes) - 1)]
+            importe = subtotal
+            detalle_linea = f"{unidades} unidades según orden"
+        elif "porcentaje" in ded:
+            if ded_id not in bases_deducciones:
+                raise EntradaInvalida(
+                    f"Falta base para la deducción autonómica {ded_id}"
+                )
+            base = bases_deducciones[ded_id]
+            base_aplicable = base
+            if ded.get("base_maxima") is not None:
+                base_aplicable = min(base_aplicable, Decimal(str(ded["base_maxima"])))
+            if ded.get("limite_base_liquidable") is not None:
+                limite_base = (
+                    base_liquidable_general + base_liquidable_ahorro
+                ) * Decimal(str(ded["limite_base_liquidable"]))
+                base_aplicable = min(base_aplicable, limite_base)
+            porcentaje = Decimal(str(ded["porcentaje"]))
+            limite = (
+                Decimal(str(ded["limite"])) if ded.get("limite") is not None else None
+            )
+            if (
+                entrada.familia_numerosa_categoria
+                and ded.get("porcentaje_familia_numerosa") is not None
+            ):
+                porcentaje = Decimal(str(ded["porcentaje_familia_numerosa"]))
+                if ded.get("limite_familia_numerosa") is not None:
+                    limite = Decimal(str(ded["limite_familia_numerosa"]))
+            importe = base_aplicable * porcentaje
+            if limite is not None:
+                importe = min(importe, limite)
+            if ded.get("limite_por_hijo") is not None:
+                hijos_relevantes = _count_hijos_relevantes(ded, entrada)
+                limite = Decimal(str(ded["limite_por_hijo"])) * Decimal(
+                    hijos_relevantes
+                )
+                importe = min(importe, limite)
+            detalle_linea = f"Base {base_aplicable} € x {porcentaje * 100:.2f}%"
+
+        if importe <= 0:
+            continue
+
+        total += importe
+        detalle.append(
+            PasoCalculo(
+                concepto=f"Deducción autonómica {titulo}",
+                importe=importe,
+                detalle=f"id={ded_id}" + (f" · {detalle_linea}" if detalle_linea else ""),
+            )
+        )
+
+    if total > cuota_integra_autonomica and cuota_integra_autonomica >= 0:
+        total = max(cuota_integra_autonomica, Decimal(0))
+        detalle.append(
+            PasoCalculo(
+                concepto="Limitación por cuota íntegra autonómica",
+                importe=Decimal(0),
+            )
+        )
+    return total, detalle
+
+
 def calcular_irpf(
     entrada: InputIRPF,
     datos_estatal: dict,
@@ -378,6 +1012,7 @@ def calcular_irpf(
     validados por :func:`helpers.data_loader.load_estatal` /
     :func:`helpers.data_loader.load_territorio`.
     """
+    validar_entrada_irpf(entrada)
     desglose: list[PasoCalculo] = []
 
     reduc_trabajo = calcular_reduccion_trabajo(
@@ -476,11 +1111,25 @@ def calcular_irpf(
 
     cuota_integra_total = cuota_integra_estatal + cuota_integra_autonomica
 
-    # Fase 7 — deducciones estatales en cuota (art. 68 ss. LIRPF)
+    # Fase 7 — deducciones estatales y autonómicas en cuota
     deducciones_estatales_total, deducciones_detalle = aplicar_deducciones_estatales(
         cuota_integra_estatal, base_liquidable_general, entrada, datos_estatal
     )
-    cuota_liquida = max(cuota_integra_total - deducciones_estatales_total, Decimal(0))
+    deducciones_autonomicas_total, deducciones_autonomicas_detalle = (
+        aplicar_deducciones_autonomicas(
+            cuota_integra_autonomica,
+            base_liquidable_general,
+            base_liquidable_ahorro,
+            entrada,
+            datos_territorio,
+        )
+    )
+    cuota_liquida = max(
+        cuota_integra_total
+        - deducciones_estatales_total
+        - deducciones_autonomicas_total,
+        Decimal(0),
+    )
 
     # Fase 7 — maternidad reembolsable (art. 81 LIRPF): impuesto negativo
     maternidad_reembolsable = calcular_maternidad_reembolsable(entrada, datos_estatal)
@@ -541,6 +1190,13 @@ def calcular_irpf(
                 concepto=p.concepto, importe=redondear(p.importe), detalle=p.detalle
             )
             for p in deducciones_detalle
+        ],
+        deducciones_autonomicas_total=redondear(deducciones_autonomicas_total),
+        deducciones_autonomicas_detalle=[
+            PasoCalculo(
+                concepto=p.concepto, importe=redondear(p.importe), detalle=p.detalle
+            )
+            for p in deducciones_autonomicas_detalle
         ],
         maternidad_reembolsable=redondear(maternidad_reembolsable),
         devolucion_maternidad=redondear(devolucion_maternidad),

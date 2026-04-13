@@ -1,9 +1,8 @@
 """Tool MCP: ``calcular_retencion_nomina``.
 
-Aproximación del procedimiento general de retenciones sobre rendimientos del
-trabajo (art. 80 RIRPF y concordantes). Calcula el tipo de retención
-aplicando el motor IRPF y dividiendo la cuota resultante entre el
-rendimiento neto previsto, para obtener un porcentaje anual.
+Estimación procedimental de la retención sobre rendimientos del trabajo
+(art. 80 RIRPF y concordantes). Parte del salario bruto anual y explicita las
+hipótesis usadas para llegar a una retención anual y por paga estables.
 """
 
 from decimal import Decimal
@@ -14,6 +13,7 @@ from mcp.server.fastmcp import FastMCP
 from helpers.data_loader import load_estatal, load_territorio
 from helpers.logging import log_tool
 from helpers.tax_engine import (
+    Ascendiente,
     DatosFiscalesNoDisponibles,
     EntradaInvalida,
     Hijo,
@@ -26,6 +26,18 @@ from tools.error_handling import (
     raise_unexpected,
 )
 
+GASTOS_DEDUCIBLES_TRABAJO_ESTANDAR = Decimal("2000")
+TIPO_SS_EMPLEADO_ESTIMADO = Decimal("0.0648")
+DECIMALES = Decimal("0.01")
+
+
+def _estimar_cotizaciones_seguridad_social(bruto: Decimal) -> Decimal:
+    return bruto * TIPO_SS_EMPLEADO_ESTIMADO
+
+
+def _redondear_euros(valor: Decimal) -> Decimal:
+    return valor.quantize(DECIMALES)
+
 
 async def calcular_retencion_nomina_impl(
     año: int,
@@ -35,21 +47,50 @@ async def calcular_retencion_nomina_impl(
         "individual", "conjunta_biparental", "conjunta_monoparental"
     ] = "individual",
     hijos_edades: Optional[List[int]] = None,
+    ascendientes_edades: Optional[List[int]] = None,
     edad_contribuyente: int = 40,
     discapacidad_contribuyente: int = 0,
     meses_pago: int = 14,
+    cotizaciones_seguridad_social: Optional[float] = None,
+    otros_gastos_deducibles: float = 0.0,
 ) -> str:
     if salario_bruto_anual <= 0:
         raise EntradaInvalida("El salario bruto anual debe ser positivo")
     if meses_pago not in (12, 14):
         raise EntradaInvalida("meses_pago debe ser 12 o 14")
+    if otros_gastos_deducibles < 0:
+        raise EntradaInvalida("otros_gastos_deducibles no puede ser negativo")
+    if (
+        cotizaciones_seguridad_social is not None
+        and cotizaciones_seguridad_social < 0
+    ):
+        raise EntradaInvalida("cotizaciones_seguridad_social no puede ser negativo")
+
+    bruto = Decimal(str(salario_bruto_anual))
+    if (
+        cotizaciones_seguridad_social is not None
+        and Decimal(str(cotizaciones_seguridad_social)) > bruto
+    ):
+        raise EntradaInvalida(
+            "cotizaciones_seguridad_social no puede superar el salario bruto anual"
+        )
+    cotizaciones_estimadas = cotizaciones_seguridad_social is None
+    cotizaciones = (
+        Decimal(str(cotizaciones_seguridad_social))
+        if not cotizaciones_estimadas
+        else _estimar_cotizaciones_seguridad_social(bruto)
+    )
+    otros_gastos = Decimal(str(otros_gastos_deducibles))
+    gastos_trabajo = GASTOS_DEDUCIBLES_TRABAJO_ESTANDAR + otros_gastos
+    rendimiento_neto_trabajo = max(bruto - cotizaciones - gastos_trabajo, Decimal(0))
 
     entrada = InputIRPF(
         año=año,
         territorio=territorio.lower(),
-        rendimiento_neto_trabajo=Decimal(str(salario_bruto_anual)),
+        rendimiento_neto_trabajo=rendimiento_neto_trabajo,
         situacion_familiar=situacion_familiar,
         hijos=[Hijo(edad=e) for e in (hijos_edades or [])],
+        ascendientes=[Ascendiente(edad=e) for e in (ascendientes_edades or [])],
         edad_contribuyente=edad_contribuyente,
         discapacidad_contribuyente=discapacidad_contribuyente,
     )
@@ -57,28 +98,47 @@ async def calcular_retencion_nomina_impl(
     territorio_datos = load_territorio(año, entrada.territorio)
     resultado = calcular_irpf(entrada, estatal, territorio_datos)
 
-    bruto = Decimal(str(salario_bruto_anual))
-    tipo_retencion = (resultado.cuota_liquida / bruto * Decimal(100)).quantize(
-        Decimal("0.01")
+    minimo_personal_familiar = resultado.minimo_personal_familiar
+    base_sometida_retencion = max(
+        rendimiento_neto_trabajo - minimo_personal_familiar, Decimal(0)
     )
-    retencion_por_paga = (resultado.cuota_liquida / Decimal(meses_pago)).quantize(
-        Decimal("0.01")
-    )
-    neto_por_paga = ((bruto - resultado.cuota_liquida) / Decimal(meses_pago)).quantize(
-        Decimal("0.01")
+    cuota_anual_estimada = resultado.cuota_liquida
+    tipo_retencion = _redondear_euros((cuota_anual_estimada / bruto) * Decimal(100))
+    retencion_anual = cuota_anual_estimada
+    retencion_por_paga = _redondear_euros(retencion_anual / Decimal(meses_pago))
+    neto_anual_estimado = bruto - cotizaciones - retencion_anual
+    neto_por_paga = _redondear_euros(neto_anual_estimado / Decimal(meses_pago))
+    hipotesis_cotizaciones = (
+        "Cotizaciones informadas por el usuario."
+        if not cotizaciones_estimadas
+        else (
+            "Cotizaciones estimadas al "
+            f"{_redondear_euros(TIPO_SS_EMPLEADO_ESTIMADO * Decimal(100))} % "
+            "del salario bruto anual."
+        )
     )
 
     nombre = territorio_datos["territorio"]["nombre"]
     return (
         f"## Retención IRPF estimada — {nombre} {año}\n\n"
-        f"- **Salario bruto anual**: {bruto} €\n"
-        f"- **Cuota IRPF anual (aprox.)**: {resultado.cuota_liquida} €\n"
+        f"- **Salario bruto anual**: {_redondear_euros(bruto)} €\n"
+        f"- **Cotizaciones Seguridad Social usadas**: {_redondear_euros(cotizaciones)} €\n"
+        f"- **Gastos deducibles del trabajo usados**: {_redondear_euros(gastos_trabajo)} €\n"
+        f"- **Rendimiento neto del trabajo estimado**: {_redondear_euros(rendimiento_neto_trabajo)} €\n"
+        f"- **Mínimo personal y familiar aplicado**: {_redondear_euros(minimo_personal_familiar)} €\n"
+        f"- **Base sometida a retención estimada**: {_redondear_euros(base_sometida_retencion)} €\n"
+        f"- **Cuota anual estimada**: {_redondear_euros(cuota_anual_estimada)} €\n"
         f"- **Tipo de retención efectivo**: {tipo_retencion} %\n"
+        f"- **Retención anual estimada**: {_redondear_euros(retencion_anual)} €\n"
         f"- **Retención por paga** ({meses_pago} pagas): {retencion_por_paga} €\n"
         f"- **Neto por paga** ({meses_pago} pagas): {neto_por_paga} €\n\n"
-        "_Aproximación basada en el cálculo IRPF completo. El procedimiento "
-        "real del art. 80 RIRPF incluye ajustes (regularizaciones, situación "
-        "familiar comunicada al pagador, etc.) que pueden variar el resultado._"
+        f"_Hipótesis SS: {hipotesis_cotizaciones}_\n\n"
+        "_Estimación procedimental no vinculante: parte del bruto anual, "
+        "resta cotizaciones del trabajador y gastos deducibles del trabajo, "
+        "aplica el mínimo personal y familiar relevante y reutiliza el motor "
+        "IRPF para aproximar la cuota anual. El procedimiento real del art. 80 "
+        "RIRPF sigue incluyendo regularizaciones y reglas del pagador que "
+        "pueden mover el resultado._"
     )
 
 
@@ -93,17 +153,29 @@ def register_calcular_retencion_nomina_tool(mcp: FastMCP) -> None:
             "individual", "conjunta_biparental", "conjunta_monoparental"
         ] = "individual",
         hijos_edades: Optional[List[int]] = None,
+        ascendientes_edades: Optional[List[int]] = None,
         edad_contribuyente: int = 40,
         discapacidad_contribuyente: int = 0,
         meses_pago: int = 14,
+        cotizaciones_seguridad_social: Optional[float] = None,
+        otros_gastos_deducibles: float = 0.0,
     ) -> str:
-        """Calcula la retención IRPF estimada sobre la nómina.
+        """Calcula una estimación procedimental de la retención IRPF en nómina.
 
         Parámetros clave:
         - ``salario_bruto_anual``: retribución bruta anual (sin descontar SS).
         - ``meses_pago``: 12 o 14 (pagas prorrateadas vs. extras).
+        - ``cotizaciones_seguridad_social``: override explícito; si no se
+          informa, se estima y la hipótesis queda reflejada en la salida.
+        - ``otros_gastos_deducibles``: gastos adicionales del trabajo, sobre
+          el mínimo general de 2.000 €.
+        - ``ascendientes_edades``: ascendientes a cargo a considerar en el
+          mínimo personal y familiar.
 
-        Devuelve tipo de retención, retención mensual y neto estimado.
+        Devuelve bruto, cotizaciones usadas, gastos deducibles usados,
+        rendimiento neto estimado, mínimo relevante, base sometida a
+        retención, cuota anual, tipo efectivo, retención por paga y neto
+        por paga.
         """
         try:
             return await calcular_retencion_nomina_impl(
@@ -112,9 +184,12 @@ def register_calcular_retencion_nomina_tool(mcp: FastMCP) -> None:
                 salario_bruto_anual=salario_bruto_anual,
                 situacion_familiar=situacion_familiar,
                 hijos_edades=hijos_edades,
+                ascendientes_edades=ascendientes_edades,
                 edad_contribuyente=edad_contribuyente,
                 discapacidad_contribuyente=discapacidad_contribuyente,
                 meses_pago=meses_pago,
+                cotizaciones_seguridad_social=cotizaciones_seguridad_social,
+                otros_gastos_deducibles=otros_gastos_deducibles,
             )
         except EntradaInvalida as exc:
             raise_entrada_invalida(exc)

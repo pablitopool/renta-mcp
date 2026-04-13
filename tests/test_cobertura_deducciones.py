@@ -3,6 +3,7 @@
 import pytest
 import yaml
 
+from helpers.data_loader import load_territorio
 from helpers.env_config import get_data_dir
 
 CCAA_COMUN = [
@@ -55,13 +56,16 @@ def test_cada_deduccion_tiene_parametros_numericos(año, slug):
     ded = datos.get("deducciones") or []
     campos_numericos = {
         "porcentaje",
+        "porcentaje_familia_numerosa",
         "porcentaje_cuota",
         "porcentaje_escolaridad",
         "porcentaje_idiomas",
         "porcentaje_uniformes",
         "importe_fijo",
+        "importes_por_orden",
         "base_maxima",
         "limite",
+        "limite_familia_numerosa",
         "limite_por_hijo",
         "limite_general",
     }
@@ -88,6 +92,16 @@ def test_las_4_escalas_forales_no_son_identicas():
         "Al menos 3 de 4 escalas forales deben diferir: "
         "detectado copia-pega entre territorios"
     )
+
+
+@pytest.mark.parametrize("slug", CCAA_COMUN + FORALES)
+@pytest.mark.parametrize("año", [2024, 2025])
+def test_deducciones_cargadas_exponen_trazabilidad_minima(año, slug):
+    datos = load_territorio(año, slug)
+    for deduccion in datos.get("deducciones") or []:
+        assert deduccion.get("articulo"), f"{slug} {año}: falta articulo"
+        assert deduccion.get("fuente_boe"), f"{slug} {año}: falta fuente_boe"
+        assert deduccion.get("revisado_en"), f"{slug} {año}: falta revisado_en"
 
 
 @pytest.mark.parametrize("año", [2024, 2025])

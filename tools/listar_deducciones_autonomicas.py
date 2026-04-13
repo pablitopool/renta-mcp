@@ -36,7 +36,7 @@ async def listar_deducciones_autonomicas_impl(
         lineas.append(f"### {cat.title()}")
         lineas.append("")
         for d in items:
-            encabezado = f"- **{d['titulo']}**"
+            encabezado = f"- **{d['titulo']}** (`{d['id']}`)"
             if d.get("porcentaje"):
                 encabezado += f" — {float(d['porcentaje']) * 100:.1f} %"
             if d.get("importe_fijo"):

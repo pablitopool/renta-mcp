@@ -2,11 +2,15 @@
 
 from decimal import Decimal
 
-from hypothesis import given, settings
-from hypothesis import strategies as st
+import pytest
 
 from helpers.data_loader import load_estatal, load_territorio
 from helpers.tax_engine import Escala, InputIRPF, aplicar_escala, calcular_irpf
+
+hypothesis = pytest.importorskip("hypothesis")
+given = hypothesis.given
+settings = hypothesis.settings
+st = hypothesis.strategies
 
 ESCALA_TEST = Escala.desde_lista(
     [

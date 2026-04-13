@@ -1,11 +1,14 @@
 import os
 
-import sentry_sdk
+try:
+    import sentry_sdk
+except ModuleNotFoundError:  # pragma: no cover - fallback de entorno
+    sentry_sdk = None
 
 
 def init_sentry() -> None:
     dsn = os.getenv("SENTRY_DSN")
-    if not dsn:
+    if not dsn or sentry_sdk is None:
         return
 
     sample_rate = float(os.getenv("SENTRY_SAMPLE_RATE", "1.0"))

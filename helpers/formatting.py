@@ -35,4 +35,34 @@ def desglose_markdown(resultado) -> str:
         lineas.append(f"- **{paso.concepto}**: {_fmt_eur(paso.importe)}")
         if paso.detalle:
             lineas.append(f"  - {paso.detalle}")
+    if resultado.deducciones_estatales_detalle:
+        lineas.extend(["", "## Deducciones estatales aplicadas", ""])
+        for paso in resultado.deducciones_estatales_detalle:
+            lineas.append(f"- **{paso.concepto}**: {_fmt_eur(paso.importe)}")
+            if paso.detalle:
+                lineas.append(f"  - {paso.detalle}")
+        lineas.append(
+            f"- **Total deducciones estatales**: "
+            f"{_fmt_eur(resultado.deducciones_estatales_total)}"
+        )
+    if resultado.deducciones_autonomicas_detalle:
+        lineas.extend(["", "## Deducciones autonómicas aplicadas", ""])
+        for paso in resultado.deducciones_autonomicas_detalle:
+            lineas.append(f"- **{paso.concepto}**: {_fmt_eur(paso.importe)}")
+            if paso.detalle:
+                lineas.append(f"  - {paso.detalle}")
+        lineas.append(
+            f"- **Total deducciones autonómicas**: "
+            f"{_fmt_eur(resultado.deducciones_autonomicas_total)}"
+        )
+    if resultado.maternidad_reembolsable:
+        lineas.extend(
+            [
+                "",
+                "## Deducciones reembolsables",
+                "",
+                f"- **Maternidad reembolsable**: "
+                f"{_fmt_eur(resultado.maternidad_reembolsable)}",
+            ]
+        )
     return "\n".join(lineas)

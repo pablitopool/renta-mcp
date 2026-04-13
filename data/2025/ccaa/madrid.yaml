@@ -34,6 +34,40 @@ deducciones:
       renta_maxima_conjunta: 36000
     articulo: "Art. 11 DL 1/2010 CAM"
 
+  - id: mad-acogimiento-familiar-menores
+    categoria: familia
+    titulo: "Acogimiento familiar de menores"
+    importes_por_orden: [618.60, 773.25, 927.90]
+    por_unidad: acogimiento_menor
+    requisitos:
+      renta_maxima_individual: 26414.22
+      renta_maxima_conjunta: 37322.20
+    articulo: "Arts. 6 y 18.1 y 4.a) DL 1/2010 CAM"
+
+  - id: mad-acogimiento-no-remunerado
+    categoria: familia
+    titulo: "Acogimiento no remunerado de mayores de 65 años y/o con discapacidad"
+    importe_fijo: 1546.50
+    por_unidad: acogimiento_mayor_discapacitado
+    requisitos:
+      renta_maxima_individual: 26414.22
+      renta_maxima_conjunta: 37322.20
+    articulo: "Arts. 7 y 18.1 y 4.b) DL 1/2010 CAM"
+
+  - id: mad-cuidado-ascendientes
+    categoria: familia
+    titulo: "Cuidado de ascendientes"
+    importe_fijo: 515.50
+    por_unidad: ascendiente
+    articulo: "Art. 7 bis DL 1/2010 CAM"
+
+  - id: mad-gastos-arrendamiento-viviendas
+    categoria: vivienda
+    titulo: "Gastos derivados del arrendamiento de viviendas"
+    porcentaje: 0.10
+    limite: 154.65
+    articulo: "Arts. 8 bis y 18.4.c) DL 1/2010 CAM"
+
   - id: mad-familia-numerosa
     categoria: familia
     titulo: "Deducción por familia numerosa de categoría general o especial"
@@ -60,6 +94,71 @@ deducciones:
       edad_maxima: 35
       renta_maxima_individual: 25620
     articulo: "Art. 8 DL 1/2010 CAM"
+
+  - id: mad-intereses-prestamo-vivienda-joven
+    categoria: vivienda
+    titulo: "Pago de intereses de préstamos para la adquisición de vivienda por jóvenes menores de 30 años"
+    porcentaje: 0.25
+    limite: 1031
+    requisitos:
+      edad_maxima_exclusiva: 30
+    articulo: "Art. 12 DL 1/2010 CAM"
+
+  - id: mad-adquisicion-vivienda-nacimiento-adopcion
+    categoria: vivienda
+    titulo: "Adquisición de vivienda habitual por nacimiento o adopción de hijos"
+    porcentaje: 0.01
+    limite: 1546.50
+    requisitos:
+      renta_maxima_por_miembro_unidad_familiar: 30930
+    articulo: "Arts. 13 y 18.2 DL 1/2010 CAM"
+
+  - id: mad-incremento-costes-financiacion
+    categoria: vivienda
+    titulo: "Incremento de los costes de la financiación ajena para la inversión en vivienda habitual derivado del alza de los tipos de interés"
+    porcentaje: 0.25
+    limite: 300
+    requisitos:
+      renta_maxima_por_miembro_unidad_familiar: 30930
+    articulo: "Arts. 10 y 18.2 DL 1/2010 CAM"
+
+  - id: mad-arrendamiento-viviendas-vacias
+    categoria: vivienda
+    titulo: "Arrendamiento de viviendas vacías"
+    importe_fijo: 1000
+    por_unidad: vivienda_vacia_arrendada
+    articulo: "Arts. 8 ter y 18.4.c) DL 1/2010 CAM"
+
+  - id: mad-cambio-residencia-despoblacion
+    categoria: vivienda
+    titulo: "Cambio de residencia a un municipio en riesgo de despoblación"
+    importe_fijo: 1000
+    por_unidad: cambio_residencia_despoblacion
+    requisitos:
+      edad_maxima_exclusiva: 35
+      renta_maxima_por_miembro_unidad_familiar: 30930
+    articulo: "Arts. 10 quater y 18.2 DL 1/2010 CAM"
+
+  - id: mad-adquisicion-vivienda-despoblacion
+    categoria: vivienda
+    titulo: "Adquisición de vivienda habitual en municipios en riesgo de despoblación"
+    porcentaje: 0.01
+    limite: 1546.50
+    requisitos:
+      edad_maxima_exclusiva: 35
+      renta_maxima_por_miembro_unidad_familiar: 30930
+    articulo: "Arts. 10 ter y 18.2 DL 1/2010 CAM"
+
+  - id: mad-cuidado-hijos-menores-mayores-discapacidad
+    categoria: familia
+    titulo: "Cuidado de hijos menores de 3 años, mayores dependientes y personas con discapacidad"
+    porcentaje: 0.25
+    limite: 463.95
+    porcentaje_familia_numerosa: 0.40
+    limite_familia_numerosa: 618.60
+    requisitos:
+      renta_maxima_por_miembro_unidad_familiar: 30930
+    articulo: "Arts. 11 bis y 18.2 DL 1/2010 CAM"
 
   - id: mad-donativos-fundaciones
     categoria: donativos

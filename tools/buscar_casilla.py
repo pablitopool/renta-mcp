@@ -1,8 +1,15 @@
 """Tool MCP: ``buscar_casilla`` (búsqueda fuzzy por concepto)."""
 
+from difflib import SequenceMatcher
+
 import yaml
 from mcp.server.fastmcp import FastMCP
-from rapidfuzz import fuzz, process
+
+try:
+    from rapidfuzz import fuzz, process
+except ModuleNotFoundError:  # pragma: no cover - fallback de entorno
+    fuzz = None
+    process = None
 
 from helpers.env_config import get_data_dir
 from helpers.logging import log_tool
@@ -18,15 +25,26 @@ def _cargar_casillas(año: int) -> list[dict]:
         return yaml.safe_load(fh).get("casillas", [])
 
 
+def _extraer_resultados(query: str, choices: list[str], limite: int) -> list[tuple[str, float, int]]:
+    if process is not None and fuzz is not None:
+        return process.extract(query, choices, scorer=fuzz.WRatio, limit=limite)
+
+    resultados: list[tuple[str, float, int]] = []
+    query_norm = query.lower()
+    for idx, choice in enumerate(choices):
+        choice_norm = choice.lower()
+        ratio = SequenceMatcher(None, query_norm, choice_norm).ratio() * 100
+        if query_norm in choice_norm:
+            ratio = max(ratio, 90.0)
+        resultados.append((choice, ratio, idx))
+    resultados.sort(key=lambda item: item[1], reverse=True)
+    return resultados[:limite]
+
+
 async def buscar_casilla_impl(query: str, año: int, limite: int = 5) -> str:
     casillas = _cargar_casillas(año)
     candidatos = [(c["nombre"], c) for c in casillas]
-    resultados = process.extract(
-        query,
-        [n for n, _ in candidatos],
-        scorer=fuzz.WRatio,
-        limit=limite,
-    )
+    resultados = _extraer_resultados(query, [n for n, _ in candidatos], limite)
     lineas = [f"## Resultados para «{query}» en casillas Modelo 100 {año}", ""]
     for nombre, score, idx in resultados:
         _, casilla = candidatos[idx]
