@@ -1,0 +1,30 @@
+año: 2025
+fuente: "Catalogo orientativo interno para validacion previa de deducciones por despoblacion"
+
+territorios:
+  madrid:
+    nombre: "Comunidad de Madrid"
+    aliases: ["madrid", "comunidad de madrid"]
+    deducciones_relacionadas:
+      - mad-cambio-residencia-despoblacion
+      - mad-adquisicion-vivienda-despoblacion
+    municipios:
+      - Horcajuelo de la Sierra
+      - La Hiruela
+      - Madarcos
+      - Montejo de la Sierra
+      - Puebla de la Sierra
+      - Robregordo
+      - Somosierra
+
+  rioja:
+    nombre: "La Rioja"
+    aliases: ["rioja", "la rioja"]
+    deducciones_relacionadas:
+      - rio-adquisicion-vivienda-jovenes
+    municipios:
+      - Viniegra de Arriba
+      - Viniegra de Abajo
+      - Brieva de Cameros
+      - Mansilla de la Sierra
+      - San Roman de Cameros

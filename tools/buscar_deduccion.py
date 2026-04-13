@@ -18,7 +18,9 @@ from helpers.tax_engine import DatosFiscalesNoDisponibles
 from tools.error_handling import raise_unexpected
 
 
-def _extraer_resultados(query: str, choices: list[str], limite: int) -> list[tuple[str, float, int]]:
+def _extraer_resultados(
+    query: str, choices: list[str], limite: int
+) -> list[tuple[str, float, int]]:
     if process is not None and fuzz is not None:
         return process.extract(query, choices, scorer=fuzz.WRatio, limit=limite)
 

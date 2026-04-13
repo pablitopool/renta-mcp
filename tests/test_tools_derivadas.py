@@ -58,6 +58,17 @@ async def test_calcular_retencion_nomina_con_ascendientes():
 
 
 @pytest.mark.asyncio
+async def test_calcular_retencion_nomina_rechaza_cotizaciones_negativas():
+    with pytest.raises(EntradaInvalida, match="cotizaciones_seguridad_social"):
+        await calcular_retencion_nomina_impl(
+            año=2025,
+            territorio="madrid",
+            salario_bruto_anual=30000.0,
+            cotizaciones_seguridad_social=-1.0,
+        )
+
+
+@pytest.mark.asyncio
 async def test_calcular_retencion_nomina_rechaza_gastos_negativos():
     with pytest.raises(EntradaInvalida, match="otros_gastos_deducibles"):
         await calcular_retencion_nomina_impl(

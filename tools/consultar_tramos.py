@@ -21,6 +21,15 @@ async def consultar_tramos_impl(
 ) -> str:
     if tipo == "ahorro":
         estatal = load_estatal(año)
+        if territorio.lower() != "estatal":
+            datos = load_territorio(año, territorio.lower())
+            escala_ahorro_foral = datos.get("escala_ahorro") or []
+            if datos["territorio"]["regimen"] == "foral" and escala_ahorro_foral:
+                nombre = datos["territorio"]["nombre"]
+                return tabla_tramos(
+                    escala_ahorro_foral,
+                    f"Escala de la base del ahorro FORAL — {nombre} — ejercicio {año}",
+                )
         return tabla_tramos(
             estatal["escala_ahorro"],
             f"Escala de la base del ahorro — ejercicio {año}",
@@ -38,7 +47,7 @@ async def consultar_tramos_impl(
         return "\n\n".join(bloques)
 
     datos = load_territorio(año, territorio.lower())
-    escala = datos.get("escala_autonomica") or datos.get("escala_general")
+    escala = datos.get("escala_autonomica") or datos.get("escala_general") or []
     nombre = datos["territorio"]["nombre"]
     regimen = datos["territorio"]["regimen"]
     etiqueta = "FORAL" if regimen == "foral" else "AUTONÓMICA"

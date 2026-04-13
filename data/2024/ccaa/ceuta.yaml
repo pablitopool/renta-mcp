@@ -1,0 +1,40 @@
+territorio:
+  slug: ceuta
+  nombre: Ceuta
+  regimen: comun
+
+año: 2024
+fuente_boe: "Ley 35/2006 LIRPF + normativa de tributos cedidos aplicable en Ceuta"
+revisado_en: "2026-04-14"
+
+escala_autonomica:
+  - { desde: 0,      hasta: 12450,   tipo: 0.095 }
+  - { desde: 12450,  hasta: 20200,   tipo: 0.12 }
+  - { desde: 20200,  hasta: 35200,   tipo: 0.15 }
+  - { desde: 35200,  hasta: 60000,   tipo: 0.185 }
+  - { desde: 60000,  hasta: 300000,  tipo: 0.225 }
+  - { desde: 300000, hasta: null,    tipo: 0.245 }
+
+minimos: {}
+
+deducciones:
+  - id: ceu-rentas-obtenidas-ceuta
+    categoria: otros
+    titulo: "Deduccion por rentas obtenidas en Ceuta"
+    porcentaje_cuota: 0.60
+    limite_general: 1000000
+    articulo: "Art. 68.4 LIRPF"
+
+  - id: ceu-donativos
+    categoria: donativos
+    titulo: "Deduccion autonómica por donativos a entidades locales"
+    porcentaje: 0.15
+    limite: 600
+    articulo: "Normativa de tributos cedidos Ceuta"
+
+  - id: ceu-vivienda-joven
+    categoria: vivienda
+    titulo: "Deduccion por alquiler de vivienda habitual para jovenes"
+    porcentaje: 0.10
+    limite: 300
+    articulo: "Normativa de tributos cedidos Ceuta"

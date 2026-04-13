@@ -58,6 +58,7 @@ async def calcular_irpf_impl(
     discapacidad_contribuyente: int = 0,
     aportaciones_planes_pensiones: float = 0.0,
     retenciones_practicadas: float = 0.0,
+    pagos_fraccionados: float = 0.0,
     donativos_ley_49_2002: float = 0.0,
     donativos_otros: float = 0.0,
     inversion_vivienda_transitoria: float = 0.0,
@@ -113,6 +114,7 @@ async def calcular_irpf_impl(
         discapacidad_contribuyente=discapacidad_contribuyente,
         aportaciones_planes_pensiones=Decimal(str(aportaciones_planes_pensiones)),
         retenciones_practicadas=Decimal(str(retenciones_practicadas)),
+        pagos_fraccionados=Decimal(str(pagos_fraccionados)),
         donativos_ley_49_2002=Decimal(str(donativos_ley_49_2002)),
         donativos_otros=Decimal(str(donativos_otros)),
         inversion_vivienda_transitoria=Decimal(str(inversion_vivienda_transitoria)),
@@ -137,9 +139,7 @@ async def calcular_irpf_impl(
         cotizaciones_empleados_hogar=Decimal(str(cotizaciones_empleados_hogar)),
         gastos_arrendamiento_viviendas=Decimal(str(gastos_arrendamiento_viviendas)),
         gastos_guarderia=Decimal(str(gastos_guarderia)),
-        gastos_educativos_descendientes=Decimal(
-            str(gastos_educativos_descendientes)
-        ),
+        gastos_educativos_descendientes=Decimal(str(gastos_educativos_descendientes)),
         gastos_material_escolar=Decimal(str(gastos_material_escolar)),
         gastos_escolaridad=Decimal(str(gastos_escolaridad)),
         gastos_idiomas=Decimal(str(gastos_idiomas)),
@@ -197,6 +197,7 @@ def register_calcular_irpf_tool(mcp: FastMCP) -> None:
         discapacidad_contribuyente: int = 0,
         aportaciones_planes_pensiones: float = 0.0,
         retenciones_practicadas: float = 0.0,
+        pagos_fraccionados: float = 0.0,
         donativos_ley_49_2002: float = 0.0,
         donativos_otros: float = 0.0,
         inversion_vivienda_transitoria: float = 0.0,
@@ -230,7 +231,9 @@ def register_calcular_irpf_tool(mcp: FastMCP) -> None:
         viviendas_vacias_arrendadas: int = 0,
         deducciones_autonomicas_reclamadas: Optional[List[str]] = None,
         bases_deducciones_autonomicas: Optional[dict[str, float]] = None,
-        componentes_deducciones_autonomicas: Optional[dict[str, dict[str, float]]] = None,
+        componentes_deducciones_autonomicas: Optional[
+            dict[str, dict[str, float]]
+        ] = None,
         meses_maternidad_por_hijo_menor_3: int = 12,
     ) -> str:
         """Calcula la liquidación completa del IRPF español.
@@ -245,6 +248,8 @@ def register_calcular_irpf_tool(mcp: FastMCP) -> None:
           de la reducción del art. 20 LIRPF (el motor la aplica).
         - ``situacion_familiar``: ``individual`` |
           ``conjunta_biparental`` | ``conjunta_monoparental``.
+        - ``pagos_fraccionados``: pagos a cuenta del impuesto (p. ej.
+          modelos 130/131) que minoran la cuota diferencial.
         - ``hijos_edades``: lista de edades de hijos a cargo.
         - ``ascendientes_edades``: lista de edades de ascendientes a cargo.
         - Deducciones estatales soportadas: donativos, inversión vivienda
@@ -279,6 +284,7 @@ def register_calcular_irpf_tool(mcp: FastMCP) -> None:
                 discapacidad_contribuyente=discapacidad_contribuyente,
                 aportaciones_planes_pensiones=aportaciones_planes_pensiones,
                 retenciones_practicadas=retenciones_practicadas,
+                pagos_fraccionados=pagos_fraccionados,
                 donativos_ley_49_2002=donativos_ley_49_2002,
                 donativos_otros=donativos_otros,
                 inversion_vivienda_transitoria=inversion_vivienda_transitoria,

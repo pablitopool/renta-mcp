@@ -110,6 +110,14 @@ def test_casillas_modelo_100_cobertura_minima(año):
     with path.open("r", encoding="utf-8") as fh:
         datos = yaml.safe_load(fh)
     casillas = datos.get("casillas") or []
-    assert len(casillas) >= 100, (
-        f"casillas.yaml {año}: sólo {len(casillas)} (esperaba >= 100)"
-    )
+    assert (
+        len(casillas) >= 100
+    ), f"casillas.yaml {año}: sólo {len(casillas)} (esperaba >= 100)"
+
+
+def test_bizkaia_2025_tiene_24_deducciones_catalogadas():
+    datos = _cargar(2025, "forales", "bizkaia")
+    deducciones = datos.get("deducciones") or []
+    assert len(deducciones) == 24, f"bizkaia 2025: {len(deducciones)} deducciones"
+    ids = [d.get("id") for d in deducciones]
+    assert len(ids) == len(set(ids)), "bizkaia 2025: ids de deduccion duplicados"
