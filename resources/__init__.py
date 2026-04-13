@@ -1,5 +1,8 @@
 from mcp.server.fastmcp import FastMCP
 
+from resources.minimos import register_minimos_resources
+from resources.obligacion import register_obligacion_resources
+from resources.plazos import register_plazos_resources
 from resources.tramos import register_tramos_resources
 
 
@@ -12,3 +15,6 @@ def register_resources(mcp: FastMCP) -> None:
     territorio si el orden está invertido.
     """
     register_tramos_resources(mcp)
+    register_minimos_resources(mcp)
+    register_plazos_resources(mcp)
+    register_obligacion_resources(mcp)

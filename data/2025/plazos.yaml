@@ -1,0 +1,14 @@
+# Plazos oficiales de la Campaña Renta 2025 (declaración ejercicio 2025,
+# presentación abril-junio 2026). Fuente: Orden HAC/277/2026.
+# Las fechas exactas se fijan cada campaña; revisar el BOE correspondiente.
+
+año: 2025
+campaña:
+  borrador_datos_fiscales_disponibles: "2026-03-11"
+  inicio_presentacion_internet: "2026-04-02"
+  inicio_cita_previa_telefonica: "2026-05-06"
+  inicio_cita_previa_presencial: "2026-06-03"
+  domiciliacion_bancaria_hasta: "2026-06-25"
+  fin_plazo_general: "2026-06-30"
+nota: "Fechas aproximadas referenciales. Confirmar en sede.agenciatributaria.gob.es."
+fuente_boe: "BOE-A-2026-7041"
