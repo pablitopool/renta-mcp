@@ -435,6 +435,14 @@ El servidor MCP ofrece herramientas para calcular el IRPF, consultar normativa a
 
   Parámetros: `query` (obligatorio), `año` (obligatorio), `ccaa` (opcional), `limite` (opcional, por defecto 10)
 
+### Cobertura Bizkaia 2025
+
+- El dataset foral de Bizkaia para 2025 incluye **24 deducciones catalogadas** (vivienda, familia/conciliación, tejido productivo, transición verde, previsión social y otras).
+- Cada deducción incorpora trazabilidad mínima (`articulo`, `fuente_boe`, `revisado_en`) y, además, referencia web específica (`fuente_web`) en `data/2025/forales/bizkaia.yaml`.
+- Las reglas se modelan con patrones homogéneos del motor (`porcentaje`, `base_maxima`, `limite`, `importe_fijo`, `por_unidad`, `requisitos`) para permitir cálculo automático y mantener consistencia entre territorios.
+- Límites actuales del modelado (informativos): incompatibilidades complejas entre deducciones, arrastres plurianuales y abonos por insuficiencia de cuota/no obligación de declarar no se liquidan de forma integral en esta versión.
+- Fuentes de referencia usadas para contraste funcional: landing de deducciones y árbol Gure Gida IRPF (`IdPublicoMostrar=1674`) y sus apartados de vivienda y otras deducciones.
+
 ### Modelo 100 (casillas)
 
 - **`listar_casillas_modelo_100`** - Lista las casillas del Modelo 100 agrupadas por apartado operativo (identificación, rendimientos trabajo, capital, actividades económicas, ganancias/pérdidas, reducciones, mínimos, cuota, deducciones, retenciones, resultado).

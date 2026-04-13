@@ -121,3 +121,12 @@ def test_bizkaia_2025_tiene_24_deducciones_catalogadas():
     assert len(deducciones) == 24, f"bizkaia 2025: {len(deducciones)} deducciones"
     ids = [d.get("id") for d in deducciones]
     assert len(ids) == len(set(ids)), "bizkaia 2025: ids de deduccion duplicados"
+
+
+def test_bizkaia_2025_incluye_fuentes_adicionales_y_limites_modelado():
+    datos = _cargar(2025, "forales", "bizkaia")
+    fuentes = datos.get("fuentes_adicionales") or []
+    limites = datos.get("limites_modelado") or []
+    assert len(fuentes) >= 4, "bizkaia 2025: faltan fuentes_adicionales"
+    assert len(limites) >= 1, "bizkaia 2025: faltan limites_modelado"
+    assert any("IdPublicoMostrar=1674" in f for f in fuentes)

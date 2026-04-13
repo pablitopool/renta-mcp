@@ -7,6 +7,21 @@ fuente_boe: "Norma Foral IRPF Bizkaia (Diputación Foral) — BOB"
 revisado_en: "2026-04-13"
 nota: |
   Régimen foral. Valores aproximados v0.1; verificar en BOB.
+  Cobertura ampliada a 24 deducciones de campaña 2025 según portal oficial
+  y guías de la DFB. Las reglas de cálculo siguen un modelado homogéneo del
+  motor (porcentaje/base/límite/importe fijo) y no sustituyen la validación
+  jurídica individual.
+
+fuentes_adicionales:
+  - "https://www.bizkaia.eus/es/renta-bizkaia/deducciones"
+  - "https://www.bizkaia.eus/ogasuna/guregida/fitxabisorea.asp?Idioma=ca&Tem_Codigo=7884&dpto_biz=5&IdPublicoMostrar=1674"
+  - "https://www.bizkaia.eus/ogasuna/guregida/fitxabisorea.asp?Idioma=ca&Tem_Codigo=7884&dpto_biz=5&IdPublicoMostrar=897&IdPublicoMostrarAnterior=1674"
+  - "https://www.bizkaia.eus/ogasuna/guregida/fitxabisorea.asp?Idioma=ca&Tem_Codigo=7884&dpto_biz=5&IdPublicoMostrar=1802&IdPublicoMostrarAnterior=1674"
+
+limites_modelado:
+  - "No se modelan de forma completa las incompatibilidades entre deducciones con la misma base."
+  - "No se modela el traslado de deducciones a ejercicios futuros ni el abono por insuficiencia de cuota."
+  - "Los colectivos protegidos de vivienda no siempre son distinguibles con los inputs actuales."
 
 escala_autonomica:
   - { desde: 0,      hasta: 16030,   tipo: 0.23 }
@@ -33,8 +48,6 @@ deducciones:
     limite: 1600
     porcentaje_familia_numerosa: 0.35
     limite_familia_numerosa: 2800
-    requisitos:
-      edad_maxima: 35
     articulo: "NF 13/2013 IRPF Bizkaia (deduccion vivienda habitual)"
     fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01027"
   - id: biz-inversion-vivienda-habitual
@@ -45,8 +58,6 @@ deducciones:
     limite: 1530
     porcentaje_familia_numerosa: 0.23
     limite_familia_numerosa: 1955
-    requisitos:
-      edad_maxima: 35
     articulo: "NF 13/2013 IRPF Bizkaia (deduccion inversion vivienda)"
     fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01508"
   - id: biz-cuenta-vivienda
@@ -55,8 +66,6 @@ deducciones:
     porcentaje: 0.18
     base_maxima: 8500
     limite: 1530
-    requisitos:
-      edad_maxima: 35
     articulo: "NF 13/2013 IRPF Bizkaia (cuenta vivienda)"
     fuente_web: "https://dfb.microsoftcrmportals.com/es-ES/Articulo/?Code=KA-01353"
   - id: biz-rehabilitacion-protegida-arrendamiento
