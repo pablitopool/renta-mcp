@@ -123,6 +123,9 @@ SituacionFamiliar = Literal[
 ]
 
 
+FamiliaNumerosaCategoria = Literal["general", "especial"]
+
+
 @dataclass
 class InputIRPF:
     año: int
@@ -139,6 +142,17 @@ class InputIRPF:
     discapacidad_contribuyente: int = 0
     aportaciones_planes_pensiones: Decimal = Decimal(0)
     retenciones_practicadas: Decimal = Decimal(0)
+    # Fase 7 — Deducciones estatales en cuota (arts. 68-81 bis LIRPF)
+    donativos_ley_49_2002: Decimal = Decimal(0)
+    donativos_otros: Decimal = Decimal(0)
+    inversion_vivienda_transitoria: Decimal = Decimal(0)
+    obras_eficiencia_energetica: Decimal = Decimal(0)
+    obras_eficiencia_energetica_tipo: Literal[
+        "calefaccion_refrigeracion", "consumo_primaria", "rehabilitacion"
+    ] = "calefaccion_refrigeracion"
+    familia_numerosa_categoria: FamiliaNumerosaCategoria | None = None
+    # Maternidad: hijos menores de 3 años a efectos del art. 81 LIRPF.
+    meses_maternidad_por_hijo_menor_3: int = 12
 
 
 @dataclass
@@ -166,6 +180,11 @@ class ResultadoIRPF:
     retenciones: Decimal
     regimen: RegimenTipo
     desglose: list[PasoCalculo] = field(default_factory=list)
+    # Fase 7 — detalle deducciones + maternidad reembolsable
+    deducciones_estatales_total: Decimal = Decimal(0)
+    deducciones_estatales_detalle: list[PasoCalculo] = field(default_factory=list)
+    maternidad_reembolsable: Decimal = Decimal(0)
+    devolucion_maternidad: Decimal = Decimal(0)
 
 
 def calcular_reduccion_trabajo(rendimiento_neto: Decimal, parametros: dict) -> Decimal:
@@ -220,6 +239,132 @@ def calcular_minimo_personal_familiar(entrada: InputIRPF, minimos: dict) -> Deci
         total += Decimal(str(minimos.get("discapacidad_65_mas", 0)))
 
     return total
+
+
+def aplicar_deducciones_estatales(
+    cuota_integra_estatal: Decimal,
+    base_liquidable_general: Decimal,
+    entrada: InputIRPF,
+    datos_estatal: dict,
+) -> tuple[Decimal, list[PasoCalculo]]:
+    """Aplica las deducciones estatales en cuota (arts. 68-81 bis LIRPF).
+
+    Devuelve (deducciones_totales, desglose). La deducción NO puede superar
+    la cuota íntegra estatal (la maternidad se calcula aparte porque es
+    reembolsable).
+    """
+    detalle: list[PasoCalculo] = []
+    total = Decimal(0)
+    ded_cfg = datos_estatal.get("deducciones_estatales") or {}
+
+    # Donativos Ley 49/2002 — 80% primeros 250€, 40% sobre el exceso.
+    if entrada.donativos_ley_49_2002 > 0:
+        params = ded_cfg.get("donativos_ley_49_2002", {})
+        tramo1 = Decimal(str(params.get("base_primer_tramo", 250)))
+        pct1 = Decimal(str(params.get("porcentaje_primer_tramo", 0.80)))
+        pct2 = Decimal(str(params.get("porcentaje_resto", 0.40)))
+        base = entrada.donativos_ley_49_2002
+        primer = min(base, tramo1) * pct1
+        resto = max(base - tramo1, Decimal(0)) * pct2
+        ded = primer + resto
+        total += ded
+        detalle.append(
+            PasoCalculo(
+                concepto="Deducción donativos Ley 49/2002",
+                importe=ded,
+                detalle=f"Base {base} € (80% primeros {tramo1} €, 40% resto)",
+            )
+        )
+
+    # Donativos a otras fundaciones no declaradas de utilidad pública (10%).
+    if entrada.donativos_otros > 0:
+        pct = Decimal(str(ded_cfg.get("donativos_otros", {}).get("porcentaje", 0.10)))
+        ded = entrada.donativos_otros * pct
+        total += ded
+        detalle.append(PasoCalculo(concepto="Deducción donativos otros", importe=ded))
+
+    # Inversión vivienda habitual — régimen transitorio DT 18ª LIRPF.
+    if entrada.inversion_vivienda_transitoria > 0:
+        params = ded_cfg.get("vivienda_transitoria", {})
+        base_max = Decimal(str(params.get("base_maxima", 9040)))
+        pct = Decimal(str(params.get("porcentaje", 0.15)))
+        ded = min(entrada.inversion_vivienda_transitoria, base_max) * pct
+        total += ded
+        detalle.append(
+            PasoCalculo(
+                concepto="Deducción vivienda habitual (régimen transitorio)",
+                importe=ded,
+                detalle=f"15% sobre máx. {base_max} €",
+            )
+        )
+
+    # Familia numerosa o discapacidad a cargo (art. 81 bis).
+    if entrada.familia_numerosa_categoria:
+        params = ded_cfg.get("familia_numerosa", {})
+        if entrada.familia_numerosa_categoria == "especial":
+            ded = Decimal(str(params.get("especial", 2400)))
+        else:
+            ded = Decimal(str(params.get("general", 1200)))
+        total += ded
+        detalle.append(
+            PasoCalculo(
+                concepto=f"Deducción familia numerosa "
+                f"{entrada.familia_numerosa_categoria}",
+                importe=ded,
+            )
+        )
+
+    # Obras eficiencia energética (DA 50ª).
+    if entrada.obras_eficiencia_energetica > 0:
+        params = ded_cfg.get("obras_eficiencia_energetica", {})
+        porcentajes = {
+            "calefaccion_refrigeracion": Decimal(
+                str(params.get("calefaccion_refrigeracion", 0.20))
+            ),
+            "consumo_primaria": Decimal(str(params.get("consumo_primaria", 0.40))),
+            "rehabilitacion": Decimal(str(params.get("rehabilitacion", 0.60))),
+        }
+        base_max = Decimal(str(params.get("base_maxima", 5000)))
+        pct = porcentajes[entrada.obras_eficiencia_energetica_tipo]
+        ded = min(entrada.obras_eficiencia_energetica, base_max) * pct
+        total += ded
+        detalle.append(
+            PasoCalculo(
+                concepto=f"Deducción obras eficiencia energética "
+                f"({entrada.obras_eficiencia_energetica_tipo})",
+                importe=ded,
+            )
+        )
+
+    # El límite global de la deducción es la cuota íntegra estatal
+    # (las deducciones no pueden generar cuota negativa, salvo maternidad).
+    if total > cuota_integra_estatal and cuota_integra_estatal >= 0:
+        total = max(cuota_integra_estatal, Decimal(0))
+        detalle.append(
+            PasoCalculo(
+                concepto="Limitación por cuota íntegra estatal", importe=Decimal(0)
+            )
+        )
+    return total, detalle
+
+
+def calcular_maternidad_reembolsable(
+    entrada: InputIRPF, datos_estatal: dict
+) -> Decimal:
+    """Deducción por maternidad (art. 81 LIRPF) como impuesto negativo.
+
+    100 €/mes por cada hijo <3 años, máx. 1.200 €/año por hijo. Reembolsable
+    aunque la cuota líquida sea 0.
+    """
+    params = datos_estatal.get("deducciones_estatales", {}).get("maternidad", {})
+    euros_mes = Decimal(str(params.get("euros_mes", 100)))
+    max_anual = Decimal(str(params.get("max_anual_por_hijo", 1200)))
+    meses = min(max(entrada.meses_maternidad_por_hijo_menor_3, 0), 12)
+    hijos_menores_3 = sum(1 for h in entrada.hijos if h.edad < 3)
+    if hijos_menores_3 == 0:
+        return Decimal(0)
+    por_hijo = min(euros_mes * Decimal(meses), max_anual)
+    return por_hijo * Decimal(hijos_menores_3)
 
 
 def calcular_irpf(
@@ -330,8 +475,20 @@ def calcular_irpf(
         cuota_integra_autonomica = cuota_foral_bg + cuota_foral_ba
 
     cuota_integra_total = cuota_integra_estatal + cuota_integra_autonomica
-    cuota_liquida = max(cuota_integra_total, Decimal(0))
-    cuota_diferencial = cuota_liquida - entrada.retenciones_practicadas
+
+    # Fase 7 — deducciones estatales en cuota (art. 68 ss. LIRPF)
+    deducciones_estatales_total, deducciones_detalle = aplicar_deducciones_estatales(
+        cuota_integra_estatal, base_liquidable_general, entrada, datos_estatal
+    )
+    cuota_liquida = max(cuota_integra_total - deducciones_estatales_total, Decimal(0))
+
+    # Fase 7 — maternidad reembolsable (art. 81 LIRPF): impuesto negativo
+    maternidad_reembolsable = calcular_maternidad_reembolsable(entrada, datos_estatal)
+    devolucion_maternidad = maternidad_reembolsable
+
+    cuota_diferencial = (
+        cuota_liquida - entrada.retenciones_practicadas - devolucion_maternidad
+    )
 
     desglose.append(
         PasoCalculo(concepto="Base imponible general", importe=base_imponible_general)
@@ -378,6 +535,15 @@ def calcular_irpf(
         cuota_diferencial=redondear(cuota_diferencial),
         retenciones=redondear(entrada.retenciones_practicadas),
         regimen=regimen,
+        deducciones_estatales_total=redondear(deducciones_estatales_total),
+        deducciones_estatales_detalle=[
+            PasoCalculo(
+                concepto=p.concepto, importe=redondear(p.importe), detalle=p.detalle
+            )
+            for p in deducciones_detalle
+        ],
+        maternidad_reembolsable=redondear(maternidad_reembolsable),
+        devolucion_maternidad=redondear(devolucion_maternidad),
         desglose=[
             PasoCalculo(
                 concepto=p.concepto, importe=redondear(p.importe), detalle=p.detalle

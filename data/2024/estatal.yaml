@@ -51,6 +51,35 @@ reduccion_conjunta_monoparental: 2150
 # Tope aportación a planes de pensiones con reducción (art. 52 LIRPF).
 planes_pensiones_tope: 1500
 
+# Deducciones estatales en cuota (arts. 68-81 bis LIRPF).
+deducciones_estatales:
+  donativos_ley_49_2002:
+    base_primer_tramo: 250
+    porcentaje_primer_tramo: 0.80
+    porcentaje_resto: 0.40
+    fuente: "Art. 68.3 LIRPF + Ley 49/2002"
+  donativos_otros:
+    porcentaje: 0.10
+    fuente: "Art. 68.3 LIRPF"
+  vivienda_transitoria:
+    base_maxima: 9040
+    porcentaje: 0.15
+    fuente: "DT 18ª LIRPF (sólo adquisiciones anteriores a 01/01/2013)"
+  familia_numerosa:
+    general: 1200
+    especial: 2400
+    fuente: "Art. 81 bis LIRPF"
+  obras_eficiencia_energetica:
+    base_maxima: 5000
+    calefaccion_refrigeracion: 0.20
+    consumo_primaria: 0.40
+    rehabilitacion: 0.60
+    fuente: "DA 50ª LIRPF"
+  maternidad:
+    euros_mes: 100
+    max_anual_por_hijo: 1200
+    fuente: "Art. 81 LIRPF (impuesto negativo reembolsable)"
+
 # Mínimo personal y familiar estatal (arts. 56-61 LIRPF).
 minimos:
   personal: 5550
