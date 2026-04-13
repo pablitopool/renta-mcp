@@ -20,9 +20,10 @@ ejercicios:
       mime: text/html
       nota: "Página índice; el script extrae el ZIP con el XSD Modelo 100 vigente."
     orden_hac:
-      url: https://www.boe.es/boe/dias/2026/04/08/pdfs/BOE-A-2026-7041.pdf
+      url: https://www.boe.es/boe/dias/2026/03/27/pdfs/BOE-A-2026-7041.pdf
       destino: 2025/orden_hac_277_2026.pdf
       mime: application/pdf
+      nota: "Orden HAC/277/2026, de 25 de marzo — publicada en BOE 27/03/2026."
     cuadro_retenciones:
       url: https://sede.agenciatributaria.gob.es/static_files/Sede/Programas_ayuda/Retenciones/2025/Cuadro_tipos_retenciones_IRPF2025.pdf
       destino: 2025/cuadro_retenciones.pdf
