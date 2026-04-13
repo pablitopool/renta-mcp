@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/helpers/env_config.py
+# hypothesis_version: 6.151.13
+
+['RENTA_DATA_DIR', 'data', 'raw']

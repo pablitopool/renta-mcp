@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/tools/buscar_deduccion.py
+# hypothesis_version: 6.151.13
+
+['deducciones', 'importe_fijo', 'nombre', 'porcentaje', 'territorio', 'titulo']

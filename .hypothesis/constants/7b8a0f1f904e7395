@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/resources/deducciones.py
+# hypothesis_version: 6.151.13
+
+['application/json', 'año', 'deducciones', 'fuente_boe', 'territorio']

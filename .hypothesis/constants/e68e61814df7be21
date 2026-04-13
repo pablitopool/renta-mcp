@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/helpers/data_loader.py
+# hypothesis_version: 6.151.13
+
+[128, '*.yaml', 'Escala vacía', 'allow', 'ccaa', 'comun', 'escala_ahorro', 'escala_general', 'estatal.yaml', 'foral', 'forales', 'forbid', 'python', 'r', 'utf-8']

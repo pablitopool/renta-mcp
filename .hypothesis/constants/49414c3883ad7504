@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/helpers/sentry.py
+# hypothesis_version: 6.151.13
+
+['1.0', 'MCP_ENV', 'SENTRY_DSN', 'SENTRY_SAMPLE_RATE', 'local']

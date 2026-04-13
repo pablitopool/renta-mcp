@@ -12,6 +12,7 @@ from mcp.server.transport_security import TransportSecuritySettings
 
 from helpers.logging import MAIN_LOGGER_NAME, UVICORN_LOGGING_CONFIG
 from helpers.sentry import init_sentry
+from prompts import register_prompts
 from resources import register_resources
 from tools import register_tools
 
@@ -98,6 +99,7 @@ mcp = FastMCP(
 )
 register_tools(mcp)
 register_resources(mcp)
+register_prompts(mcp)
 streamable_http_app = mcp.streamable_http_app()
 
 

@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/helpers/tax_engine.py
+# hypothesis_version: 6.151.13
+
+[0.1, 0.15, 0.2, 0.4, 0.6, 0.8, 100, 250, 1200, 1500, 2150, 2400, 3400, 5000, 9040, '0.01', 'Cuota diferencial', 'Cuota líquida', 'Escala', 'ascendiente_mayor_75', 'base_maxima', 'base_primer_tramo', 'comun', 'conjunta_biparental', 'consumo_primaria', 'desde', 'discapacidad_33_65', 'discapacidad_65_mas', 'donativos_otros', 'edad_mayor_65', 'edad_mayor_75', 'escala_ahorro', 'escala_autonomica', 'escala_general', 'especial', 'euros_mes', 'familia_numerosa', 'foral', 'general', 'hasta', 'hijo_menor_3', 'importe_maximo', 'individual', 'maternidad', 'max_anual_por_hijo', 'minimos', 'pendiente', 'personal', 'por_ascendiente', 'por_descendiente', 'porcentaje', 'porcentaje_resto', 'regimen', 'rehabilitacion', 'territorio', 'tipo', 'umbral_maximo', 'umbral_maximo_base', 'vivienda_transitoria']

@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/tools/comprobar_obligacion_declarar.py
+# hypothesis_version: 6.151.13
+
+[0.0, 'OBLIGADO a declarar', 'obligacion.yaml', 'r', 'rendimientos_trabajo', 'umbral_total', 'umbral_un_pagador', 'utf-8']

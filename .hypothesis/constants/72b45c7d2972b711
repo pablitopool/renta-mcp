@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/resources/plazos.py
+# hypothesis_version: 6.151.13
+
+['application/json', 'irpf://plazos/{año}', 'plazos.yaml', 'r', 'utf-8']

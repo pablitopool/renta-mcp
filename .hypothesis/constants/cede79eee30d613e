@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/main.py
+# hypothesis_version: 6.151.13
+
+[b'application/json', b'content-length', b'content-type', 200, ',', '/', '/health', '0.0.0.0', '127.0.0.1', '127.0.0.1:*', '8000', 'AEAT-modelo-100', 'MCP_ALLOWED_HOSTS', 'MCP_ALLOWED_ORIGINS', 'MCP_ENV', 'MCP_HOST', 'MCP_PORT', 'MCP_PUBLIC_HOST', 'PORT', '__main__', 'body', 'env', 'headers', 'http', 'http.response.body', 'http.response.start', 'http://127.0.0.1:*', 'http://localhost:*', 'info', 'localhost:*', 'ok', 'path', 'portal', 'renta-mcp', 'status', 'type', 'unknown', 'uptime_since', 'utf-8', 'version']

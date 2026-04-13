@@ -1,0 +1,4 @@
+# file: /Users/pablomiguelgallardo/Desktop/ios/renta-mcp/helpers/formatting.py
+# hypothesis_version: 6.151.13
+
+[100, ',', '.', '_', 'desde', 'hasta', 'tipo', '| --- | --- | --- |', '—']
